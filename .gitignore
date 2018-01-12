@@ -1,0 +1,6 @@
+!.gitignore
+.idea/
+.buildpath
+.project
+.settings/
+.svn/

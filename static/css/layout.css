@@ -1,0 +1,128 @@
+
+/*全局*/
+[lying-src] {
+    cursor: pointer;
+}
+
+/*导航*/
+.layui-header {
+    height: 50px;
+}
+.layui-header .layui-nav .layui-nav-item {
+    line-height: 50px;
+}
+.lying-logo-mini {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    width: 50px;
+    box-sizing: border-box;
+    text-align: center;
+    border-right: 1px solid #f2f2f2;
+}
+.lying-logo-mini .layui-icon {
+    color: #fff;
+    font-size: 18px;
+}
+.layui-header .layui-logo {
+    left: 50px;
+    line-height: 50px;
+    width: 130px;
+    border-right: 1px solid #f2f2f2;
+}
+.layui-header .layui-layout-left {
+    left: 180px;
+}
+
+/*侧栏*/
+.layui-layout-admin .layui-side {
+    top: 50px;
+    width: 180px;
+    background-color: #333744;
+    transition: width 0.2s;
+}
+.layui-side .layui-side-scroll {
+    width: 200px;
+    transition: width 0.2s;
+}
+.layui-side .layui-nav-tree {
+    width: 180px;
+    transition: width 0.2s;
+}
+.layui-side .layui-nav {
+    background-color: #42485b;
+}
+.layui-side .layui-nav * {
+    font-size: 12px;
+}
+.lying-nav-fold {
+    height: 30px;
+    line-height: 30px;
+    background-color: #4a5064;
+    text-align: center;
+    cursor: pointer;
+}
+.lying-nav-fold .layui-icon {
+    font-size: 12px;
+    display: inline-block;
+    transition: transform 0.2s;
+}
+.lying-nav-item a {
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    display: block;
+    overflow: hidden;
+    color: #fff;
+    letter-spacing: 1px;
+    transition: background-color 0.2s;
+}
+.lying-nav-icon {
+    width: 50px;
+    display: block;
+    text-align: center;
+}
+.lying-nav-icon .layui-icon {
+    font-size: 16px;
+    display: inline-block;
+    transition: transform 0.2s;
+}
+.lying-nav-open .lying-nav-header .layui-icon {
+    transform: rotate(90deg);
+}
+.lying-nav-title {
+    display: block;
+    width: 130px;
+    position: absolute;
+    top: 0;
+    left: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.lying-nav-child {
+    background-color: #333744;
+    overflow: hidden;
+}
+.lying-nav-child a {
+    height: 0;
+    transition: height 0.2s, background-color 0.2s;
+}
+.lying-nav-child a:hover {
+    background-color: #4A5064;
+}
+.lying-nav-open .lying-nav-child a {
+    height: 40px;
+}
+.layui-side.lying-side-mini {
+    width: 50px;
+}
+.layui-side.lying-side-mini .layui-side-scroll {
+    width: 70px;
+}
+.layui-side.lying-side-mini .layui-nav-tree {
+    width: 50px;
+}
+.layui-side.lying-side-mini .lying-nav-fold .layui-icon {
+    transform: rotateY(180deg);
+}
