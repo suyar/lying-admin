@@ -1,14 +1,13 @@
-
 /*全局*/
 [lying-src] {
     cursor: pointer;
 }
-
-/*导航*/
-.layui-header {
+/*顶部导航*/
+.layui-layout-admin .layui-header {
     height: 50px;
+    background-color: #373D41;
 }
-.layui-header .layui-nav .layui-nav-item {
+.layui-header .layui-nav-item {
     line-height: 50px;
 }
 .lying-logo-mini {
@@ -16,9 +15,8 @@
     height: 50px;
     line-height: 50px;
     width: 50px;
-    box-sizing: border-box;
     text-align: center;
-    border-right: 1px solid #f2f2f2;
+    border-right: 1px solid #2a2f32;
 }
 .lying-logo-mini .layui-icon {
     color: #fff;
@@ -28,13 +26,12 @@
     left: 50px;
     line-height: 50px;
     width: 130px;
-    border-right: 1px solid #f2f2f2;
+    border-right: 1px solid #2a2f32;
 }
 .layui-header .layui-layout-left {
     left: 180px;
 }
-
-/*侧栏*/
+/*侧栏菜单*/
 .layui-layout-admin .layui-side {
     top: 50px;
     width: 180px;
