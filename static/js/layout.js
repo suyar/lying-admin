@@ -125,10 +125,12 @@ layui.define(['layer', 'element'], function(exports) {
     layout.prototype.tabAdd = function (src, title, icon) {
         if ($('li[lay-id="' + src + '"]').length === 0) {
             if (icon) {
-                if (/^&\S+;$/.test(icon)) {
-                    title += ' <i class="layui-icon">' + icon + '</i>';
+                if (/^<i/) {
+                    title = icon + ' ' + title;
+                } else if (/^&\S+;$/.test(icon)) {
+                    title = '<i class="layui-icon">' + icon + '</i> ' + title;
                 } else {
-                    title += ' <i class="layui-icon ' + icon + '"></i>';
+                    title = '<i class="layui-icon ' + icon + '"></i> ' + title;
                 }
             }
             element.tabAdd(this.filter, {
@@ -240,8 +242,7 @@ layui.define(['layer', 'element'], function(exports) {
     //监听选项卡切换
     element.on('tab(' + obj.filter + ')', function(data) {
         var src = $(this).attr('lay-id'), pmenu = $('.lying-nav-child [lying-src="' + src + '"]').parents('.lying-nav-item');
-        console.log(pmenu.hasClass('lying-nav-open'));
-        pmenu.length && (pmenu.hasClass('lying-nav-open') || pmenu.trigger('click'));
+        pmenu.length && (pmenu.hasClass('lying-nav-open') || pmenu.find('.lying-nav-header').trigger('click'));
     });
 
     //监听侧栏缩进
@@ -278,8 +279,18 @@ layui.define(['layer', 'element'], function(exports) {
 
     //锚点打开选项卡
     $(document).on('click', '[lying-src]', function () {
-        var src = $(this).attr('lying-src');
-        obj.tabAdd(src, 'nihao');
+        var _this = $(this),
+            src = _this.attr('lying-src'),
+            title = _this.find('.lying-nav-title'),
+            icon = _this.find('.lying-nav-icon');
+        if (title[0] && icon[0]) {
+            title = title.text();
+            icon = icon.html();
+        } else {
+            title = _this.attr('lying-title');
+            icon = _this.attr('lying-icon');
+        }
+        obj.tabAdd(src, title, icon);
     });
 
     exports('layout', obj);
