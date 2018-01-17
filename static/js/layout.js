@@ -123,24 +123,26 @@ layui.define(['layer', 'element'], function(exports) {
      * @returns {layout}
      */
     layout.prototype.tabAdd = function (src, title, icon) {
-        if ($('li[lay-id="' + src + '"]').length === 0) {
-            if (icon) {
-                if (/^<i/) {
-                    title = icon + ' ' + title;
-                } else if (/^&\S+;$/.test(icon)) {
-                    title = '<i class="layui-icon">' + icon + '</i> ' + title;
-                } else {
-                    title = '<i class="layui-icon ' + icon + '"></i> ' + title;
+        if (src) {
+            if ($('li[lay-id="' + src + '"]').length === 0) {
+                if (icon) {
+                    if (/^<i/.test(icon)) {
+                        title = icon + ' ' + title;
+                    } else if (/^&\S+;$/.test(icon)) {
+                        title = '<i class="layui-icon">' + icon + '</i> ' + title;
+                    } else {
+                        title = '<i class="layui-icon ' + icon + '"></i> ' + title;
+                    }
                 }
+                element.tabAdd(this.filter, {
+                    title: title,
+                    content: '<iframe src="' + src + '"></iframe>',
+                    id: src
+                });
             }
-            element.tabAdd(this.filter, {
-                title: title,
-                content: '<iframe src="' + src + '"></iframe>',
-                id: src
-            });
+            element.tabChange(this.filter, src);
+            this.getTabLen().resize();
         }
-        element.tabChange(this.filter, src);
-        this.getTabLen().resize();
         return this;
     };
 

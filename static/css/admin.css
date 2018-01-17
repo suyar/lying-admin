@@ -1,4 +1,91 @@
+/*全局*/
 body {
     background-color: #f2f2f2;
     padding: 15px;
 }
+[lying-src] {
+    cursor: pointer;
+}
+/*轮播*/
+.lying-carousel {
+    height: 185px!important;
+    background-color: #fff;
+}
+.lying-carousel .layui-carousel-ind {
+    position: absolute;
+    top: -41px;
+    text-align: right;
+}
+.lying-carousel .layui-carousel-ind ul {
+    background: none;
+}
+.lying-carousel .layui-carousel-ind li {
+    background-color: #e2e2e2;
+}
+.lying-carousel .layui-carousel-ind li.layui-this {
+    background-color: #999;
+}
+.lying-carousel .layui-col-space10 {
+    margin: 0;
+}
+.lying-carousel>[carousel-item]>* {
+    background-color: #fff;
+}
+/*图标菜单*/
+.lying-shortcut li {
+    text-align: center;
+}
+.lying-shortcut li .layui-icon {
+    display: inline-block;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    border-radius: 2px;
+    font-size: 30px;
+    background-color: #F8F8F8;
+    color: #333;
+    transition: all .3s;
+}
+.lying-shortcut li cite {
+    position: relative;
+    top: 2px;
+    display: block;
+    color: #666;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 14px;
+}
+/*待审*/
+.lying-backlog .lying-backlog-body {
+    display: block;
+    padding: 10px 15px;
+    background-color: #f8f8f8;
+    color: #999;
+    border-radius: 2px;
+    transition: all .3s;
+}
+.lying-backlog-body h3 {
+    padding-bottom: 10px;
+    font-size: 12px;
+}
+.lying-backlog-body p cite {
+    font-style: normal;
+    font-size: 30px;
+    font-weight: 300;
+    color: #009688;
+}
+/*数据概览*/
+.lying-dataview {
+    height: 332px!important;
+}
+.lying-dataview>[carousel-item]>div {
+    height: 332px;
+}
+
+
+
+
+
+

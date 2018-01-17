@@ -10,6 +10,13 @@
 .layui-header .layui-nav-item {
     line-height: 50px;
 }
+.layui-header .layui-nav-child {
+    top: 55px;
+}
+.layui-header .layui-nav-bar {
+    top: 0!important;
+    height: 3px;
+}
 .lying-logo-mini {
     display: inline-block;
     height: 50px;
