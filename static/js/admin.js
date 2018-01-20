@@ -15,12 +15,15 @@ layui.define(['layer', 'element', 'carousel'], function(exports) {
 
     //激活轮播
     $('.lying-carousel').each(function () {
+        var _this = $(this);
         carousel.render({
             elem: this,
             width: '100%',
-            autoplay: false,
+            autoplay: _this.data('autoplay') || false,
             arrow: 'none',
-            trigger: 'hover'
+            trigger: 'hover',
+            anim: _this.data('anim') || 'default',
+            interval: _this.data('interval') || 3000
         });
     });
 

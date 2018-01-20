@@ -2,6 +2,8 @@
 body {
     background-color: #f2f2f2;
     padding: 15px;
+    color: #666;
+    overflow-y: scroll;
 }
 [lying-src] {
     cursor: pointer;
@@ -83,9 +85,69 @@ body {
 .lying-dataview>[carousel-item]>div {
     height: 332px;
 }
-
-
-
-
-
-
+.lying-dataview>[carousel-item]:before {
+    display:none
+}
+/*表格样式*/
+.layui-table td, .layui-table th, .layui-table-fixed-r, .layui-table-header, .layui-table-page, .layui-table-tips-main, .layui-table-tool, .layui-table-view, .layui-table[lay-skin=line], .layui-table[lay-skin=row] {
+    border-color: #f6f6f6;
+}
+/*进度条*/
+.lying-takerates {
+    padding-top: 5px;
+}
+.lying-takerates .layui-progress {
+    margin: 50px 0 60px;
+}
+.lying-takerates .layui-progress h3 {
+    position: absolute;
+    right: 0;
+    top: -35px;
+    color: #999;
+    font-size: 14px;
+}
+.lying-takerates .layui-progress-bar {
+    text-align: left;
+}
+.lying-takerates .layui-progress-text {
+    top: -35px;
+    line-height: 26px;
+    font-size: 26px;
+}
+.lying-takerates .layui-progress:last-child {
+    margin-bottom: 10px;
+}
+/*选项卡*/
+.layui-card .layui-tab-brief .layui-tab-title {
+    height: 42px;
+    border-bottom-color: #f6f6f6;
+}
+.layui-card .layui-tab-brief .layui-tab-title li.layui-this {
+    color: #333;
+}
+.layui-card .layui-tab-brief .layui-tab-title li {
+    margin: 0 15px;
+    padding: 0;
+    line-height: 42px;
+}
+.layui-card .layui-tab-brief .layui-tab-title .layui-this:after {
+    height: 43px;
+}
+.layui-card .layui-tab-brief .layui-tab-content {
+    padding: 15px;
+}
+/*新闻*/
+.lying-news {
+    height: 60px!important;
+    padding: 5px 0;
+}
+.lying-news a {
+    display: block;
+    line-height: 60px;
+    text-align: center;
+}
+/*文本*/
+.lying-text p {
+    margin-bottom: 10px;
+    text-indent: 2em;
+}

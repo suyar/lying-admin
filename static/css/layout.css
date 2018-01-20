@@ -135,6 +135,7 @@
 /*内容主体*/
 .layui-layout-admin .layui-body {
     top: 50px;
+    bottom: 0;
     left: 180px;
     overflow: hidden;
     transition: left 0.2s;
