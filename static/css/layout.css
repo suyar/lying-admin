@@ -228,4 +228,12 @@
     height: 100%;
     border: none;
 }
+/*右侧弹层*/
+.layui-layer-adminRight {
+    top: 50px!important;
+    bottom: 0;
+    box-shadow: 1px 1px 10px rgba(0,0,0,.1);
+    border-radius: 0;
+    overflow: auto;
+}
 

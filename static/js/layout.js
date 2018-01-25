@@ -216,6 +216,22 @@ layui.define(['layer', 'element'], function(exports) {
         return this;
     };
 
+    layout.prototype.popRight = function (opt) {
+        layer.open($.extend({
+            type: 1,
+            id: "LAY_adminPopupR",
+            anim: -1,
+            title: !1,
+            closeBtn: !1,
+            offset: "r",
+            shade: .1,
+            shadeClose: true,
+            skin: "layui-anim layui-anim-rl layui-layer-adminRight",
+            area: "300px",
+            content: '666'
+        }, opt));
+    };
+
     //实例化对象
     var obj = new layout();
     obj.getTitleLen().getTabLen().getDiff();
