@@ -222,14 +222,17 @@ layui.define(['layer', 'element'], function(exports) {
 
     //判断左侧菜单是否要展开
     var side = layui.data('nav-side'), sideObj = $('.layui-layout-admin .layui-side');
-    if (side) {
-        var mini = sideObj.hasClass('lying-side-mini');
-        if (side.open && mini) {
-            sideObj.removeClass('lying-side-mini') && obj.delayResize();
-        } else if (!side.open && !mini) {
-            sideObj.addClass('lying-side-mini') && obj.delayResize();
+    setTimeout(function () {
+        if (side) {
+            var mini = sideObj.hasClass('lying-side-mini');
+            if (side.open && mini) {
+                sideObj.removeClass('lying-side-mini') && obj.delayResize();
+            } else if (!side.open && !mini) {
+                sideObj.addClass('lying-side-mini') && obj.delayResize();
+            }
         }
-    }
+    }, 1000);
+
 
     //监听窗口大小改变
     $(window).resize(function () {
