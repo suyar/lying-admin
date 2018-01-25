@@ -194,7 +194,20 @@
 }
 .layui-tab-title li {
     height: 40px;
-    border-bottom: 1px solid #e6e6e6;
+    border-bottom: 1px solid #f6f6f6;
+}
+.layui-tab-title li:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 41px;
+    border-radius: 0;
+    border-bottom: 2px solid #5FB878;
+    transition: all .2s;
+}
+.layui-tab-title li.layui-this:after {
+    width: 100%;
 }
 .layui-tab-brief>.layui-tab-title .layui-this {
     background-color: #f6f6f6;
