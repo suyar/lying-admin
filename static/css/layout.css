@@ -229,6 +229,13 @@
     border: none;
 }
 /*右侧弹层*/
+.layui-anim-rl {
+    animation-name: layui-rl;
+}
+@keyframes layui-rl{
+    from { transform:translate3d(100%,0,0) }
+    to{ transform:translate3d(0,0,0) }
+}
 .layui-layer-adminRight {
     top: 50px!important;
     bottom: 0;

@@ -219,12 +219,12 @@ layui.define(['layer', 'element'], function(exports) {
     layout.prototype.popRight = function (opt) {
         layer.open($.extend({
             type: 1,
-            id: "LAY_adminPopupR",
+            id: "popRight",
             anim: -1,
-            title: !1,
-            closeBtn: !1,
+            title: false,
+            closeBtn: false,
             offset: "r",
-            shade: .1,
+            shade: 0.1,
             shadeClose: true,
             skin: "layui-anim layui-anim-rl layui-layer-adminRight",
             area: "300px",
