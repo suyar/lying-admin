@@ -494,10 +494,14 @@
         });
 
         //窗口改变大小的时候重新渲染大小
+        var resizeHandle;
         $(window).resize(function () {
-            var dom = $('.lying-carousel.lying-dataview').find('.layui-this'),
-                e = echarts.getInstanceByDom(dom.get(0));
-            e && e.resize();
+            resizeHandle && clearTimeout(resizeHandle);
+            resizeHandle = setTimeout(function () {
+                var dom = $('.lying-carousel.lying-dataview').find('.layui-this');
+                var e = echarts.getInstanceByDom(dom.get(0));
+                e && e.resize();
+            }, 50);
         });
 
         //今日热搜

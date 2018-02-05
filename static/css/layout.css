@@ -43,7 +43,7 @@
     top: 50px;
     width: 180px;
     border-right: 1px solid #2a2f32;
-    background-color: #333744;
+    background-color: #373D41;
     transition: width 0.2s;
 }
 .layui-side .layui-side-scroll {
@@ -55,13 +55,13 @@
     transition: width 0.2s;
 }
 .layui-side .layui-nav {
-    background-color: #42485b;
+    background-color: rgba(255,255,255,0.1);
 }
 /*侧栏缩进图标*/
 .lying-nav-fold {
     height: 30px;
     line-height: 30px;
-    background-color: #4a5064;
+    background-color: rgba(255,255,255,0.2);
     text-align: center;
     cursor: pointer;
 }
@@ -106,7 +106,7 @@
 }
 /*二级菜单*/
 .lying-nav-child {
-    background-color: #333744;
+    background-color: #373D41;
     overflow: hidden;
 }
 .lying-nav-child a {
@@ -114,7 +114,7 @@
     transition: height 0.2s, background-color 0.2s;
 }
 .lying-nav-child a:hover {
-    background-color: #4A5064;
+    background-color: rgba(255,255,255,0.2);
 }
 .lying-nav-open .lying-nav-child a {
     height: 40px;
