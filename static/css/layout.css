@@ -7,6 +7,9 @@
     height: 50px;
     background-color: #373D41;
 }
+.layui-header .layui-nav {
+    padding: 0;
+}
 .layui-header .layui-nav-item {
     line-height: 50px;
 }
@@ -228,19 +231,26 @@
     height: 100%;
     border: none;
 }
-/*右侧弹层*/
-.layui-anim-rl {
+/*右侧抽屉*/
+.lying-anim-rl {
     animation-name: layui-rl;
 }
 @keyframes layui-rl{
     from { transform:translate3d(100%,0,0) }
     to{ transform:translate3d(0,0,0) }
 }
-.layui-layer-adminRight {
+@keyframes layui-lr {
+    from { transform: translate3d(0,0,0) }
+    to { transform: translate3d(100%,0,0) }
+}
+.lying-layer-adminRight {
     top: 50px!important;
     bottom: 0;
     box-shadow: 1px 1px 10px rgba(0,0,0,.1);
     border-radius: 0;
     overflow: auto;
+}
+.layui-anim-lr,.lying-anim-rl.layer-anim-close {
+    animation-name: layui-lr
 }
 

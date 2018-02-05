@@ -29,13 +29,14 @@
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item" lay-unselect>
-                <a href="javascript:;"><img src="http://t.cn/RCzsdCq" class="layui-nav-img">贤心</a>
+                <a href="javascript:;">贤心</a>
                 <dl class="layui-nav-child">
                     <dd><a href="###">基本资料</a></dd>
                     <dd><a href="###">安全设置</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item" lay-unselect><a href="###">退了</a></li>
+            <li class="layui-nav-item" lay-unselect><a href="javascript:;" id="pop-right"><i class="layui-icon layui-icon-more-vertical"></i></a></li>
         </ul>
     </div>
     <!--顶部导航结束-->
@@ -133,6 +134,16 @@
 </body>
 <script src="static/layui/layui.js"></script>
 <script>
-    layui.config({base: 'static/js/'}).use('layout');
+    layui.config({base: 'static/js/'}).use(['layout'], function () {
+        var $ = layui.$,
+            layout = layui.layout;
+
+        $('#pop-right').click(function () {
+            layout.popRight({
+                title: '测试标题',
+                content: '测试内容'
+            });
+        });
+    });
 </script>
 </html>

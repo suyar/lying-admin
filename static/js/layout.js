@@ -216,8 +216,13 @@ layui.define(['layer', 'element'], function(exports) {
         return this;
     };
 
+    /**
+     * 弹出右侧抽屉
+     * @param opt
+     * @returns {*|Promise<Cache>|void|IDBOpenDBRequest|Window|Document}
+     */
     layout.prototype.popRight = function (opt) {
-        layer.open($.extend({
+        return layer.open($.extend({
             type: 1,
             id: "popRight",
             anim: -1,
@@ -226,7 +231,7 @@ layui.define(['layer', 'element'], function(exports) {
             offset: "r",
             shade: 0.1,
             shadeClose: true,
-            skin: "layui-anim layui-anim-rl layui-layer-adminRight",
+            skin: "layui-anim lying-anim-rl lying-layer-adminRight",
             area: "300px",
             content: '666'
         }, opt));
