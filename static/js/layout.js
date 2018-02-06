@@ -269,6 +269,13 @@ layui.define(['layer', 'element'], function(exports) {
     element.on('tab(' + obj.filter + ')', function(data) {
         var src = $(this).attr('lay-id'), pmenu = $('.lying-nav-child [lying-src="' + src + '"]').parents('.lying-nav-item');
         pmenu.length && (pmenu.hasClass('lying-nav-open') || pmenu.find('.lying-nav-header').trigger('click'));
+
+        var container = data.elem.find('.layui-tab-content').find('.layui-show'),
+            content = container[0],
+            ifr = container.find('iframe')[0].contentWindow;
+        //ifr.scroll(0, 0);
+
+
     });
 
     //监听侧栏缩进
