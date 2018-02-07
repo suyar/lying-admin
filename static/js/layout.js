@@ -128,8 +128,8 @@ layui.define(['layer', 'element'], function(exports) {
                 if (icon) {
                     if (/^<i/.test(icon)) {
                         title = icon + ' ' + title;
-                    } else if (/^&\S+;$/.test(icon)) {
-                        title = '<i class="layui-icon">' + icon + '</i> ' + title;
+                    } else if (/^#\S+/.test(icon)) {
+                        title = '<i class="layui-icon">&' + icon + ';</i> ' + title;
                     } else {
                         title = '<i class="layui-icon ' + icon + '"></i> ' + title;
                     }

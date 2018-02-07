@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>首页</title>
-    <link rel="stylesheet" href="static/layui/css/layui.css">
-    <link rel="stylesheet" href="static/css/admin.css">
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/admin.css">
 </head>
 <body>
 
@@ -22,7 +22,7 @@
                             <div carousel-item>
                                 <ul class="layui-row layui-col-space10">
                                     <li class="layui-col-xs3">
-                                        <a lying-src="http://pano.revoke.cc/edit/">
+                                        <a lying-src="http://pano.revoke.cc/edit/" lying-title="VR" lying-icon="layui-icon-website">
                                             <i class="layui-icon layui-icon-website"></i>
                                             <cite>弹层</cite>
                                         </a>
@@ -34,7 +34,7 @@
                                         </a>
                                     </li>
                                     <li class="layui-col-xs3">
-                                        <a>
+                                        <a lying-src="https://www.baidu.com/">
                                             <i class="layui-icon layui-icon-website"></i>
                                             <cite>弹层</cite>
                                         </a>
@@ -335,10 +335,10 @@
 </div>
 
 </body>
-<script src="static/layui/layui.js"></script>
-<script src="static/js/echarts.min.js"></script>
+<script src="../static/layui/layui.js"></script>
+<script src="../static/js/echarts.min.js"></script>
 <script>
-    layui.config({base: 'static/js/'}).use(['admin', 'echartsTheme', 'table'], function() {
+    layui.config({base: '../static/js/'}).use(['admin', 'echartsTheme', 'table'], function() {
         var admin = layui.admin,
             $ = layui.$,
             layer = layui.layer,
@@ -507,7 +507,7 @@
         //今日热搜
         var hotSearch = table.render({
             elem: '#hot-search',
-            url: 'static/data/hot-search',
+            url: '../static/data/hot-search',
             page: true,
             cols: [[
                 {title: 'ID', width:40, type: 'numbers', fixed: 'left'},
@@ -520,7 +520,7 @@
         //今日热搜
         var hotArticle = table.render({
             elem: '#hot-article',
-            url: 'static/data/hot-article',
+            url: '../static/data/hot-article',
             page: true,
             cols: [[
                 {title: 'ID', width:40, type: 'numbers', fixed: 'left'},

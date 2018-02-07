@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>lying-admin后台模板</title>
-    <link rel="stylesheet" href="static/layui/css/layui.css">
-    <link rel="stylesheet" href="static/css/layout.css">
+    <title>LAU后台模板</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/layout.css">
 </head>
 <body class="layui-layout-body layui-unselect">
 <div class="layui-layout layui-layout-admin">
@@ -17,7 +17,6 @@
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item" lay-unselect><a href="###">控制台</a></li>
             <li class="layui-nav-item" lay-unselect><a href="###">商品管理</a></li>
-            <li class="layui-nav-item" lay-unselect><a href="###">用户</a></li>
             <li class="layui-nav-item" lay-unselect>
                 <a href="javascript:;">其它系统</a>
                 <dl class="layui-nav-child">
@@ -45,7 +44,9 @@
     <div class="layui-side">
         <div class="layui-side-scroll">
             <ul class="layui-nav layui-nav-tree">
+                <!--侧栏缩进图标开始-->
                 <li class="lying-nav-fold"><i class="layui-icon layui-icon-shrink-right"></i></li>
+                <!--侧栏缩进图标结束-->
 
                 <li class="lying-nav-item lying-nav-open">
                     <a class="lying-nav-header" href="javascript:;">
@@ -54,7 +55,7 @@
                     </a>
                     <dl class="lying-nav-child">
                         <dd>
-                            <a href="javascript:;" lying-src="http://pano.revoke.cc/edit/">
+                            <a href="javascript:;" lying-src="">
                                 <div class="lying-nav-icon"><i class="layui-icon">&#xe62c;</i></div>
                                 <span class="lying-nav-title">统计图表</span>
                             </a>
@@ -71,56 +72,17 @@
                 <li class="lying-nav-item">
                     <a class="lying-nav-header" href="javascript:;">
                         <div class="lying-nav-icon"><i class="layui-icon">&#xe602;</i></div>
-                        <span class="lying-nav-title">所有商品</span>
-                    </a>
-                    <dl class="lying-nav-child">
-                        <dd>
-                            <a href="javascript:;">
-                                <div class="lying-nav-icon"><i class="layui-icon">&#xe62c;</i></div>
-                                <span class="lying-nav-title">统计图表</span>
-                            </a>
-                        </dd>
-                        <dd>
-                            <a href="javascript:;">
-                                <div class="lying-nav-icon"><i class="layui-icon">&#xe634;</i></div>
-                                <span class="lying-nav-title">轮播组图</span>
-                            </a>
-                        </dd>
-                        <dd>
-                            <a href="javascript:;">
-                                <div class="lying-nav-icon"><i class="layui-icon">&#xe634;</i></div>
-                                <span class="lying-nav-title">轮播组图</span>
-                            </a>
-                        </dd>
-                        <dd>
-                            <a href="javascript:;">
-                                <div class="lying-nav-icon"><i class="layui-icon">&#xe634;</i></div>
-                                <span class="lying-nav-title">轮播组图</span>
-                            </a>
-                        </dd>
-                        <dd>
-                            <a href="javascript:;">
-                                <div class="lying-nav-icon"><i class="layui-icon">&#xe634;</i></div>
-                                <span class="lying-nav-title">轮播组图</span>
-                            </a>
-                        </dd>
-                    </dl>
-                </li>
-
-                <li class="lying-nav-item">
-                    <a class="lying-nav-header" href="javascript:;">
-                        <div class="lying-nav-icon"><i class="layui-icon">&#xe602;</i></div>
                         <span class="lying-nav-title">系统设置</span>
                     </a>
                     <dl class="lying-nav-child">
                         <dd>
-                            <a href="javascript:;" lying-src="menu.html">
+                            <a href="javascript:;" lying-src="/html/menu.html">
                                 <div class="lying-nav-icon"><i class="layui-icon">&#xe63f;</i></div>
                                 <span class="lying-nav-title">菜单管理</span>
                             </a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" lying-src="permission.html">
+                            <a href="javascript:;" lying-src="">
                                 <div class="lying-nav-icon"><i class="layui-icon">&#xe63f;</i></div>
                                 <span class="lying-nav-title">细节权限</span>
                             </a>
@@ -128,6 +90,26 @@
                     </dl>
                 </li>
 
+                <li class="lying-nav-item">
+                    <a class="lying-nav-header" href="javascript:;">
+                        <div class="lying-nav-icon"><i class="layui-icon">&#xe705;</i></div>
+                        <span class="lying-nav-title">文档</span>
+                    </a>
+                    <dl class="lying-nav-child">
+                        <dd>
+                            <a href="javascript:;" lying-src="/doc/start.html">
+                                <div class="lying-nav-icon"><i class="layui-icon">&#xe63f;</i></div>
+                                <span class="lying-nav-title">快速开始</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" lying-src="/doc/layout.html">
+                                <div class="lying-nav-icon"><i class="layui-icon">&#xe63f;</i></div>
+                                <span class="lying-nav-title">布局操作</span>
+                            </a>
+                        </dd>
+                    </dl>
+                </li>
             </ul>
         </div>
     </div>
@@ -144,25 +126,25 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe src="main.html"></iframe>
+                    <iframe src="/html/main.html"></iframe>
                 </div>
             </div>
         </div>
     </div>
     <!--内容主体区域结束-->
-
 </div>
 </body>
-<script src="static/layui/layui.js"></script>
+<script src="/static/layui/layui.js"></script>
 <script>
-    layui.config({base: 'static/js/'}).use(['layout'], function () {
+    layui.config({base: '/static/js/'}).use(['layout'], function () {
         var $ = layui.$,
             layout = layui.layout;
 
+        //弹出抽屉
         $('#pop-right').click(function () {
             layout.popRight({
-                title: '测试标题',
-                content: '测试内容'
+                title: '抽屉标题',
+                content: '抽屉内容'
             });
         });
     });

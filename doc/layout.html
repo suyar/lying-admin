@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>布局操作</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body>
+
+<div class="layui-card">
+    <div class="layui-card-header">布局框架的使用</div>
+    <div class="layui-card-body">
+        <blockquote class="layui-elem-quote">
+            LAU的布局框架都是基于layui模块`layout`，所以基本上的操作都是依赖`layout`模块
+        </blockquote>
+
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>设置TAB页锚点</legend>
+            <div class="layui-field-box">
+                1.在侧边菜单栏设置锚点（普通菜单）
+                <pre class="layui-code" lay-title="左侧菜单">
+&lt;dd&gt;
+    &lt;a href=&quot;javascript:;&quot; lying-src=&quot;&quot;&gt;
+        &lt;div class=&quot;lying-nav-icon&quot;&gt;&lt;i class=&quot;layui-icon&quot;&gt;&amp;#xe62c;&lt;/i&gt;&lt;/div&gt;
+        &lt;span class=&quot;lying-nav-title&quot;&gt;统计图表&lt;/span&gt;
+    &lt;/a&gt;
+&lt;/dd&gt;
+                </pre>
+                &gt; 只要对`a`标签设置属性`lying-src`就行，标题和图标会自动读取<br>
+                &gt; `lying-src`属性是打开tab的链接和唯一ID，所以建议`lying-src`使用完整的路径，如：http://www.layui.com/<br>
+                &gt; 相同的`lying-src`锚点如果已经打开，点击其他相同的锚点会切换tab而不是打开新tab<br>
+                2.在其他地方埋点
+                如果你需要点击某个元素打开选项卡，那么你只需要如下定义：
+                <pre class="layui-code" lay-title="定义其他锚点">
+&lt;a href=&quot;javascript:;&quot; lying-src=&quot;/demo/page.html&quot; lying-title=&quot;测试页面&quot; lying-icon=&quot;layui-icon-shrink-right&quot;&gt;打开测试页面&lt;/a&gt;
+                </pre>
+                lying-src：定义锚点链接，也是锚点唯一ID<br>
+                lying-title：定义锚点名称，如果未定义，则tab显示`unnamed`<br>
+                lying-icon：定义锚点图标，支持三种形式的图标，如下
+                <pre class="layui-code" lay-title="图标形式">
+lying-icon=&quot;&lt;i class=&#x27;layui-icon&#x27;&gt;&amp;#xe609;&lt;/i&gt;&quot;
+lying-icon=&quot;#xe609&quot;
+lying-icon=&quot;layui-icon-shrink-right&quot;
+                </pre>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+</body>
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.config({base: '/static/js/'}).use(['admin', 'code'], function() {
+        layui.code({
+            about: false,
+            encode: true
+        });
+    });
+</script>
+</html>
