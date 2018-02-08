@@ -233,7 +233,7 @@ layui.define(['layer', 'element'], function(exports) {
             shadeClose: true,
             skin: "layui-anim lying-anim-rl lying-layer-adminRight",
             area: "300px",
-            content: '666'
+            content: ''
         }, opt));
     };
 

@@ -7,6 +7,7 @@
     height: 50px;
     background-color: #373D41;
     border-bottom: 1px solid #2a2f32;
+    box-sizing: border-box;
 }
 .layui-header .layui-nav {
     padding: 0;
@@ -249,7 +250,7 @@
     top: 50px!important;
     bottom: 0;
     box-shadow: 1px 1px 10px rgba(0,0,0,.1);
-    border-radius: 0;
+    border-radius: 0!important;
     overflow: auto;
 }
 .lying-anim-rl.layer-anim-close {
