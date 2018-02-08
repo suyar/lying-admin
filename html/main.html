@@ -325,8 +325,8 @@
         <div class="layui-card">
             <div class="layui-card-header">作者心语</div>
             <div class="layui-card-body layui-text lying-text">
-                <p>作者本人很喜欢贤心的layui风格，但是又买不起（因为要结婚了花了很多钱），所以就抄袭了layadmin的样式，自己构造了一个和layadmin很像的后台，但是绝对没有和心姐抢饭碗的意思，希望心姐不要计较O(∩_∩)O哈哈~</p>
-                <p>如果你有经济能力，推荐买心姐正版的layadmin，多多支持心姐，毕竟单干不容易~传送门<a href="http://www.layui.com/admin/" target="_blank">layadmin</a></p>
+                <p>作者本人很喜欢贤心的layui风格，但是又买不起（因为要结婚了花了很多钱），所以就抄袭了layadmin的样式，自己抄袭构造了一个和layadmin很像的后台，但是绝对没有和心姐抢饭碗的意思，希望心姐不要计较O(∩_∩)O哈哈~</p>
+                <p>如果你有经济能力，推荐买心姐正版的layadmin，多多支持心姐，传送门<a href="http://www.layui.com/admin/" target="_blank">layadmin</a></p>
             </div>
         </div>
         <!--文本结束-->
@@ -335,10 +335,10 @@
 </div>
 
 </body>
-<script src="../static/layui/layui.js"></script>
-<script src="../static/js/echarts.min.js"></script>
+<script src="/static/layui/layui.js"></script>
+<script src="/static/js/echarts.min.js"></script>
 <script>
-    layui.config({base: '../static/js/'}).use(['admin', 'echartsTheme', 'table'], function() {
+    layui.config({base: '/static/js/'}).use(['admin', 'echartsTheme', 'table'], function() {
         var admin = layui.admin,
             $ = layui.$,
             layer = layui.layer,
@@ -517,7 +517,7 @@
             ]]
         });
 
-        //今日热搜
+        //今日热帖
         var hotArticle = table.render({
             elem: '#hot-article',
             url: '../static/data/hot-article',

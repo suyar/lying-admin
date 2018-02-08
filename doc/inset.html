@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>子页操作</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body>
+
+<div class="layui-card">
+    <div class="layui-card-header">子页相关组件和操作</div>
+    <div class="layui-card-body">
+        子页面的文档结构推荐如下形式：
+        <pre class="layui-code" lay-title="子页布局">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+    &lt;title&gt;子页操作&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/static/layui/css/layui.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/static/css/admin.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;script src=&quot;/static/layui/layui.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    layui.config({base: &#x27;/static/js/&#x27;}).use([&#x27;admin&#x27;], function() {
+        var admin = layui.admin;
+    });
+&lt;/script&gt;
+&lt;/html&gt;
+        </pre>
+        <blockquote class="layui-elem-quote">
+            子页面依赖`admin`模块操作，所以大部分情况下都要引入`admin`模块<br>
+            admin模块默认已经引入了layer、element、carousel、jquery模块，所以如果引入了admin模块，就可以不必再次引入<br>
+        </blockquote>
+
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>图标菜单组件</legend>
+            <div class="layui-field-box">
+                图标菜单组件遵循以下文档结构
+                <pre class="layui-code" lay-title="图标菜单">
+&lt;div class=&quot;layui-card&quot;&gt;
+    &lt;div class=&quot;layui-card-header&quot;&gt;快捷方式&lt;/div&gt;
+    &lt;div class=&quot;layui-card-body&quot;&gt;
+        &lt;div class=&quot;layui-carousel lying-carousel lying-shortcut&quot;&gt;
+            &lt;div carousel-item&gt;
+                &lt;ul class=&quot;layui-row layui-col-space10&quot;&gt;
+                    &lt;li class=&quot;layui-col-xs3&quot;&gt;
+                        &lt;a lying-src=&quot;http://pano.revoke.cc/edit/&quot; lying-title=&quot;VR&quot; lying-icon=&quot;layui-icon-website&quot;&gt;
+                            &lt;i class=&quot;layui-icon layui-icon-website&quot;&gt;&lt;/i&gt;
+                            &lt;cite&gt;弹层&lt;/cite&gt;
+                        &lt;/a&gt;
+                    &lt;/li&gt;
+                    ······
+                &lt;/ul&gt;
+                &lt;ul class=&quot;layui-row layui-col-space10&quot;&gt;
+                    &lt;li class=&quot;layui-col-xs3&quot;&gt;
+                        &lt;a&gt;
+                            &lt;i class=&quot;layui-icon layui-icon-website&quot;&gt;&lt;/i&gt;
+                            &lt;cite&gt;弹层&lt;/cite&gt;
+                        &lt;/a&gt;
+                    &lt;/li&gt;
+                    ·······
+                &lt;/ul&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                </pre>
+            </div>
+        </fieldset>
+
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>待办事项组件</legend>
+            <div class="layui-field-box">
+                待办事项组件遵循以下文档结构
+                <pre class="layui-code" lay-title="待办事项">
+&lt;div class=&quot;layui-card&quot;&gt;
+    &lt;div class=&quot;layui-card-header&quot;&gt;待办事项&lt;/div&gt;
+    &lt;div class=&quot;layui-card-body&quot;&gt;
+        &lt;div class=&quot;layui-carousel lying-carousel lying-backlog&quot;&gt;
+            &lt;div carousel-item&gt;
+                &lt;ul class=&quot;layui-row layui-col-space10&quot;&gt;
+                    &lt;li class=&quot;layui-col-xs6&quot;&gt;
+                        &lt;a class=&quot;lying-backlog-body&quot; lying-src=&quot;&quot;&gt;
+                            &lt;h3&gt;待审评论&lt;/h3&gt;
+                            &lt;p&gt;&lt;cite&gt;66&lt;/cite&gt;&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/li&gt;
+                    ······
+                &lt;/ul&gt;
+                &lt;ul class=&quot;layui-row layui-col-space10&quot;&gt;
+                    &lt;li class=&quot;layui-col-xs6&quot;&gt;
+                        &lt;a class=&quot;lying-backlog-body&quot; lying-src=&quot;&quot;&gt;
+                            &lt;h3&gt;待审评论&lt;/h3&gt;
+                            &lt;p&gt;&lt;cite&gt;66&lt;/cite&gt;&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/li&gt;
+                    ······
+                &lt;/ul&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                </pre>
+            </div>
+        </fieldset>
+
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>效果报告组件</legend>
+            <div class="layui-field-box">
+                效果报告组件遵循以下文档结构
+                <pre class="layui-code" lay-title="效果报告">
+&lt;div class=&quot;layui-card&quot;&gt;
+    &lt;div class=&quot;layui-card-header&quot;&gt;效果报告&lt;/div&gt;
+    &lt;div class=&quot;layui-card-body lying-takerates&quot;&gt;
+        &lt;div class=&quot;layui-progress&quot; lay-showPercent=&quot;yes&quot;&gt;
+            &lt;h3&gt;转化率（日同比 28% &lt;span class=&quot;layui-edge layui-edge-top&quot;&gt;&lt;/span&gt;）&lt;/h3&gt;
+            &lt;div class=&quot;layui-progress-bar&quot; lay-percent=&quot;65%&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;layui-progress&quot; lay-showPercent=&quot;yes&quot;&gt;
+            &lt;h3&gt;转化率（日同比 28% &lt;span class=&quot;layui-edge layui-edge-bottom&quot;&gt;&lt;/span&gt;）&lt;/h3&gt;
+            &lt;div class=&quot;layui-progress-bar&quot; lay-percent=&quot;32%&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                </pre>
+            </div>
+        </fieldset>
+
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>实时监控组件</legend>
+            <div class="layui-field-box">
+                实时监控组件遵循以下文档结构
+                <pre class="layui-code" lay-title="实时监控">
+&lt;div class=&quot;layui-card&quot;&gt;
+    &lt;div class=&quot;layui-card-header&quot;&gt;实时监控&lt;/div&gt;
+    &lt;div class=&quot;layui-card-body lying-takerates&quot;&gt;
+        &lt;div class=&quot;layui-progress&quot; lay-showPercent=&quot;yes&quot;&gt;
+            &lt;h3&gt;CPU使用率&lt;/h3&gt;
+            &lt;div class=&quot;layui-progress-bar&quot; lay-percent=&quot;58%&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;layui-progress&quot; lay-showPercent=&quot;yes&quot;&gt;
+            &lt;h3&gt;内存占用率&lt;/h3&gt;
+            &lt;div class=&quot;layui-progress-bar layui-bg-red&quot; lay-percent=&quot;90%&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                </pre>
+            </div>
+        </fieldset>
+
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>产品动态组件</legend>
+            <div class="layui-field-box">
+                产品动态组件遵循以下文档结构
+                <pre class="layui-code" lay-title="产品动态">
+&lt;div class=&quot;layui-card&quot;&gt;
+    &lt;div class=&quot;layui-card-header&quot;&gt;产品动态&lt;/div&gt;
+    &lt;div class=&quot;layui-card-body&quot;&gt;
+        &lt;div class=&quot;layui-carousel lying-carousel lying-news&quot; data-autoplay=&quot;true&quot;&gt;
+            &lt;div carousel-item&gt;
+                &lt;div&gt;&lt;a href=&quot;https://github.com/carolkey/lying-admin&quot; target=&quot;_blank&quot; class=&quot;layui-bg-red&quot;&gt;lying-admin项目地址&lt;/a&gt;&lt;/div&gt;
+                &lt;div&gt;&lt;a href=&quot;https://jq.qq.com/?_wv=1027&amp;k=543VUa3&quot; target=&quot;_blank&quot; class=&quot;layui-bg-green&quot;&gt;lying-admin官方群&lt;/a&gt;&lt;/div&gt;
+                &lt;div&gt;&lt;a href=&quot;http://www.bycodes.net/&quot; target=&quot;_blank&quot; class=&quot;layui-bg-blue&quot;&gt;lying-admin社区&lt;/a&gt;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                </pre>
+                在这里你可能会发现lying-carousel组件多出了属性data-autoplay="true"，没错，凡是这种lying-carousel切换的，均可以设置以下属性：
+                <pre class="layui-code" lay-title="轮播属性">
+data-autoplay="true" //设置自动播放，默认false
+data-anim="" //设置切换动画，默认default
+data-interval="" //设置轮播速度，默认3000
+                </pre>
+            </div>
+        </fieldset>
+
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>数据概览组件</legend>
+            <div class="layui-field-box">
+                数据概览组件遵循以下文档结构
+                <pre class="layui-code" lay-title="数据概览">
+&lt;div class=&quot;layui-card&quot;&gt;
+    &lt;div class=&quot;layui-card-header&quot;&gt;数据概览&lt;/div&gt;
+    &lt;div class=&quot;layui-card-body&quot;&gt;
+        &lt;div class=&quot;layui-carousel lying-carousel lying-dataview&quot;&gt;
+            &lt;div carousel-item&gt;
+                &lt;div id=&quot;e1&quot;&gt;&lt;/div&gt;
+                &lt;div id=&quot;e2&quot;&gt;&lt;/div&gt;
+                &lt;div id=&quot;e3&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                </pre>
+                使用数据概览组件，需要百度<a style="color: #01AAED;" href="http://echarts.baidu.com/" target="_blank"> echarts </a>的支持：
+                <blockquote class="layui-elem-quote">
+                    &lt;script src=&quot;/static/js/echarts.min.js&quot;&gt;&lt;/script&gt;
+                </blockquote>
+                实例化图表插件
+                <pre class="layui-code" lay-title="图表插件">
+layui.config({base: &#x27;/static/js/&#x27;}).use([&#x27;admin&#x27;, &#x27;echartsTheme&#x27;, &#x27;table&#x27;], function() {
+    var admin = layui.admin,
+        $ = layui.$,
+        layer = layui.layer,
+        element = layui.element,
+        carousel = layui.carousel,
+        echartsTheme = layui.echartsTheme,
+        table = layui.table;
+
+    //LAU提供了4种echart皮肤，分别为echartsTheme.layui、echartsTheme.vintage、echartsTheme.macarons、echartsTheme.dark
+    var e1 = echarts.init($(&#x27;#e1&#x27;).get(0), echartsTheme.layui),
+        e2 = echarts.init($(&#x27;#e2&#x27;).get(0), echartsTheme.vintage),
+        e3 = echarts.init($(&#x27;#e3&#x27;).get(0), echartsTheme.dark);
+        //实例化图表1
+        e1.setOption({
+            title: {
+                text: &#x27;今日销量趋势&#x27;
+            },
+            ······
+        });
+        //实例化图表2
+        e2.setOption({
+            title: {
+                text: &#x27;今日销量趋势&#x27;,
+                left: &#x27;center&#x27;
+            },
+            ······
+        });
+        //实例化图表3
+        e3.setOption({
+            title: {
+                text: &#x27;Customized Pie&#x27;,
+                left: &#x27;center&#x27;,
+                top: 20,
+                textStyle: {
+                    color: &#x27;#ccc&#x27;
+                }
+            },
+            ······
+        });
+        //轮播图切换的时候重新渲染大小
+        carousel.on(&#x27;change()&#x27;, function(obj) {
+            var e = echarts.getInstanceByDom(obj.item.get(0));
+            e &amp;&amp; e.resize();
+        });
+        //窗口改变大小的时候重新渲染大小
+        var resizeHandle;
+        $(window).resize(function () {
+            resizeHandle &amp;&amp; clearTimeout(resizeHandle);
+            resizeHandle = setTimeout(function () {
+                var dom = $(&#x27;.lying-carousel.lying-dataview&#x27;).find(&#x27;.layui-this&#x27;);
+                var e = echarts.getInstanceByDom(dom.get(0));
+                e &amp;&amp; e.resize();
+            }, 50);
+        });
+});
+                </pre>
+            </div>
+        </fieldset>
+
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>数据表格切换组件</legend>
+            <div class="layui-field-box">
+                数据表格切换组件遵循以下文档结构
+                <pre class="layui-code" lay-title="数据表格切换">
+&lt;div class=&quot;layui-card&quot;&gt;
+    &lt;div class=&quot;layui-card-body&quot;&gt;
+        &lt;div class=&quot;layui-tab layui-tab-brief&quot;&gt;
+            &lt;ul class=&quot;layui-tab-title&quot;&gt;
+                &lt;li class=&quot;layui-this&quot;&gt;今日热搜&lt;/li&gt;
+                &lt;li&gt;今日热帖&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;div class=&quot;layui-tab-content&quot;&gt;
+                &lt;div class=&quot;layui-tab-item layui-show&quot;&gt;
+                    &lt;table id=&quot;hot-search&quot;&gt;&lt;/table&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;layui-tab-item&quot;&gt;
+                    &lt;table id=&quot;hot-article&quot;&gt;&lt;/table&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                </pre>
+                然后，实例化数据表格
+                <pre class="layui-code" lay-title="实例化数据表格">
+layui.config({base: &#x27;/static/js/&#x27;}).use([&#x27;admin&#x27;, &#x27;echartsTheme&#x27;, &#x27;table&#x27;], function() {
+    var admin = layui.admin,
+        $ = layui.$,
+        layer = layui.layer,
+        element = layui.element,
+        carousel = layui.carousel,
+        echartsTheme = layui.echartsTheme,
+        table = layui.table;
+
+        //今日热搜
+        var hotSearch = table.render({
+            elem: &#x27;#hot-search&#x27;,
+            url: &#x27;../static/data/hot-search&#x27;,
+            page: true,
+            cols: [[
+                {title: &#x27;ID&#x27;, width:40, type: &#x27;numbers&#x27;, fixed: &#x27;left&#x27;},
+                {field: &#x27;keywords&#x27;, title: &#x27;标题&#x27;},
+                {field: &#x27;frequency&#x27;, title: &#x27;搜索次数&#x27;, sort: true},
+                {field: &#x27;userNums&#x27;, title: &#x27;用户数&#x27;, sort: true}
+            ]]
+        });
+
+        //今日热帖
+        var hotArticle = table.render({
+            elem: &#x27;#hot-article&#x27;,
+            url: &#x27;../static/data/hot-article&#x27;,
+            page: true,
+            cols: [[
+                {title: &#x27;ID&#x27;, width:40, type: &#x27;numbers&#x27;, fixed: &#x27;left&#x27;},
+                {field: &#x27;title&#x27;, title: &#x27;标题&#x27;, templet: function (d) {
+                    return &#x27;&lt;a href=&quot;javascript:;&quot; target=&quot;_blank&quot; class=&quot;layui-table-link&quot;&gt;&#x27; + d.title + &#x27;&lt;/a&gt;&#x27;;
+                }},
+                {field: &#x27;username&#x27;, title: &#x27;发帖者&#x27;},
+                {field: &#x27;channel&#x27;, title: &#x27;类别&#x27;},
+                {field: &#x27;crt&#x27;, title: &#x27;点击率&#x27;, sort: true}
+            ]]
+        });
+});
+                </pre>
+            </div>
+        </fieldset>
+
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>相关动态操作</legend>
+            <div class="layui-field-box">
+                1.子页面埋点打开选项卡，和父页面一致
+                <pre class="layui-code" lay-title="定义锚点">
+&lt;a href=&quot;javascript:;&quot; lying-src=&quot;/demo/page.html&quot; lying-title=&quot;测试页面&quot; lying-icon=&quot;layui-icon-shrink-right&quot;&gt;打开测试页面&lt;/a&gt;
+                </pre>
+                lying-src：定义锚点链接，也是锚点唯一ID<br>
+                lying-title：定义锚点名称，如果未定义，则tab显示`unnaming`<br>
+                lying-icon：定义锚点图标，支持三种形式的图标，如下
+                <pre class="layui-code" lay-title="图标形式">
+lying-icon=&quot;&lt;i class=&#x27;layui-icon&#x27;&gt;&amp;#xe609;&lt;/i&gt;&quot;
+lying-icon=&quot;#xe609&quot;
+lying-icon=&quot;layui-icon-shrink-right&quot;
+                </pre>
+
+                2.子页面调用layout组件
+                <pre class="layui-code" lay-title="调用layout组件">
+var layout = parent.layui.layout;
+    layout.popRight({content: '抽屉内容'});
+                </pre>
+
+            </div>
+        </fieldset>
+
+    </div>
+</div>
+
+</body>
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.config({base: '/static/js/'}).use(['admin', 'code'], function() {
+        layui.code({
+            about: false,
+            encode: true
+        });
+    });
+</script>
+</html>
