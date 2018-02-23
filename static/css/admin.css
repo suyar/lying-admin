@@ -159,3 +159,20 @@ body {
     margin-bottom: 10px;
     text-indent: 2em;
 }
+/*错误*/
+.lying-tips {
+    margin-top: 50px;
+    text-align: center;
+}
+.lying-tips .layui-icon {
+    display: inline-block;
+    font-size: 300px;
+    color: #393D49;
+}
+.lying-tips .layui-text {
+    width: 500px;
+    margin: 30px auto;
+    padding-top: 20px;
+    border-top: 5px solid #009688;
+    font-size: 20px;
+}

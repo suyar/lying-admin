@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>错误</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body>
+    <div class="layui-fluid">
+        <div class="lying-tips">
+            <i class="layui-icon">&#x1007;</i>
+            <div class="layui-text">好像出错了呢</div>
+        </div>
+    </div>
+</body>
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.config({base: '/static/js/'}).use(['admin', 'code'], function() {
+        layui.code({
+            about: false,
+            encode: true
+        });
+    });
+</script>
+</html>
