@@ -1,0 +1,46 @@
+.lau-body {
+    background-color: #F2F2F2;
+}
+.lau-login-form {
+    position: fixed;
+    width: 400px;
+    left: 50%;
+    margin-left: -200px;
+    height: 380px;
+    top: 50%;
+    margin-top: -190px;
+    box-sizing: border-box;
+    box-shadow: 0 0 20px 0 #999;
+    background-color: #fff;
+    padding: 15px;
+}
+.lau-login-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #666;
+    padding-bottom: 15px;
+    letter-spacing: 5px;
+}
+.layui-form-item {
+    position: relative;
+}
+.lau-login-icon {
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    width: 38px;
+    line-height: 36px;
+    text-align: center;
+    color: #666;
+}
+.lau-login-form .layui-form-item input {
+    padding-left: 38px;
+}
+
+
+
+
+
+
+
