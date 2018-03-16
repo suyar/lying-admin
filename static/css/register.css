@@ -7,14 +7,14 @@
 .lau-link:hover {
     opacity: 0.8;
 }
-.lau-login-form {
+.lau-reg-form {
     position: fixed;
     width: 380px;
     left: 50%;
     margin-left: -190px;
-    height: 400px;
+    height: 500px;
     top: 50%;
-    margin-top: -200px;
+    margin-top: -250px;
     box-sizing: border-box;
     box-shadow: 0 0 20px 0 #999;
     background-color: #fff;
@@ -27,7 +27,7 @@
 .layui-form-pane .layui-input-block {
     margin-left: 90px;
 }
-.lau-login-title {
+.lau-reg-title {
     text-align: center;
     font-size: 28px;
     font-weight: bold;
@@ -35,30 +35,35 @@
     padding: 10px 0 5px 0;
     letter-spacing: 5px;
 }
-.lau-login-subtitle {
+.lau-reg-subtitle {
     text-align: center;
     color: #999;
     letter-spacing: 1px;
     margin-bottom: 15px;
 }
-.lau-login-captcha input {
+.lau-reg-captcha input {
     width: 140px;
 }
-.lau-login-captcha img {
+.lau-reg-captcha img {
     position: absolute;
     top: 1px;
     right: 1px;
     height: 36px;
     cursor: pointer;
 }
-.lau-login-form.layui-form-pane .layui-form-checkbox {
+.lau-reg-captcha button {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.lau-reg-form.layui-form-pane .layui-form-checkbox {
     margin-left: 0;
 }
-.lau-login-forgot {
+.lau-reg-lic {
     float: right;
     margin-top: 7px;
 }
-.lau-login-other .layui-icon {
+.lau-reg-other .layui-icon {
     font-size: 26px;
 }
 .layui-icon-login-qq {
@@ -70,11 +75,11 @@
 .layui-icon-login-weibo {
     color: #CF1900;
 }
-.lau-login-reg {
+.lau-reg-login {
     float: right;
     margin-top: 3px;
 }
-.lau-login-footer {
+.lau-reg-footer {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -84,10 +89,10 @@
     padding: 20px;
     color: #999;
 }
-.lau-login-footer p {
+.lau-reg-footer p {
     height: 30px;
     line-height: 30px;
 }
-.lau-login-footer span {
+.lau-reg-footer span {
     padding: 0 5px;
 }

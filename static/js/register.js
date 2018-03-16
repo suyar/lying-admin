@@ -5,7 +5,7 @@ layui.define(['layer', 'form', 'tips'], function(exports) {
         tips = layui.tips;
 
     //刷新验证码
-    var captchaImg = $('.lau-login-captcha img'), captchaSrc = captchaImg.attr('src');
+    var captchaImg = $('.lau-reg-captcha img'), captchaSrc = captchaImg.attr('src');
     captchaImg.click(function () {
         $(this).attr('src', captchaSrc + '?_t=' + Math.random());
     });
@@ -21,19 +21,28 @@ layui.define(['layer', 'form', 'tips'], function(exports) {
 
     //登陆
     form.on('submit(login)', function (data) {
-        if (!/^[a-zA-Z0-9_]{4,16}$/.test(data.field.username)) {
-            tips.warning('用户名必须为5-16位数字/字母/下划线组成');
+        if (!/^\d{10}$/.test(data.field.phone)) {
+            tips.warning('请输入正确的手机号码');
             return false;
-        } else if (!/^\S{6,16}$/.test(data.field.password)) {
+        } else if (!/^\S{4,}$/.test(data.field.code)) {
+            tips.warning('手机验证码格式不正确');
+            return false;
+        } else if (!/^\S{6,16}$/.test(data.field.password) || !/^\S{6,16}$/.test(data.field.repassword)) {
             tips.warning('密码必须6-12位且不能出现空格');
             return false;
+        } else if (data.field.password !== data.field.repassword) {
+            tips.warning('两次密码输入不一致');
+            return false;
         } else if (!/^\S{4,}$/.test(data.field.captcha)) {
-            tips.warning('验证码格式不正确');
+            tips.warning('图形验证码格式不正确');
+            return false;
+        } else if (!data.field.license) {
+            tips.warning('你必须同意用户协议才能注册');
             return false;
         }
 
         //登陆中
-        tips.loading('登陆中...', 0, -1);
+        tips.loading('注册中...', 0, -1);
 
         //发送登陆表单
         $.post('/json/login.json', data.field, function (json) {
@@ -51,5 +60,5 @@ layui.define(['layer', 'form', 'tips'], function(exports) {
         return false;
     });
 
-    exports('login', {});
+    exports('register', {});
 });
