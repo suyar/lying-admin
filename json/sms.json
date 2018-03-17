@@ -1,0 +1,7 @@
+{
+  "errcode": 0,
+  "errmsg": "验证码获取成功",
+  "data": {
+    "expire": 90
+  }
+}
