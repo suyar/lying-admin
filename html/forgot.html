@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>登录LAU</title>
+    <title>重置LAU密码</title>
     <link rel="stylesheet" href="/static/layui/css/layui.css">
     <link rel="stylesheet" href="/static/css/sign.css">
     <script>(window.top === window.self) || (window.top.location.href = window.self.location.href);</script>
@@ -12,18 +12,12 @@
 <body class="layui-unselect lau-sign-body">
 
 <div class="layui-form layui-form-pane lau-sign-form">
-    <h1 class="lau-sign-title">SIGN IN LAU</h1>
+    <h1 class="lau-sign-title">RESET PASS</h1>
     <p class="lau-sign-subtitle">一套抄袭layuiAdmin的后台框架</p>
     <div class="layui-form-item">
         <label class="layui-form-label"><i class="layui-icon layui-icon-username"></i> 账　号</label>
         <div class="layui-input-block">
-            <input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label"><i class="layui-icon layui-icon-password"></i> 密　码</label>
-        <div class="layui-input-block">
-            <input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            <input type="text" name="phone" placeholder="请输入注册时的手机号码" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -34,17 +28,26 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
-        <a class="lau-sign-forgot lau-sign-link" href="/html/forgot.html">忘记密码？</a>
+        <label class="layui-form-label"><i class="layui-icon layui-icon-vercode"></i> 验证码</label>
+        <div class="layui-input-block lau-sign-code">
+            <input type="text" name="code" placeholder="请输入短信验证码" autocomplete="off" class="layui-input">
+            <button type="button" class="layui-btn layui-btn-primary lau-sign-sms">获取验证码</button>
+        </div>
     </div>
     <div class="layui-form-item">
-        <button type="button" class="layui-btn layui-btn-fluid" lay-submit lay-filter="login">登 入</button>
+        <label class="layui-form-label"><i class="layui-icon layui-icon-password"></i> 密　码</label>
+        <div class="layui-input-block">
+            <input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+        </div>
     </div>
-    <div class="layui-form-item lau-sign-other">
-        <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>
-        <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>
-        <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>
-        <a href="/html/register.html" class="lau-sign-reg lau-sign-link">还没有账号？立即注册</a>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="layui-icon layui-icon-password"></i> 密　码</label>
+        <div class="layui-input-block">
+            <input type="password" name="repassword" placeholder="请再次输入密码" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <button type="button" class="layui-btn layui-btn-fluid" lay-submit lay-filter="forgot">重 置</button>
     </div>
 </div>
 <div class="layui-trans lau-sign-footer">
@@ -60,6 +63,6 @@
 </body>
 <script src="/static/layui/layui.js"></script>
 <script>
-    layui.config({base: '/static/js/'}).use('login');
+    layui.config({base: '/static/js/'}).use('forgot');
 </script>
 </html>

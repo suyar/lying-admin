@@ -5,7 +5,7 @@ layui.define(['layer', 'form', 'tips'], function(exports) {
         tips = layui.tips;
 
     //刷新验证码
-    var captchaImg = $('.lau-login-captcha img'), captchaSrc = captchaImg.attr('src');
+    var captchaImg = $('.lau-sign-captcha'), captchaSrc = captchaImg.attr('src');
     captchaImg.click(function () {
         $(this).attr('src', captchaSrc + '?_t=' + Math.random());
     });

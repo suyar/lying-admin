@@ -26,9 +26,14 @@ layui.define(['layer', 'form', 'tips'], function(exports) {
             return tips.warning('请输入正确的手机号码');
         }
 
+        var captcha = $('input[name="captcha"]').val();
+        if (!/^\S{4,}$/.test(captcha)) {
+            return tips.warning('图形验证码格式不正确');
+        }
+
         var that = $(this);
         that.attr('disabled', true).addClass('layui-btn-disabled');
-        $.post('/json/sms.json', {phone: phone}, function (json) {
+        $.post('/json/sms.json', {phone: phone, captcha: captcha}, function (json) {
             if (json.errcode == 0) {
                 tips.success(json.errmsg);
                 var expire = json.data.expire;
@@ -50,31 +55,8 @@ layui.define(['layer', 'form', 'tips'], function(exports) {
         }, 'json');
     });
 
-    //弹出用户注册协议
-    $('.lau-sign-lic').click(function () {
-        var license = $('input[name="license"]');
-        layer.open({
-            title: 'LAU 官方站 网站服务条款',
-            type: 1,
-            area: ['700px', '450px'],
-            content: $('#license').html(),
-            btn: ['同意', '拒绝'],
-            btnAlign: 'c',
-            yes: function (index, layero) {
-                license.prop('checked', true);
-                form.render('checkbox');
-                layer.close(index);
-            },
-            btn2: function (index, layero) {
-                license.prop('checked', false);
-                form.render('checkbox');
-                layer.alert('您拒绝了LAU协议，可能需要吊起来打');
-            }
-        });
-    });
-
-    //注册
-    form.on('submit(register)', function (data) {
+    //重置
+    form.on('submit(forgot)', function (data) {
         if (!/^1\d{10}$/.test(data.field.phone)) {
             tips.warning('请输入正确的手机号码');
             return false;
@@ -87,32 +69,24 @@ layui.define(['layer', 'form', 'tips'], function(exports) {
         } else if (data.field.password !== data.field.repassword) {
             tips.warning('两次密码输入不一致');
             return false;
-        } else if (!/^\S{4,}$/.test(data.field.captcha)) {
-            tips.warning('图形验证码格式不正确');
-            return false;
-        } else if (!data.field.license) {
-            tips.warning('你必须同意用户协议才能注册');
-            return false;
         }
 
-        //注册中
-        tips.loading('注册中...', 0, -1);
+        //请稍后
+        tips.loading('请稍后...', 0, -1);
 
-        //发送注册表单
-        $.post('/json/register.json', data.field, function (json) {
+        //发送重置表单
+        $.post('/json/forgot.json', data.field, function (json) {
             if (json.errcode == 0) {
                 tips.success(json.errmsg, function () {
                     location.href = '/html/login.html';
                 });
             } else {
-                tips.error(json.errmsg, function () {
-                    captchaImg.attr('src', captchaSrc + '?_t=' + Math.random());
-                });
+                tips.error(json.errmsg);
             }
         }, 'json');
 
         return false;
     });
 
-    exports('register', {});
+    exports('forgot', {});
 });
