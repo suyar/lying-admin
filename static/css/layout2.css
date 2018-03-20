@@ -1,0 +1,246 @@
+/*顶部导航*/
+.layui-layout-admin .layui-header {
+    height: 50px;
+    background-color: #373D41;
+    box-sizing: border-box;
+    border-bottom: 1px solid #2a2f32;
+}
+.layui-layout-admin .layui-header .lau-logo-mini {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    width: 50px;
+    text-align: center;
+    border-right: 1px solid #2a2f32;
+}
+.layui-layout-admin .layui-header .lau-logo-mini .layui-icon {
+    color: #fff;
+    font-size: 18px;
+}
+.layui-layout-admin .layui-header .layui-logo {
+    left: 50px;
+    line-height: 50px;
+    width: 130px;
+    border-right: 1px solid #2a2f32;
+}
+.layui-layout-admin .layui-header .layui-layout-left {
+    left: 180px;
+}
+.layui-layout-admin .layui-header .layui-nav {
+    padding: 0;
+}
+.layui-layout-admin .layui-header .layui-nav .layui-nav-item {
+    height: 50px;
+    line-height: 50px;
+}
+.layui-layout-admin .layui-header .layui-nav-child {
+    top: 55px;
+}
+.layui-layout-admin .layui-header .layui-nav-bar {
+    top: 0!important;
+    height: 3px;
+    bottom: auto;
+}
+/*侧栏菜单*/
+.layui-layout-admin .layui-side {
+    top: 50px;
+    width: 180px;
+    border-right: 1px solid #2a2f32;
+    background-color: #373D41;
+    -webkit-transition: width 0.2s;
+    transition: width 0.2s;
+}
+.layui-layout-admin .layui-side .layui-side-scroll {
+    width: 200px;
+    -webkit-transition: width 0.2s;
+    transition: width 0.2s;
+}
+.layui-layout-admin .layui-side .layui-side-scroll .layui-nav-tree {
+    width: 180px;
+    background-color: rgba(255,255,255,0.1);
+    -webkit-transition: width 0.2s;
+    transition: width 0.2s;
+}
+.layui-layout-admin .layui-side .lau-side-fold {
+    text-align: center;
+    padding-right: 20px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #373D41;
+    border-bottom: 1px solid #2a2f32;
+    cursor: pointer;
+}
+.layui-layout-admin .layui-side .lau-side-fold .layui-icon {
+    display: inline-block;
+    color: #fff;
+    font-size: 14px;
+    -webkit-transition: transform 0.2s;
+    transition: transform 0.2s;
+}
+.layui-layout-admin .layui-side .lau-nav-item a {
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    display: block;
+    overflow: hidden;
+    color: #fff;
+    letter-spacing: 1px;
+    -webkit-transition: background-color 0.2s;
+    transition: background-color 0.2s;
+}
+.layui-layout-admin .layui-side .lau-nav-item a .layui-icon {
+    display: inline-block;
+    width: 50px;
+    text-align: center;
+    -webkit-transition: transform 0.2s;
+    transition: transform 0.2s;
+}
+.layui-layout-admin .layui-side .lau-nav-item.lau-open .lau-nav-header .layui-icon {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.layui-layout-admin .layui-side .lau-nav-item .lau-nav-child {
+    background-color: #373D41;
+    overflow: hidden;
+}
+.layui-layout-admin .layui-side .lau-nav-item .lau-nav-child a {
+    height: 0;
+    -webkit-transition: height 0.2s, background-color 0.2s;
+    transition: height 0.2s, background-color 0.2s;
+}
+.layui-layout-admin .layui-side .lau-nav-item .lau-nav-child a:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+.layui-layout-admin .layui-side .lau-nav-item.lau-open .lau-nav-child a {
+    height: 40px;
+}
+.layui-layout-admin .layui-side.lau-mini {
+    width: 50px;
+}
+.layui-layout-admin .layui-side.lau-mini .layui-side-scroll {
+    width: 70px;
+}
+.layui-layout-admin .layui-side.lau-mini .layui-side-scroll .layui-nav-tree {
+    width: 50px;
+}
+.layui-layout-admin .layui-side.lau-mini .layui-side-scroll .lau-side-fold .layui-icon {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+/*内容主体*/
+.layui-layout-admin .layui-body {
+    top: 50px;
+    bottom: 0;
+    left: 180px;
+    overflow: hidden;
+    -webkit-transition: left 0.2s;
+    transition: left 0.2s;
+}
+.layui-layout-admin .layui-side.lau-mini + .layui-body {
+    left: 50px;
+}
+/*选项卡控制菜单*/
+.layui-body .lau-tabs-ctrl {
+    position: absolute;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    text-align: center;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    border-bottom: 1px solid #f6f6f6;
+    background-color: #fff;
+    z-index: 9999;
+}
+.layui-body .lau-tabs-ctrl:hover {
+    background-color: #f6f6f6;
+}
+.layui-body .lau-tabs-ctrl.layui-icon-prev {
+    left: 0;
+    border-right: 1px solid #f6f6f6;
+}
+.layui-body .lau-tabs-ctrl.layui-icon-next {
+    right: 40px;
+    border-left: 1px solid #f6f6f6;
+}
+.layui-body .lau-tabs-ctrl.layui-icon-down {
+    right: 0;
+    border-left: 1px solid #f6f6f6;
+}
+.layui-body .lau-tabs-more.layui-nav {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    background: none;
+}
+.layui-body .lau-tabs-more.layui-nav .layui-nav-item {
+    line-height: 40px;
+}
+.layui-body .lau-tabs-more.layui-nav .layui-nav-item > a {
+    height: 40px;
+}
+.layui-body .lau-tabs-more.layui-nav .layui-nav-item a {
+    color: #666;
+}
+.layui-body .lau-tabs-more.layui-nav .layui-nav-child {
+    top: 40px;
+    left: auto;
+    right: 0;
+}
+.layui-body .lau-tabs-more.layui-nav .layui-nav-child dd.layui-this, .layui-body .lau-tabs-more.layui-nav .layui-nav-child dd.layui-this a {
+    background-color: #f2f2f2!important;
+    color: #333;
+}
+.layui-body .lau-tabs-more.layui-nav .layui-nav-more, .layui-body .lau-tabs-more.layui-nav .layui-nav-bar {
+    display: none;
+}
+/*重置选项卡导航条样式*/
+.layui-body .layui-tab {
+    margin: 0;
+}
+.layui-body .layui-tab-bar {
+    display: none;
+}
+.layui-body .layui-tab-title {
+    margin: 0 80px 0 40px;
+    border-bottom-color: #f6f6f6;
+}
+.layui-body .layui-tab[overflow]>.layui-tab-title {
+    overflow: visible;
+}
+.layui-body .layui-tab-brief[overflow]>.layui-tab-title .layui-this:after {
+    top: 0;
+}
+.layui-body .layui-tab-title li:first-child i.layui-tab-close {
+    display: none;
+}
+.layui-body .layui-tab-title li {
+    height: 40px;
+    border-bottom: 1px solid #f6f6f6;
+}
+.layui-body .layui-tab-title li:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 41px;
+    border-radius: 0;
+    border-bottom: 2px solid #5FB878;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+}
+.layui-body .layui-tab-title li.layui-this:after {
+    width: 100%;
+}
+.layui-body .layui-tab-brief>.layui-tab-title .layui-this {
+    background-color: #f6f6f6;
+}
+
+
+
+
