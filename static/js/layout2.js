@@ -129,7 +129,7 @@ layui.define(['layer', 'element'], function(exports) {
         var layid = id || src;
         if ($('li[lay-id="' + layid + '"]').length === 0) {
             if (icon) {
-                title = '<i class="layui-icon ' + icon + '"></i> ' + title;
+                title = '<i class="' + icon + '"></i> ' + title;
             }
             element.tabAdd(this.filter, {
                 title: title || src,
@@ -143,16 +143,16 @@ layui.define(['layer', 'element'], function(exports) {
     };
 
     /**
-     * 删除除选中和第一个外的其他选项卡
+     * 关闭除选中和第一个外的其他选项卡
      * @returns {Layout}
      */
     Layout.prototype.tabCloseSiblings = function () {
-        $('.layui-body .layui-tab-title li:not(.layui-this):not(:first)').find('.layui-tab-close').trigger('click');
+        $('.layui-body .layui-tab-title li:not(:first):not(.layui-this)').find('.layui-tab-close').trigger('click');
         return this;
     };
 
     /**
-     * 删除第一个外的所有选项卡
+     * 关闭第一个外的所有选项卡
      * @returns {Layout}
      */
     Layout.prototype.tabCloseAll = function () {
@@ -160,20 +160,114 @@ layui.define(['layer', 'element'], function(exports) {
         return this;
     };
 
+    /**
+     * 关闭第N个选项卡
+     * @param index 选项卡的索引,从0开始,但是0不可删除
+     * @returns {Layout}
+     */
+    Layout.prototype.tabCloseEq = function (index) {
+        index && $('.layui-body .layui-tab-title li:eq(' + index + ')').find('.layui-tab-close').trigger('click');
+        return this;
+    };
 
+    /**
+     * 根据layid关闭选项卡
+     * @param id 选项卡的layid
+     * @returns {Layout}
+     */
+    Layout.prototype.tabCloseId = function (id) {
+        element.tabDelete(this.filter, id);
+        return this;
+    };
 
+    /**
+     * 关闭当前选项卡
+     * @returns {Layout}
+     */
+    Layout.prototype.tabCloseThis = function () {
+        $('.layui-body .layui-tab-title li:not(:first).layui-this').find('.layui-tab-close').trigger('click');
+        return this;
+    };
 
+    /**
+     * 切换到第N个选项卡
+     * @param index 选项卡的索引,从0开始
+     * @returns {Layout}
+     */
+    Layout.prototype.tabChangeEq = function (index) {
+        $('.layui-body .layui-tab-title li:eq(' + index + ')').trigger('click');
+        return this;
+    };
 
+    /**
+     * 根据layid切换选项卡
+     * @param id 选项卡的layid
+     * @returns {Layout}
+     */
+    Layout.prototype.tabChangeId = function (id) {
+        element.tabChange(this.filter, id);
+        return this;
+    };
 
+    /**
+     * 刷新当前选项卡
+     * @returns {Layout}
+     */
+    Layout.prototype.reload = function () {
+        var iframe = $('.layui-body .layui-tab-item.layui-show').find('iframe');
+        iframe.length && iframe.attr('src', iframe.attr('src'));
+        return this;
+    };
+
+    //实例化对象
+    var obj = new Layout();
+    obj.getTitleLen().getTabLen().getDiff();
+
+    //单击左移
+    $(document).on('click', '.lau-tabs-ctrl.layui-icon-prev', function () {
+        obj.tabLeft();
+    });
+
+    //单击右移
+    $(document).on('click', '.lau-tabs-ctrl.layui-icon-next', function () {
+        obj.tabRight();
+    });
+
+    //单击刷新
+    $(document).on('click', '.lau-tabs-ctrl.layui-icon-refresh-3', function () {
+        obj.reload();
+    });
+
+    //监听选项卡的更多操作
+    element.on('nav(lau-tabs-more)', function(elem) {
+        var dd = elem.parent();
+        dd.removeClass('layui-this');
+        dd.parent().removeClass('layui-show');
+        switch (elem.prop('class')) {
+            case 'lau-tabs-close-this':obj.tabCloseThis();break;
+            case 'lau-tabs-close-siblings':obj.tabCloseSiblings();break;
+            case 'lau-tabs-close-all':obj.tabCloseAll();break;
+        }
+    });
+
+    //监听窗口大小改变
+    $(window).resize(function () {
+        obj.resize();
+    });
+
+    //监听关闭选项卡
+    element.on('tabDelete(' + obj.filter + ')', function(data) {
+        obj.getTabLen().resize();
+    });
 
     //判断左侧菜单是否要展开
     var sideStatus = layui.data('sideStatus'), sideObj = $('.layui-layout-admin .layui-side');
     sideStatus && setTimeout(function () {
         var isMini = sideObj.hasClass('lau-mini');
         if (sideStatus.open && isMini) {
-            sideObj.removeClass('lau-mini');// && obj.delayResize();
+            sideObj.removeClass('lau-mini') && obj.delayResize();
         } else if (!sideStatus.open && !isMini) {
-            sideObj.addClass('lau-mini');// && obj.delayResize();
+            sideObj.addClass('lau-mini') && obj.delayResize();
         }
     }, 1000);
 
@@ -181,7 +275,7 @@ layui.define(['layer', 'element'], function(exports) {
     $(document).on('click', '.lau-side-fold', function () {
         sideObj.toggleClass('lau-mini');
         layui.data('sideStatus', {key: 'open', value: !sideObj.hasClass('lau-mini')});
-        //obj.delayResize();
+        obj.delayResize();
     });
 
     //监听菜单展开
@@ -195,7 +289,29 @@ layui.define(['layer', 'element'], function(exports) {
         layer.tips($(this).find('cite').text(), this, {time: 1000, tips: [2, '#53616F']});
     });
 
+    //监听锚点打开选项卡
+    $(document).on('click', '*[lau-href]', function () {
+        var _this = $(this),
+            href = _this.attr('lau-href'),
+            layid = _this.attr('lau-id');
+        if (_this.parents('.lau-nav-item').length) {
+            if (_this.next('.lau-nav-child').length === 0) {
+                obj.tabAdd(href, _this.find('cite').text(), _this.find('i').prop('class'), layid);
+            }
+        } else {
+            obj.tabAdd(href, _this.attr('lau-title'), _this.attr('lau-icon'), _this.attr('lau-id'));
+        }
+    });
 
+    //监听选项卡切换
+    element.on('tab(' + obj.filter + ')', function(data) {
+        var layid = $(this).attr('lay-id');
 
-    exports('layout2', {});
+        //需要区分无子菜单的选项
+        //todo:重新渲染侧边菜单
+        //var src = $(this).attr('lay-id'), pmenu = $('.lying-nav-child [lying-src="' + src + '"]').parents('.lying-nav-item');
+        //pmenu.length && (pmenu.hasClass('lying-nav-open') || pmenu.find('.lying-nav-header').trigger('click'));
+    });
+
+    exports('layout2', obj);
 });

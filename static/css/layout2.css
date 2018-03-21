@@ -1,3 +1,6 @@
+*[lay-href] {
+    cursor: pointer;
+}
 /*顶部导航*/
 .layui-layout-admin .layui-header {
     height: 50px;
@@ -236,6 +239,9 @@
     box-sizing: border-box;
     -webkit-transition: all .2s;
     transition: all .2s;
+}
+.layui-body .layui-tab-brief[overflow]>.layui-tab-title .layui-this:after {
+    top: 0;
 }
 .layui-body .layui-tab-title li.layui-this:after {
     width: 100%;
