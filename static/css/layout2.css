@@ -265,7 +265,58 @@
     height: 100%;
     border: none;
 }
-
-
-
+/*抽屉*/
+@-webkit-keyframes layui-rl {
+    from {
+        -webkit-transform: translate3d(100%, 0, 0);
+    }
+    to {
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+}
+@keyframes layui-rl {
+    from {
+        transform: translate3d(100%, 0, 0);
+    }
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+}
+.layui-anim-rl {
+    -webkit-animation-name: layui-rl;
+    animation-name: layui-rl;
+}
+@-webkit-keyframes layui-lr {
+    from {
+        -webkit-transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+    to {
+        -webkit-transform: translate3d(100%, 0, 0);
+        opacity: 1;
+    }
+}
+@keyframes layui-lr {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(100%, 0, 0);
+    }
+}
+.layui-anim-lr {
+    -webkit-animation-name: layui-lr;
+    animation-name: layui-lr;
+}
+.layui-anim-rl.layer-anim-close {
+    -webkit-animation-name: layui-lr;
+    animation-name: layui-lr;
+}
+.lau-drawer {
+    top: 50px !important;
+    bottom: 0;
+    box-shadow: 1px 1px 10px rgba(0,0,0,.1);
+    border-radius: 0!important;
+    overflow: auto;
+}
 

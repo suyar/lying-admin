@@ -26,7 +26,7 @@ layui.define(['layer', 'element', 'laytpl'], function(exports) {
             '{{# } }}',
         '</li>',
         '{{# }); }}'
-    ];
+    ].join('');
 
     /**
      * Layout对象
@@ -38,6 +38,8 @@ layui.define(['layer', 'element', 'laytpl'], function(exports) {
         this.diff = 0;
         this.title = $('.layui-body .layui-tab-title');
         this.filter = $('.layui-body .layui-tab').attr('lay-filter');
+        this.sideMenu = $('.layui-side .layui-nav');
+        this.sideMenuData = [];
     };
 
     /**
@@ -244,19 +246,61 @@ layui.define(['layer', 'element', 'laytpl'], function(exports) {
         return this;
     };
 
-    Layout.prototype.sideMenuLoad = function (menusData) {
-        //todo:重新载入菜单
+    /**
+     * 载入所有侧栏菜单数组
+     * @param menus 所有菜单,一个二维数组
+     * @returns {Layout}
+     */
+    Layout.prototype.sideMenuLoad = function (menus) {
+        this.sideMenuData = menus;
+        return this.sideMenuChange(0);
+    };
+
+    /**
+     * 切换到某个侧栏菜单
+     * @param index 侧栏菜单索引
+     * @returns {Layout}
+     */
+    Layout.prototype.sideMenuChange = function (index) {
+        this.sideMenuData[index] && this.sideMenuRender(this.sideMenuData[index]);
         return this;
     };
 
-    Layout.prototype.sideMenuChange = function (menuName) {
-        //todo:切换到某个菜单
-        return this;
+    /**
+     * 根据menu重新渲染侧栏菜单
+     * @param menu 要渲染的菜单结构,提供一个数组
+     * @returns {Layout}
+     */
+    Layout.prototype.sideMenuRender = function (menu) {
+        _this = this;
+        if (typeof menu === 'object') {
+            laytpl(sideMenuTpl).render(menu, function (str) {
+                _this.sideMenu.fadeOut(function () {
+                    _this.sideMenu.html(str).fadeIn();
+                });
+            });
+        }
+        return _this;
     };
 
-    Layout.prototype.sideMenuRender = function (menuData) {
-        //todo:渲染某个菜单
-        return this;
+    /**
+     * 弹出右侧抽屉
+     * @param options
+     * @returns {*|Promise<Cache>|void|IDBOpenDBRequest|Window|Document}
+     */
+    Layout.prototype.drawer = function (options) {
+        return layer.open($.extend({
+            type: 1,
+            id: "drawer",
+            anim: -1,
+            title: false,
+            closeBtn: false,
+            offset: "r",
+            shade: 0.1,
+            shadeClose: true,
+            skin: "layui-anim layui-anim-rl lau-drawer",
+            area: "300px"
+        }, options));
     };
 
     //实例化对象
@@ -356,29 +400,6 @@ layui.define(['layer', 'element', 'laytpl'], function(exports) {
             }
         }
     });
-
-
-
-
-    //侧栏菜单
-    var menu = [{
-        title: '一级菜单',
-        href: '/doc/start.html',
-        list: [{
-            title: '二级菜单',
-            href: '/doc/inset.html'
-        }]
-    }, {
-        title: '一级菜单',
-        href: '/doc/layout.html'
-    }];
-
-    //重新渲染侧栏
-    laytpl(menuTpl.join('')).render(menu, function (str) {
-        $('.layui-side .layui-nav').html(str);
-    });
-
-
 
     exports('layout2', obj);
 });
