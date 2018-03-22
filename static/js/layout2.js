@@ -1,7 +1,32 @@
-layui.define(['layer', 'element'], function(exports) {
+layui.define(['layer', 'element', 'laytpl'], function(exports) {
     var element = layui.element,
         layer = layui.layer,
+        laytpl = layui.laytpl,
         $ = layui.$;
+
+    //侧栏菜单的模板,用于重新渲染
+    var sideMenuTpl = [
+        '{{# layui.each(d, function(index, item) { }}',
+        '<li class="lau-nav-item">',
+            '<a class="lau-nav-header" href="javascript:;" {{ item.href ? \'lau-href="\' + item.href + \'"\' : \'\' }} {{ item.id ? \'lau-id="\' + item.id + \'"\' : \'\' }}>',
+                '<i class="{{ item.icon || \'layui-icon layui-icon-right\' }}"></i>',
+                '<cite>{{ item.title }}</cite>',
+            '</a>',
+            '{{# if (item.list) { }}',
+            '<dl class="lau-nav-child">',
+                '{{# layui.each(item.list, function(index2, item2) { }}',
+                '<dd>',
+                    '<a href="javascript:;" {{ item2.href ? \'lau-href="\' + item2.href + \'"\' : \'\' }} {{ item2.id ? \'lau-id="\' + item2.id + \'"\' : \'\' }}>',
+                        '<i class="{{ item2.icon || \'layui-icon layui-icon-danxuankuanghouxuan\' }}"></i>',
+                        '<cite>{{ item2.title }}</cite>',
+                    '</a>',
+                '</dd>',
+                '{{# }); }}',
+            '</dl>',
+            '{{# } }}',
+        '</li>',
+        '{{# }); }}'
+    ];
 
     /**
      * Layout对象
@@ -219,6 +244,21 @@ layui.define(['layer', 'element'], function(exports) {
         return this;
     };
 
+    Layout.prototype.sideMenuLoad = function (menusData) {
+        //todo:重新载入菜单
+        return this;
+    };
+
+    Layout.prototype.sideMenuChange = function (menuName) {
+        //todo:切换到某个菜单
+        return this;
+    };
+
+    Layout.prototype.sideMenuRender = function (menuData) {
+        //todo:渲染某个菜单
+        return this;
+    };
+
     //实例化对象
     var obj = new Layout();
     obj.getTitleLen().getTabLen().getDiff();
@@ -316,6 +356,29 @@ layui.define(['layer', 'element'], function(exports) {
             }
         }
     });
+
+
+
+
+    //侧栏菜单
+    var menu = [{
+        title: '一级菜单',
+        href: '/doc/start.html',
+        list: [{
+            title: '二级菜单',
+            href: '/doc/inset.html'
+        }]
+    }, {
+        title: '一级菜单',
+        href: '/doc/layout.html'
+    }];
+
+    //重新渲染侧栏
+    laytpl(menuTpl.join('')).render(menu, function (str) {
+        $('.layui-side .layui-nav').html(str);
+    });
+
+
 
     exports('layout2', obj);
 });
