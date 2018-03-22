@@ -305,12 +305,16 @@ layui.define(['layer', 'element'], function(exports) {
 
     //监听选项卡切换
     element.on('tab(' + obj.filter + ')', function(data) {
-        var layid = $(this).attr('lay-id');
-
-        //需要区分无子菜单的选项
-        //todo:重新渲染侧边菜单
-        //var src = $(this).attr('lay-id'), pmenu = $('.lying-nav-child [lying-src="' + src + '"]').parents('.lying-nav-item');
-        //pmenu.length && (pmenu.hasClass('lying-nav-open') || pmenu.find('.lying-nav-header').trigger('click'));
+        var layid = $(this).attr('lay-id'),
+            menu = $('.layui-side .lau-nav-item a[lau-href="' + layid + '"], .layui-side .lau-nav-item a[lau-id="' + layid + '"]');
+        if (menu.length && !menu.next('.lau-nav-child').length) {
+            if (menu.hasClass('lau-nav-header')) {
+                menu.parent().siblings().removeClass('lau-open');
+            } else {
+                var pmenu = menu.parents('.lau-nav-item');
+                pmenu.length && !pmenu.hasClass('lau-open') && pmenu.addClass('lau-open').siblings().removeClass('lau-open');
+            }
+        }
     });
 
     exports('layout2', obj);
