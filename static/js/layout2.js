@@ -336,7 +336,7 @@ layui.define(['layer', 'element', 'laytpl'], function(exports) {
 
     //监听窗口大小改变
     $(window).resize(function () {
-        obj.resize();
+        obj.delayResize();
     });
 
     //监听关闭选项卡

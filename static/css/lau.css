@@ -1,0 +1,18 @@
+/*全局*/
+html{
+    overflow-x: hidden;
+    height: 100%;
+}
+body {
+    background-color: #f2f2f2;
+    padding: 15px;
+    color: #666;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+*[lay-href] {
+    cursor: pointer;
+}
