@@ -156,7 +156,11 @@ layui.define(['layer', 'element', 'laytpl'], function(exports) {
         var layid = id || src;
         if ($('li[lay-id="' + layid + '"]').length === 0) {
             if (icon) {
-                title = '<i class="' + icon + '"></i> ' + title;
+                if (icon.split(/\s+/).length < 2) {
+                    title = '<i class="layui-icon ' + icon + '"></i> ' + title;
+                } else {
+                    title = '<i class="' + icon + '"></i> ' + title;
+                }
             }
             element.tabAdd(this.filter, {
                 title: title || src,
