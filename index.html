@@ -7,35 +7,36 @@
     <title>LAU后台模板</title>
     <link rel="stylesheet" href="/static/layui/css/layui.css">
     <link rel="stylesheet" href="/static/css/layout.css">
+    <script>(window.top === window.self) || (window.top.location.href = window.self.location.href);</script>
 </head>
 <body class="layui-layout-body layui-unselect">
 <div class="layui-layout layui-layout-admin">
     <!--顶部导航开始-->
     <div class="layui-header">
-        <a href="###" class="lying-logo-mini"><i class="layui-icon">&#xe609;</i></a>
-        <a href="###" class="layui-logo">L A U</a>
+        <a href="javascript:;" class="lau-logo-mini"><i class="layui-icon layui-icon-logo"></i></a>
+        <a href="javascript:;" class="layui-logo">L A U</a>
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item" lay-unselect><a href="###">控制台</a></li>
-            <li class="layui-nav-item" lay-unselect><a href="###">商品管理</a></li>
+            <li class="layui-nav-item" lay-unselect><a href="javascript:;">控制台</a></li>
+            <li class="layui-nav-item" lay-unselect><a href="javascript:;">商品管理</a></li>
             <li class="layui-nav-item" lay-unselect>
                 <a href="javascript:;">其它系统</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="###">邮件管理</a></dd>
-                    <dd><a href="###">消息管理</a></dd>
-                    <dd><a href="###">授权管理</a></dd>
+                    <dd><a href="javascript:;">邮件管理</a></dd>
+                    <dd><a href="javascript:;">消息管理</a></dd>
+                    <dd><a href="javascript:;">授权管理</a></dd>
                 </dl>
             </li>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item" lay-unselect>
-                <a href="javascript:;">贤心</a>
+                <a href="javascript:;">小黑屋</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="###">基本资料</a></dd>
-                    <dd><a href="###">安全设置</a></dd>
+                    <dd><a href="javascript:;">基本资料</a></dd>
+                    <dd><a href="javascript:;">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item" lay-unselect><a href="###">退了</a></li>
-            <li class="layui-nav-item" lay-unselect><a href="javascript:;" id="pop-right"><i class="layui-icon layui-icon-more-vertical"></i></a></li>
+            <li class="layui-nav-item" lay-unselect><a href="javascript:;">退了</a></li>
+            <li class="layui-nav-item" lay-unselect><a href="javascript:;"><i class="layui-icon layui-icon-more-vertical"></i></a></li>
         </ul>
     </div>
     <!--顶部导航结束-->
@@ -43,78 +44,82 @@
     <!--侧边菜单开始-->
     <div class="layui-side">
         <div class="layui-side-scroll">
+            <div class="lau-side-fold"><i class="layui-icon layui-icon-shrink-right"></i></div>
             <ul class="layui-nav layui-nav-tree">
-                <!--侧栏缩进图标开始-->
-                <li class="lying-nav-fold"><i class="layui-icon layui-icon-shrink-right"></i></li>
-                <!--侧栏缩进图标结束-->
-
-                <li class="lying-nav-item lying-nav-open">
-                    <a class="lying-nav-header" href="javascript:;">
-                        <div class="lying-nav-icon"><i class="layui-icon">&#xe602;</i></div>
-                        <span class="lying-nav-title">所有商品</span>
+                <li class="lau-nav-item lau-open">
+                    <a class="lau-nav-header" href="javascript:;">
+                        <i class="layui-icon layui-icon-right"></i>
+                        <cite>所有商品</cite>
                     </a>
-                    <dl class="lying-nav-child">
+                    <dl class="lau-nav-child">
                         <dd>
-                            <a href="javascript:;" lying-src="/html/error.html">
-                                <div class="lying-nav-icon"><i class="layui-icon">&#xe69c;</i></div>
-                                <span class="lying-nav-title">错误页面</span>
+                            <a href="javascript:;">
+                                <i class="layui-icon layui-icon-danxuankuanghouxuan"></i>
+                                <cite>错误页面</cite>
                             </a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" lying-src="">
-                                <div class="lying-nav-icon"><i class="layui-icon">&#xe634;</i></div>
-                                <span class="lying-nav-title">轮播组图</span>
+                            <a href="javascript:;">
+                                <i class="layui-icon layui-icon-danxuankuanghouxuan"></i>
+                                <cite>轮播组图</cite>
                             </a>
                         </dd>
                     </dl>
                 </li>
 
-                <li class="lying-nav-item">
-                    <a class="lying-nav-header" href="javascript:;">
-                        <div class="lying-nav-icon"><i class="layui-icon">&#xe602;</i></div>
-                        <span class="lying-nav-title">系统设置</span>
+                <li class="lau-nav-item">
+                    <a class="lau-nav-header" href="javascript:;">
+                        <i class="layui-icon layui-icon-right"></i>
+                        <cite>系统设置</cite>
                     </a>
-                    <dl class="lying-nav-child">
+                    <dl class="lau-nav-child">
                         <dd>
-                            <a href="javascript:;" lying-src="">
-                                <div class="lying-nav-icon"><i class="layui-icon">&#xe63f;</i></div>
-                                <span class="lying-nav-title">菜单管理</span>
+                            <a href="javascript:;">
+                                <i class="layui-icon layui-icon-danxuankuanghouxuan"></i>
+                                <cite>菜单管理</cite>
                             </a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" lying-src="">
-                                <div class="lying-nav-icon"><i class="layui-icon">&#xe63f;</i></div>
-                                <span class="lying-nav-title">细节权限</span>
+                            <a href="javascript:;">
+                                <i class="layui-icon layui-icon-danxuankuanghouxuan"></i>
+                                <cite>细节权限</cite>
                             </a>
                         </dd>
                     </dl>
                 </li>
 
-                <li class="lying-nav-item">
-                    <a class="lying-nav-header" href="javascript:;">
-                        <div class="lying-nav-icon"><i class="layui-icon">&#xe705;</i></div>
-                        <span class="lying-nav-title">文档</span>
+                <li class="lau-nav-item">
+                    <a class="lau-nav-header" href="javascript:;">
+                        <i class="layui-icon layui-icon-right"></i>
+                        <cite>文档管理</cite>
                     </a>
-                    <dl class="lying-nav-child">
+                    <dl class="lau-nav-child">
                         <dd>
-                            <a href="javascript:;" lying-src="/doc/start.html">
-                                <div class="lying-nav-icon"><i class="layui-icon">&#xe63f;</i></div>
-                                <span class="lying-nav-title">快速开始</span>
+                            <a href="javascript:;">
+                                <i class="layui-icon layui-icon-danxuankuanghouxuan"></i>
+                                <cite>快速开始</cite>
                             </a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" lying-src="/doc/layout.html">
-                                <div class="lying-nav-icon"><i class="layui-icon">&#xe63f;</i></div>
-                                <span class="lying-nav-title">布局操作</span>
+                            <a href="javascript:;">
+                                <i class="layui-icon layui-icon-danxuankuanghouxuan"></i>
+                                <cite>布局操作</cite>
                             </a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" lying-src="/doc/inset.html">
-                                <div class="lying-nav-icon"><i class="layui-icon">&#xe63f;</i></div>
-                                <span class="lying-nav-title">子页操作</span>
+                            <a href="javascript:;">
+                                <i class="layui-icon layui-icon-danxuankuanghouxuan"></i>
+                                <cite>子页操作</cite>
                             </a>
                         </dd>
                     </dl>
+                </li>
+
+                <li class="lau-nav-item">
+                    <a class="lau-nav-header" href="javascript:;">
+                        <i class="layui-icon layui-icon-fenxiang1"></i>
+                        <cite>无子菜单</cite>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -123,19 +128,32 @@
 
     <!--内容主体区域开始-->
     <div class="layui-body">
-        <div class="layui-tab layui-tab-brief" lay-allowClose="true" lay-filter="tabs">
-            <div class="lying-tab-goleft"><i class="layui-icon">&#xe65a;</i></div>
-            <div class="lying-tab-goright"><i class="layui-icon">&#xe65b;</i></div>
-            <div class="lying-tab-refresh"><i class="layui-icon">&#xe63d;</i></div>
+        <div class="layui-icon lau-tabs-ctrl layui-icon-prev"></div>
+        <div class="layui-icon lau-tabs-ctrl layui-icon-next"></div>
+        <div class="layui-icon lau-tabs-ctrl layui-icon-refresh-3"></div>
+        <div class="layui-icon lau-tabs-ctrl layui-icon-down">
+            <ul class="layui-nav lau-tabs-more" lay-filter="lau-tabs-more">
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;"></a>
+                    <dl class="layui-nav-child layui-anim-fadein">
+                        <dd><a href="javascript:;" class="lau-tabs-close-this">关闭当前标签页</a></dd>
+                        <dd><a href="javascript:;" class="lau-tabs-close-siblings">关闭其它标签页</a></dd>
+                        <dd><a href="javascript:;" class="lau-tabs-close-all">关闭全部标签页</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <div class="layui-tab layui-tab-brief" lay-allowClose="true" lay-filter="lau-tabs">
             <ul class="layui-tab-title">
-                <li class="layui-this"><i class="layui-icon">&#xe68e;</i> 首页</li>
+                <li class="layui-this"><i class="layui-icon layui-icon-home"></i> 控制台</li>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe src="/html/main.html"></iframe>
+                    <iframe src="/html/console.html"></iframe>
                 </div>
             </div>
         </div>
+
     </div>
     <!--内容主体区域结束-->
 </div>
@@ -143,16 +161,7 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.config({base: '/static/js/'}).use(['layout'], function () {
-        var $ = layui.$,
-            layout = layui.layout;
 
-        //弹出抽屉
-        $('#pop-right').click(function () {
-            layout.popRight({
-                title: '抽屉标题',
-                content: '抽屉内容'
-            });
-        });
     });
 </script>
 </html>
