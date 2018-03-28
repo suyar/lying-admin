@@ -11,30 +11,69 @@
 <body>
 
 <div class="layui-row layui-col-space15">
+    <!--统计预览开始-->
+    <div class="layui-col-md12">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md6">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-sm6">
+                        <div class="lau-overview layui-bg-blue">
+                            <h5>今日销售额<span class="lau-float-r">相比昨日 +26%</span></h5>
+                            <h2>￥2,100<span class="layui-icon layui-icon-tubiao lau-float-r"></span></h2>
+                        </div>
+                    </div>
+                    <div class="layui-col-sm6">
+                        <div class="lau-overview layui-bg-cyan">
+                            <h5>本周销售额<span class="lau-float-r">相比上周 -3%</span></h5>
+                            <h2>￥42,000<span class="layui-icon layui-icon-tubiao lau-float-r"></span></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-sm6">
+                        <div class="lau-overview layui-bg-green">
+                            <h5>本月销售额<span class="lau-float-r">相比上月 +21.2%</span></h5>
+                            <h2>￥102,000<span class="layui-icon layui-icon-tubiao lau-float-r"></span></h2>
+                        </div>
+                    </div>
+                    <div class="layui-col-sm6">
+                        <div class="lau-overview layui-bg-red">
+                            <h5>今日注册量<span class="lau-float-r">相比昨日 +99%</span></h5>
+                            <h2>7,010<span class="layui-icon layui-icon-tubiao lau-float-r"></span></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--统计预览结束-->
+
     <div class="layui-col-md8">
         <div class="layui-row layui-col-space15">
-            <!--图标菜单开始-->
+            <!--快捷入口开始-->
             <div class="layui-col-md6">
                 <div class="layui-card">
-                    <div class="layui-card-header">快捷方式</div>
+                    <div class="layui-card-header">快捷入口</div>
                     <div class="layui-card-body">
-                        <div class="layui-carousel lying-carousel lying-shortcut">
+                        <div class="layui-carousel lau-carousel lau-shortcut">
                             <div carousel-item>
                                 <ul class="layui-row layui-col-space10">
                                     <li class="layui-col-xs3">
-                                        <a lying-src="http://pano.revoke.cc/edit/" lying-title="VR" lying-icon="layui-icon-website">
+                                        <a>
                                             <i class="layui-icon layui-icon-website"></i>
                                             <cite>弹层</cite>
                                         </a>
                                     </li>
                                     <li class="layui-col-xs3">
-                                        <a lying-src="https://www.baidu.com/" lying-title="百度" lying-icon="layui-icon-website">
+                                        <a>
                                             <i class="layui-icon layui-icon-website"></i>
                                             <cite>弹层</cite>
                                         </a>
                                     </li>
                                     <li class="layui-col-xs3">
-                                        <a lying-src="https://www.baidu.com/">
+                                        <a>
                                             <i class="layui-icon layui-icon-website"></i>
                                             <cite>弹层</cite>
                                         </a>
@@ -125,36 +164,36 @@
                     </div>
                 </div>
             </div>
-            <!--图标菜单结束-->
+            <!--快捷入口结束-->
 
-            <!--待审事项开始-->
+            <!--待办事项开始-->
             <div class="layui-col-md6">
                 <div class="layui-card">
                     <div class="layui-card-header">待办事项</div>
                     <div class="layui-card-body">
-                        <div class="layui-carousel lying-carousel lying-backlog">
+                        <div class="layui-carousel lau-carousel lau-todo">
                             <div carousel-item>
                                 <ul class="layui-row layui-col-space10">
                                     <li class="layui-col-xs6">
-                                        <a class="lying-backlog-body" lying-src="">
+                                        <a class="lau-todo-body">
                                             <h3>待审评论</h3>
                                             <p><cite>66</cite></p>
                                         </a>
                                     </li>
                                     <li class="layui-col-xs6">
-                                        <a class="lying-backlog-body" lying-src="">
+                                        <a class="lau-todo-body">
                                             <h3>待审评论</h3>
                                             <p><cite>66</cite></p>
                                         </a>
                                     </li>
                                     <li class="layui-col-xs6">
-                                        <a class="lying-backlog-body" lying-src="">
+                                        <a class="lau-todo-body" lying-src="">
                                             <h3>待审评论</h3>
                                             <p><cite>66</cite></p>
                                         </a>
                                     </li>
                                     <li class="layui-col-xs6">
-                                        <a class="lying-backlog-body" lying-src="">
+                                        <a class="lau-todo-body" lying-src="">
                                             <h3>待审评论</h3>
                                             <p><cite>66</cite></p>
                                         </a>
@@ -162,25 +201,25 @@
                                 </ul>
                                 <ul class="layui-row layui-col-space10">
                                     <li class="layui-col-xs6">
-                                        <a class="lying-backlog-body" lying-src="">
+                                        <a class="lau-todo-body" lying-src="">
                                             <h3>待审评论</h3>
                                             <p><cite>66</cite></p>
                                         </a>
                                     </li>
                                     <li class="layui-col-xs6">
-                                        <a class="lying-backlog-body" lying-src="">
+                                        <a class="lau-todo-body" lying-src="">
                                             <h3>待审评论</h3>
                                             <p><cite>66</cite></p>
                                         </a>
                                     </li>
                                     <li class="layui-col-xs6">
-                                        <a class="lying-backlog-body" lying-src="">
+                                        <a class="lau-todo-body" lying-src="">
                                             <h3>待审评论</h3>
                                             <p><cite>66</cite></p>
                                         </a>
                                     </li>
                                     <li class="layui-col-xs6">
-                                        <a class="lying-backlog-body" lying-src="">
+                                        <a class="lau-todo-body" lying-src="">
                                             <h3>待审评论</h3>
                                             <p><cite>66</cite></p>
                                         </a>
@@ -191,24 +230,11 @@
                     </div>
                 </div>
             </div>
-            <!--待审事项结束-->
+            <!--待办事项结束-->
 
 
             <div class="layui-col-md12">
-                <!--数据概览开始-->
-                <div class="layui-card">
-                    <div class="layui-card-header">数据概览</div>
-                    <div class="layui-card-body">
-                        <div class="layui-carousel lying-carousel lying-dataview">
-                            <div carousel-item>
-                                <div id="e1"></div>
-                                <div id="e2"></div>
-                                <div id="e3"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--数据概览结束-->
+
 
                 <!--数据表格开始-->
                 <div class="layui-card">
@@ -230,9 +256,7 @@
                     </div>
                 </div>
                 <!--数据表格结束-->
-
             </div>
-
         </div>
     </div>
 
@@ -241,30 +265,26 @@
         <div class="layui-card">
             <div class="layui-card-header">版本信息</div>
             <div class="layui-card-body">
-                <table class="layui-table">
-                    <colgroup>
-                        <col width="100">
-                        <col>
-                    </colgroup>
+                <table class="layui-table" lay-size="sm">
                     <tbody>
                     <tr>
                         <td>当前版本</td>
-                        <td>v1.0.0-beta1 <a href="https://github.com/carolkey/lying-admin/" target="_blank" style="color: red;">更新日志</a></td>
+                        <td>v1.0.0 <a class="layui-text" style="color: red;font-size: 12px;">更新日志</a></td>
                     </tr>
                     <tr>
                         <td>基于框架</td>
-                        <td><a href="http://www.layui.com/" target="_blank">layui-v2.2.5</a></td>
+                        <td>layui-v2.2.6-rc3</td>
                     </tr>
                     <tr>
                         <td>主要特色</td>
-                        <td>全局iframe / 没有响应式 / 清爽 / 极简</td>
+                        <td>全局iframe / 遵循layui模块化开发</td>
                     </tr>
                     <tr>
                         <td>获取渠道</td>
                         <td style="padding-bottom: 0;">
                             <div class="layui-btn-container">
-                                <a href="https://jq.qq.com/?_wv=1027&k=543VUa3" target="_blank" class="layui-btn layui-btn-danger">加群获取授权(SATA)</a>
-                                <a href="https://github.com/carolkey/lying-admin/" target="_blank" class="layui-btn">立即下载</a>
+                                <a href="https://jq.qq.com/?_wv=1027&k=543VUa3" target="_blank" class="layui-btn layui-btn-danger layui-btn-xs">获取授权（￥99）</a>
+                                <a id="download" href="https://github.com/carolkey/lying-admin/" target="_blank" class="layui-btn layui-btn-xs">立即下载</a>
                             </div>
                         </td>
                     </tr>
@@ -274,26 +294,20 @@
         </div>
         <!--版本信息结束-->
 
-        <!--进度条开始-->
+        <!--文本开始-->
         <div class="layui-card">
-            <div class="layui-card-header">效果报告</div>
-            <div class="layui-card-body lying-takerates">
-                <div class="layui-progress" lay-showPercent="yes">
-                    <h3>转化率（日同比 28% <span class="layui-edge layui-edge-top"></span>）</h3>
-                    <div class="layui-progress-bar" lay-percent="65%"></div>
-                </div>
-                <div class="layui-progress" lay-showPercent="yes">
-                    <h3>转化率（日同比 28% <span class="layui-edge layui-edge-bottom"></span>）</h3>
-                    <div class="layui-progress-bar" lay-percent="32%"></div>
-                </div>
+            <div class="layui-card-header">授权说明</div>
+            <div class="layui-card-body layui-text lau-text">
+                <p>LAU是经过layuiAdmin正版授权二次开发的项目，并非盗用layuiAdmin的源码，请知悉。</p>
+                <p>LAU秉承开源精神，如果源码用于个人学习完全是免费的，如果用于正式项目（不管是商业还是个人），请向作者购买授权。</p>
             </div>
         </div>
-        <!--进度条结束-->
+        <!--文本结束-->
 
-        <!--进度条开始-->
+        <!--实时监控开始-->
         <div class="layui-card">
             <div class="layui-card-header">实时监控</div>
-            <div class="layui-card-body lying-takerates">
+            <div class="layui-card-body lau-takerates">
                 <div class="layui-progress" lay-showPercent="yes">
                     <h3>CPU使用率</h3>
                     <div class="layui-progress-bar" lay-percent="58%"></div>
@@ -304,32 +318,25 @@
                 </div>
             </div>
         </div>
-        <!--进度条结束-->
+        <!--实时监控结束-->
 
-        <!--新闻开始-->
+        <!--效果报告开始-->
         <div class="layui-card">
-            <div class="layui-card-header">产品动态</div>
-            <div class="layui-card-body">
-                <div class="layui-carousel lying-carousel lying-news" data-autoplay="true">
-                    <div carousel-item>
-                        <div><a href="https://github.com/carolkey/lying-admin" target="_blank" class="layui-bg-red">lying-admin项目地址</a></div>
-                        <div><a href="https://jq.qq.com/?_wv=1027&k=543VUa3" target="_blank" class="layui-bg-green">lying-admin官方群</a></div>
-                        <div><a href="http://www.bycodes.net/" target="_blank" class="layui-bg-blue">lying-admin社区</a></div>
-                    </div>
+            <div class="layui-card-header">效果报告</div>
+            <div class="layui-card-body lau-takerates">
+                <div class="layui-progress" lay-showPercent="yes">
+                    <h3>转化率（日同比 28% <span class="layui-edge layui-edge-top"></span>）</h3>
+                    <div class="layui-progress-bar" lay-percent="65%"></div>
+                </div>
+                <div class="layui-progress" lay-showPercent="yes">
+                    <h3>转化率（日同比 28% <span class="layui-edge layui-edge-bottom"></span>）</h3>
+                    <div class="layui-progress-bar" lay-percent="32%"></div>
                 </div>
             </div>
         </div>
-        <!--新闻结束-->
+        <!--效果报告结束-->
 
-        <!--文本开始-->
-        <div class="layui-card">
-            <div class="layui-card-header">作者心语</div>
-            <div class="layui-card-body layui-text lying-text">
-                <p>作者本人很喜欢贤心的layui风格，但是又买不起（因为要结婚了花了很多钱），所以就抄袭了layadmin的样式，自己抄袭构造了一个和layadmin很像的后台，但是绝对没有和心姐抢饭碗的意思，希望心姐不要计较O(∩_∩)O哈哈~</p>
-                <p>如果你有经济能力，推荐买心姐正版的layadmin，多多支持心姐，传送门<a href="http://www.layui.com/admin/" target="_blank">layadmin</a></p>
-            </div>
-        </div>
-        <!--文本结束-->
+
 
     </div>
 </div>
@@ -338,176 +345,30 @@
 <script src="/static/layui/layui.js"></script>
 <script src="/static/js/echarts.min.js"></script>
 <script>
-    layui.config({base: '/static/'}).extend({lau: 'lau/lau'}).use(['admin', 'echartsTheme', 'table'], function() {
-        var admin = layui.admin,
+    layui.config({base: '/static/'}).extend({lau: 'lau/lau'}).use(['table', 'lau'], function() {
+        var lau = layui.lau,
             $ = layui.$,
             layer = layui.layer,
             element = layui.element,
-            carousel = layui.carousel,
-            echartsTheme = layui.echartsTheme,
             table = layui.table;
 
+        //下载声明
+        $('#download').click(function (e) {
+            var url = this.href;
+            e.preventDefault();
+            layer.confirm('下载的源码仅供学习使用，如需用于正式项目，请购买授权！', function (index) {
+                window.open(url);
+                layer.close(index);
+            });
+        });
+
         //实例化图表插件
-        var e1 = echarts.init($('#e1').get(0), echartsTheme.layui),
-            e2 = echarts.init($('#e2').get(0), echartsTheme.vintage),
-            e3 = echarts.init($('#e3').get(0), echartsTheme.dark);
-        e1.setOption({
-            title: {
-                text: '今日销量趋势'
-            },
-            tooltip: {},
-            legend: {
-                data:['销量', '优衣库', '邮件营销']
-            },
-            xAxis: {
-                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-            },
-            yAxis: {},
-            series: [{
-                name: '销量',
-                type: 'bar',
-                data: [5, 20, 36, 10, 10, 20]
-            }, {
-                name: '优衣库',
-                data: [120, 200, 150, 80, 70, 110],
-                type: 'bar'
-            }, {
-                name:'邮件营销',
-                type: 'bar',
-                data:[120, 132, 101, 134, 90, 230]
-            }]
-        });
-        e2.setOption({
-            title: {
-                text: '今日销量趋势',
-                left: 'center'
-            },
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'cross',
-                    label: {
-                        backgroundColor: '#6a7985'
-                    }
-                }
-            },
-            xAxis: {
-                type: 'category',
-                boundaryGap : false,
-                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-            },
-            yAxis: {
-                type: 'value'
-            },
-            series: [{
-                data: [820, 932, 901, 934, 1290, 1330, 1320],
-                type: 'line',
-                smooth: true,
-                areaStyle: {normal: {}}
-            }, {
-                name:'邮件营销',
-                type:'line',
-                stack: '总量',
-                areaStyle: {normal: {}},
-                data:[120, 132, 101, 134, 90, 230, 210]
-            }, {
-                name:'联盟广告',
-                type:'line',
-                stack: '总量',
-                areaStyle: {normal: {}},
-                data:[220, 182, 191, 234, 290, 330, 310]
-            }]
-        });
-        e3.setOption({
-            title: {
-                text: 'Customized Pie',
-                left: 'center',
-                top: 20,
-                textStyle: {
-                    color: '#ccc'
-                }
-            },
-            tooltip : {
-                trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
-            visualMap: {
-                show: false,
-                min: 80,
-                max: 600,
-                inRange: {
-                    colorLightness: [0, 1]
-                }
-            },
-            series : [
-                {
-                    name:'访问来源',
-                    type:'pie',
-                    radius : '55%',
-                    center: ['50%', '50%'],
-                    data:[
-                        {value:335, name:'直接访问'},
-                        {value:310, name:'邮件营销'},
-                        {value:274, name:'联盟广告'},
-                        {value:235, name:'视频广告'},
-                        {value:400, name:'搜索引擎'}
-                    ].sort(function (a, b) { return a.value - b.value; }),
-                    roseType: 'radius',
-                    label: {
-                        normal: {
-                            textStyle: {
-                                color: 'rgba(255, 255, 255, 0.3)'
-                            }
-                        }
-                    },
-                    labelLine: {
-                        normal: {
-                            lineStyle: {
-                                color: 'rgba(255, 255, 255, 0.3)'
-                            },
-                            smooth: 0.2,
-                            length: 10,
-                            length2: 20
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: '#c23531',
-                            shadowBlur: 200,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }
-                    },
 
-                    animationType: 'scale',
-                    animationEasing: 'elasticOut',
-                    animationDelay: function (idx) {
-                        return Math.random() * 200;
-                    }
-                }
-            ]
-        });
-
-        //轮播图切换的时候重新渲染大小
-        carousel.on('change()', function(obj) {
-            var e = echarts.getInstanceByDom(obj.item.get(0));
-            e && e.resize();
-        });
-
-        //窗口改变大小的时候重新渲染大小
-        var resizeHandle;
-        $(window).resize(function () {
-            resizeHandle && clearTimeout(resizeHandle);
-            resizeHandle = setTimeout(function () {
-                var dom = $('.lying-carousel.lying-dataview').find('.layui-this');
-                var e = echarts.getInstanceByDom(dom.get(0));
-                e && e.resize();
-            }, 50);
-        });
 
         //今日热搜
         var hotSearch = table.render({
             elem: '#hot-search',
-            url: '../static/data/hot-search',
+            url: '/json/hot-search.json',
             page: true,
             cols: [[
                 {title: 'ID', width:40, type: 'numbers', fixed: 'left'},
@@ -520,7 +381,7 @@
         //今日热帖
         var hotArticle = table.render({
             elem: '#hot-article',
-            url: '../static/data/hot-article',
+            url: '/json/hot-article.json',
             page: true,
             cols: [[
                 {title: 'ID', width:40, type: 'numbers', fixed: 'left'},
@@ -532,8 +393,6 @@
                 {field: 'crt', title: '点击率', sort: true}
             ]]
         });
-
     });
-
 </script>
 </html>
