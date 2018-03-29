@@ -276,7 +276,7 @@ layui.define(['layer', 'element', 'laytpl'], function(exports) {
      * @returns {Layout}
      */
     Layout.prototype.sideMenuRender = function (menu) {
-        _this = this;
+        var _this = this;
         if (typeof menu === 'object') {
             laytpl(sideMenuTpl).render(menu, function (str) {
                 _this.sideMenu.fadeOut(function () {
