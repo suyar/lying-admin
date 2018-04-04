@@ -49,11 +49,10 @@ layui.define(['layer', 'laytpl'], function(exports) {
             '<div class="layui-tab layui-tab-brief" lay-allowClose="true" lay-filter="lau-tabs">',
                 '<ul class="layui-tab-title">',
                     '<li class="layui-this"><i class="{{ d.icon ? (d.icon.split(\'/\s+/\').length > 1 ? d.icon : \'layui-icon \' + d.icon) : \'layui-icon layui-icon-home\' }}"></i> {{ d.title || \'控制台\' }}</li>',
-                    '<li> 关闭全部标签页关闭全部标签页关闭全部标签页</li>',
-                    '<li> 关闭全部标签页关闭全部标签页关闭全部标签页</li>',
-                    '<li> 关闭全部标签页关闭全部标签页关闭全部标签页</li>',
-                    '<li> 关闭全部标签页关闭全部标签页关闭全部标签页</li>',
-                '</ul>',
+                    '<li>关闭全部标签页关闭全部标签页关闭全部标签页关闭全部标签页关闭全部标签页</li>',
+            '<li>关闭全部标签页关闭全部标签页关闭全部标签页关闭全部标签页关闭全部标签页</li>',
+            '<li>关闭全部标签页关闭全部标签页关闭全部标签页关闭全部标签页关闭全部标签页</li>',
+            '</ul>',
                 '<div class="layui-tab-content">',
                     '<div class="layui-tab-item layui-show">',
                         '<iframe src="{{ d.href }}"></iframe>',
@@ -86,6 +85,44 @@ layui.define(['layer', 'laytpl'], function(exports) {
         //当前展示页面的iframe元素
         this.iframe = BODY.find('iframe').get(0);
 
+        /**
+         * 刷新当前iframe
+         */
+        this.reload = function () {
+            $(this.iframe).prop('src', this.iframe.src);
+            return this;
+        };
+
+        /**
+         * 跳转当前iframe
+         * @param href 要跳转的地址
+         * @returns {Layout}
+         */
+        this.location = function (href) {
+            this.iframe.src = $.trim(href);
+            return this;
+        };
+
+        /**
+         * 弹出右侧抽屉
+         * @param options
+         * @returns {*}
+         */
+        this.drawer = function (options) {
+            return layer.open($.extend({
+                type: 1,
+                id: "drawer",
+                anim: -1,
+                title: false,
+                closeBtn: false,
+                offset: "r",
+                shade: 0.1,
+                shadeClose: true,
+                skin: "layui-anim layui-anim-rl lau-drawer",
+                area: "300px"
+            }, options));
+        };
+
 
         if (SINGLE) {
 
@@ -93,7 +130,8 @@ layui.define(['layer', 'laytpl'], function(exports) {
             layui.use('element', function () {
                 var element = layui.element;
 
-                var tabTitle = BODY.find('.layui-tab-title'),
+                var tabFilter = 'lau-tabs',
+                    tabTitle = BODY.find('.layui-tab-title'),
                     tabTitleWidth = 0,
                     tabTitleOffset = 0,
                     tabWidth = 0,
@@ -183,9 +221,106 @@ layui.define(['layer', 'laytpl'], function(exports) {
                     return this;
                 };
 
+                /**
+                 * 新建选项卡
+                 * @param href iframe的地址
+                 * @param title 选项卡标题
+                 * @param icon 选项卡图标
+                 * @param id 选项卡ID,如果不传,就以href作为ID
+                 * @returns {Layout}
+                 */
                 THIS.tabAdd = function (href, title, icon, id) {
-                    var layid = id || src;
+                    href = $.trim(href);
+                    title = $.trim(title);
+                    icon = $.trim(icon);
+                    id = $.trim(id);
 
+                    var layid = id || href;
+                    if (tabTitle.find('li[lay-id="' + layid + '"]').length === 0) {
+                        if (icon) {
+                            if (icon.split(/\s+/).length < 2) {
+                                title = '<i class="layui-icon ' + icon + '"></i> ' + title;
+                            } else {
+                                title = '<i class="' + icon + '"></i> ' + title;
+                            }
+                        }
+                        element.tabAdd(tabFilter, {
+                            title: title || href,
+                            content: '<iframe src="' + href + '"></iframe>',
+                            id: layid
+                        });
+                    }
+                    element.tabChange(tabFilter, layid);
+                    calcTabWidth();
+                    this.resize();
+                    return this;
+                };
+
+                /**
+                 * 关闭当前选项卡,第一个选项卡除外
+                 * @returns {Layout}
+                 */
+                THIS.tabCloseThis = function () {
+                    tabThis.is(':first-child') || tabThis.find('i.layui-tab-close').trigger('click');
+                    return this;
+                };
+
+                /**
+                 * 关闭当前选项卡外的所有选项卡,第一个选项卡除外
+                 * @returns {Layout}
+                 */
+                THIS.tabCloseSiblings = function () {
+                    tabThis.siblings('li:not(:first-child)').find('i.layui-tab-close').trigger('click');
+                    return this;
+                };
+
+                /**
+                 * 关闭所有选项卡,第一个选项卡除外
+                 * @returns {Layout}
+                 */
+                THIS.tabCloseAll = function () {
+                    tabTitle.find('li:not(:first-child)').find('i.layui-tab-close').trigger('click');
+                    return this;
+                };
+
+                /**
+                 * 关闭第N个选项卡
+                 * @param index 选项卡的索引,从0开始,但是0不可删除
+                 * @returns {Layout}
+                 */
+                THIS.tabCloseEq = function (index) {
+                    index && tabTitle.find('li:eq(' + index + ')').find('i.layui-tab-close').trigger('click');
+                    return this;
+                };
+
+                /**
+                 * 关闭layid对应的选项卡
+                 * @param layid 选项卡的ID
+                 * @returns {Layout}
+                 */
+                THIS.tabCloseId = function (layid) {
+                    element.tabDelete(tabFilter, layid);
+                    return this;
+                };
+
+                /**
+                 * 切换到第N个选项卡
+                 * @param index 选项卡的索引,从0开始
+                 * @returns {Layout}
+                 */
+                THIS.tabChangeEq = function (index) {
+                    tabTitle.find('li:eq(' + index + ')').trigger('click');
+                    return this;
+                };
+
+                /**
+                 * 切换到layid对应的选项卡
+                 * @param layid 选项卡的ID
+                 * @returns {Layout}
+                 */
+                THIS.tabChangeId = function (layid) {
+                    element.tabChange(tabFilter, layid);
+                    return this;
                 };
 
                 //初始化选项卡数据
@@ -193,14 +328,26 @@ layui.define(['layer', 'laytpl'], function(exports) {
                 calcTabWidth();
 
                 //监听选项卡切换
-                element.on('tab(lau-tabs)', function(data) {
+                element.on('tab(' + tabFilter + ')', function(data) {
+                    THIS.iframe = data.elem.find('.layui-tab-item.layui-show iframe').get(0);
                     tabThis = $(this);
                     tabThisWidth = tabThis.outerWidth();
                     tabThisLeft = tabThis.position().left;
+
+                    var layid = tabThis.attr('lay-id'),
+                        menu = SIDE.find('li.lau-nav-item a[lau-href="' + layid + '"], li.lau-nav-item a[lau-id="' + layid + '"]');
+                    if (menu.length && !menu.next('.lau-nav-child').length) {
+                        if (menu.hasClass('lau-nav-header')) {
+                            menu.parent().siblings().removeClass('lau-open');
+                        } else {
+                            var pmenu = menu.parents('.lau-nav-item');
+                            pmenu.length && !pmenu.hasClass('lau-open') && pmenu.addClass('lau-open').siblings().removeClass('lau-open');
+                        }
+                    }
                 });
 
                 //监听选项卡关闭
-                element.on('tabDelete(lau-tabs)', function(data) {
+                element.on('tabDelete(' + tabFilter + ')', function(data) {
                     tabThisLeft = tabThis.position().left;
                     calcTabWidth();
                     THIS.resize();
@@ -211,368 +358,88 @@ layui.define(['layer', 'laytpl'], function(exports) {
                     THIS.resize();
                 });
 
+                //单击左移
+                $(document).on('click', '.lau-tabs-ctrl.layui-icon-prev', function () {
+                    THIS.tabPrev();
+                });
+
+                //单击右移
+                $(document).on('click', '.lau-tabs-ctrl.layui-icon-next', function () {
+                    THIS.tabNext();
+                });
+
+                //单击刷新
+                $(document).on('click', '.lau-tabs-ctrl.layui-icon-refresh-3', function () {
+                    THIS.reload();
+                });
+
+                //监听选项卡的更多操作
+                element.on('nav(lau-tabs-more)', function(elem) {
+                    var dd = elem.parent();
+                    dd.removeClass('layui-this');
+                    dd.parent().removeClass('layui-show');
+                    switch (elem.prop('class')) {
+                        case 'lau-tabs-close-this':THIS.tabCloseThis();break;
+                        case 'lau-tabs-close-siblings':THIS.tabCloseSiblings();break;
+                        case 'lau-tabs-close-all':THIS.tabCloseAll();break;
+                    }
+                });
             });
-
-
-
-
-
-
-
         }
 
-    };
-
-
-
-    var obj = new Layout();
-    exports('layout', obj);
-    return;
-
-
-
-
-    /**
-     * 选项卡操作类(在选项卡模式下才有用)
-     * @constructor
-     */
-    var Tab = function () {
-        this.tabTitle = BODY_EL.find('.layui-tab-title');
-        this.tabTitleWidth = 0;
-        this.tabWidth = 0;
-        this.diff = 0;
-
-
-
-        /**
-         * 获取选项卡容器宽度
-         * @returns {Tab}
-         */
-        this.getTabTitleWidth = function () {
-            this.tabTitleWidth = this.tabTitle.width();
-            return this;
-        };
-
-        /**
-         * 获取所有选项卡的宽度
-         * @returns {Tab}
-         */
-        this.getTabWidth = function () {
-            var _this = this;
-            _this.tabWidth = 0;
-            _this.tabTitle.find('li').each(function () {
-                _this.tabWidth += $(this).outerWidth();
-            });
-            return _this;
-        };
-
-        /**
-         * 获取选项卡宽度和容器宽度的差
-         * @returns {Tab}
-         */
-        this.getDiff = function () {
-            this.diff = this.tabTitleWidth - this.tabWidth;
-            return this;
-        };
-
-        /**
-         * 设置选项卡容器偏移量
-         * @param offset 偏移量
-         * @returns {Tab}
-         */
-        this.setOffset = function (offset) {
-            console.log(this.offset, this.diff);
-            if (this.offset === offset) {
-                return this;
-            } else if (offset > 0 || this.diff > 0) {
-                this.offset = 0;
-            } else if (offset < 0 && offset < this.diff) {
-                this.offset = this.diff;
-            } else {
-                this.offset = offset;
-            }
-
-            this.tabTitle.css('left', this.offset + 'px');
-            return this;
-        };
-
-        /**
-         * 窗口改变重新计算参数
-         * @returns {Tab}
-         */
-        this.resize = function () {
-            this.getTabTitleWidth().getDiff();
-            if (this.diff > 0) {
-                this.setOffset(0);
-            } else {
-                var _tab = this.tabTitle.find('.layui-this'),
-                    _tabWidth = _tab.outerWidth(),
-                    _tabPos = _tab.position().left,
-                    _d = this.tabTitleWidth - _tabPos - _tabWidth;
-                if (this.offset < -_tabPos) {
-                    this.setOffset(-_tabPos);
-                } else if (_d < 0) {
-                    this.setOffset(_d);
-                } else if (this.offset < this.diff) {
-                    this.setOffset(this.diff);
+        //监听锚点打开选项卡
+        $(document).on('click', '*[lau-href]', function () {
+            var _this = $(this),
+                href = _this.attr('lau-href'),
+                layid = _this.attr('lau-id');
+            if (_this.parents('.lau-nav-item').length) {
+                if (_this.next('.lau-nav-child').length === 0) {
+                    SINGLE ? THIS.location(href) : THIS.tabAdd(href, _this.find('cite').text(), _this.find('i').prop('class'), layid);
                 }
-            }
-            return this;
-        };
-
-    };
-
-
-    obj = new Tab();
-    obj.getTabTitleWidth().getTabWidth();
-
-    //监听窗口大小改变
-    $(window).resize(function () {
-        obj.resize();
-    });
-
-    //监听选项卡切换
-    element.on('tab(lau-tabs)', function(data) {
-        console.log(data);
-        var layid = $(this).attr('lay-id'),
-            menu = $('.layui-side .lau-nav-item a[lau-href="' + layid + '"], .layui-side .lau-nav-item a[lau-id="' + layid + '"]');
-        if (menu.length && !menu.next('.lau-nav-child').length) {
-            if (menu.hasClass('lau-nav-header')) {
-                menu.parent().siblings().removeClass('lau-open');
             } else {
-                var pmenu = menu.parents('.lau-nav-item');
-                pmenu.length && !pmenu.hasClass('lau-open') && pmenu.addClass('lau-open').siblings().removeClass('lau-open');
+                SINGLE ? THIS.location(href) : THIS.tabAdd(href, _this.attr('lau-title'), _this.attr('lau-icon'), layid);
             }
-        }
-    });
-
-    exports('layout', obj);
-    return;
-
-
-
-
-    /**
-     * Layout对象
-     */
-    var Layout = function () {
-        this.offset = 0;
-        this.titleLen = 0;
-        this.tabLen = 0;
-        this.diff = 0;
-        this.title = $('.layui-body .layui-tab-title');
-        this.filter = $('.layui-body .layui-tab').attr('lay-filter');
-        this.sideMenu = $('.layui-side .layui-nav');
-        this.sideMenuData = [];
-    };
-
-    /**
-     * 获取标题栏宽度
-     * @returns {Layout}
-     */
-    Layout.prototype.getTitleLen = function () {
-        this.titleLen = this.title.width();
-        return this;
-    };
-
-    /**
-     * 计算所有tab宽度
-     * @returns {Layout}
-     */
-    Layout.prototype.getTabLen = function () {
-        var _this = this;
-        _this.tabLen = 0;
-        _this.title.find('li').each(function () {
-            _this.tabLen += $(this).outerWidth();
         });
-        return _this;
-    };
 
-    /**
-     * 计算标题栏宽度和所有tab的宽度差
-     * @returns {Layout}
-     */
-    Layout.prototype.getDiff = function () {
-        this.diff = this.titleLen - this.tabLen;
-        return this;
-    };
+        //监听侧栏缩进
+        $(document).on('click', '.lau-side-fold', function () {
+            SIDE.toggleClass('lau-mini');
+            layui.data('lau-side', {key: 'mini', value: SIDE.hasClass('lau-mini')});
+            THIS.resize(200);
+        });
 
-    /**
-     * 设置tab偏移
-     * @param offset 偏移量
-     * @returns {Layout}
-     */
-    Layout.prototype.setOffset = function (offset) {
-        offset = offset || this.offset;
-        if (offset > 0 || this.diff > 0) {
-            this.offset = offset = 0;
-        } else if (offset < 0 && offset < this.diff) {
-            this.offset = offset = this.diff;
-        }
-        this.title.css('left', offset + 'px');
-        return this;
-    };
+        //监听菜单展开
+        $(document).on('click', '.lau-nav-header', function () {
+            var _this = $(this);
+            _this.next().length ? _this.parent().toggleClass('lau-open').siblings().removeClass('lau-open') : _this.parent().siblings().removeClass('lau-open');
+        });
 
-    /**
-     * 大小改变重新计算参数
-     * @returns {Layout}
-     */
-    Layout.prototype.resize = function () {
-        this.getTitleLen().getDiff();
-        if (this.diff > 0) {
-            this.setOffset(this.offset = 0);
-        } else {
-            var _tab = $('.layui-body .layui-tab-brief>.layui-tab-title .layui-this'),
-                _tabWidth = _tab.outerWidth(),
-                _tabPos = _tab.position().left,
-                _d = this.titleLen - _tabPos - _tabWidth;
-            if (this.offset < -_tabPos) {
-                this.setOffset(this.offset = -_tabPos);
-            } else if (_d < 0) {
-                this.setOffset(this.offset = _d);
-            } else if (this.offset < this.diff) {
-                this.setOffset(this.offset = this.diff);
+        //MINI菜单下显示tips
+        $(document).on('mouseenter', '.layui-side.lau-mini .lau-nav-item a', function () {
+            layer.tips($(this).find('cite').text(), this, {time: 1000, tips: [2, '#53616F']});
+        });
+
+        //判断左侧菜单是否要展开
+        var sideStatus = layui.data('lau-side');
+        sideStatus && setTimeout(function () {
+            var isMini = SIDE.hasClass('lau-mini');
+            if (sideStatus.mini && !isMini) {
+                SIDE.addClass('lau-mini') && THIS.resize(200);
+            } else if (!sideStatus.mini && isMini) {
+                SIDE.removeClass('lau-mini') && THIS.resize(200);
             }
-        }
-        return this;
+        }, 1000);
+
     };
 
-    /**
-     * 延迟执行resize
-     * @param time 延迟的时间(ms),默认200ms
-     * @returns {Layout}
-     */
-    Layout.prototype.delayResize = function (time) {
-        var _this = this;
-        setTimeout(function () {
-            _this.resize();
-        }, time || 200);
-        return _this;
-    };
 
-    /**
-     * 左移
-     * @returns {Layout}
-     */
-    Layout.prototype.tabLeft = function () {
-        this.setOffset(this.offset += this.titleLen);
-        return this;
-    };
 
-    /**
-     * 右移
-     * @returns {Layout}
-     */
-    Layout.prototype.tabRight = function () {
-        this.setOffset(this.offset -= this.titleLen);
-        return this;
-    };
+    var layout = new Layout();
+    exports('layout', layout);
+    return;
 
-    /**
-     * 新建/切换选项卡
-     * @param src 链接
-     * @param title 标题
-     * @param icon 字体图标
-     * @param id 选项卡的ID,如果不传,就以src作为ID
-     * @returns {Layout}
-     */
-    Layout.prototype.tabAdd = function (src, title, icon, id) {
-        var layid = id || src;
-        if ($('li[lay-id="' + layid + '"]').length === 0) {
-            if (icon) {
-                if (icon.split(/\s+/).length < 2) {
-                    title = '<i class="layui-icon ' + icon + '"></i> ' + title;
-                } else {
-                    title = '<i class="' + icon + '"></i> ' + title;
-                }
-            }
-            element.tabAdd(this.filter, {
-                title: title || src,
-                content: '<iframe src="' + src + '"></iframe>',
-                id: layid
-            });
-        }
-        element.tabChange(this.filter, layid);
-        this.getTabLen().resize();
-        return this;
-    };
 
-    /**
-     * 关闭除选中和第一个外的其他选项卡
-     * @returns {Layout}
-     */
-    Layout.prototype.tabCloseSiblings = function () {
-        $('.layui-body .layui-tab-title li:not(:first):not(.layui-this)').find('.layui-tab-close').trigger('click');
-        return this;
-    };
 
-    /**
-     * 关闭第一个外的所有选项卡
-     * @returns {Layout}
-     */
-    Layout.prototype.tabCloseAll = function () {
-        $('.layui-body .layui-tab-title li:not(:first)').find('.layui-tab-close').trigger('click');
-        return this;
-    };
-
-    /**
-     * 关闭第N个选项卡
-     * @param index 选项卡的索引,从0开始,但是0不可删除
-     * @returns {Layout}
-     */
-    Layout.prototype.tabCloseEq = function (index) {
-        index && $('.layui-body .layui-tab-title li:eq(' + index + ')').find('.layui-tab-close').trigger('click');
-        return this;
-    };
-
-    /**
-     * 根据layid关闭选项卡
-     * @param id 选项卡的layid
-     * @returns {Layout}
-     */
-    Layout.prototype.tabCloseId = function (id) {
-        element.tabDelete(this.filter, id);
-        return this;
-    };
-
-    /**
-     * 关闭当前选项卡
-     * @returns {Layout}
-     */
-    Layout.prototype.tabCloseThis = function () {
-        $('.layui-body .layui-tab-title li:not(:first).layui-this').find('.layui-tab-close').trigger('click');
-        return this;
-    };
-
-    /**
-     * 切换到第N个选项卡
-     * @param index 选项卡的索引,从0开始
-     * @returns {Layout}
-     */
-    Layout.prototype.tabChangeEq = function (index) {
-        $('.layui-body .layui-tab-title li:eq(' + index + ')').trigger('click');
-        return this;
-    };
-
-    /**
-     * 根据layid切换选项卡
-     * @param id 选项卡的layid
-     * @returns {Layout}
-     */
-    Layout.prototype.tabChangeId = function (id) {
-        element.tabChange(this.filter, id);
-        return this;
-    };
-
-    /**
-     * 刷新当前选项卡
-     * @returns {Layout}
-     */
-    Layout.prototype.reload = function () {
-        var iframe = $('.layui-body .layui-tab-item.layui-show').find('iframe');
-        iframe.length && iframe.attr('src', iframe.attr('src'));
-        return this;
-    };
 
     /**
      * 载入所有侧栏菜单数组
@@ -611,123 +478,9 @@ layui.define(['layer', 'laytpl'], function(exports) {
         return _this;
     };
 
-    /**
-     * 弹出右侧抽屉
-     * @param options
-     * @returns {*|Promise<Cache>|void|IDBOpenDBRequest|Window|Document}
-     */
-    Layout.prototype.drawer = function (options) {
-        return layer.open($.extend({
-            type: 1,
-            id: "drawer",
-            anim: -1,
-            title: false,
-            closeBtn: false,
-            offset: "r",
-            shade: 0.1,
-            shadeClose: true,
-            skin: "layui-anim layui-anim-rl lau-drawer",
-            area: "300px"
-        }, options));
-    };
 
-    //实例化对象
-    var obj = new Layout();
-    obj.getTitleLen().getTabLen().getDiff();
 
-    //单击左移
-    $(document).on('click', '.lau-tabs-ctrl.layui-icon-prev', function () {
-        obj.tabLeft();
-    });
 
-    //单击右移
-    $(document).on('click', '.lau-tabs-ctrl.layui-icon-next', function () {
-        obj.tabRight();
-    });
-
-    //单击刷新
-    $(document).on('click', '.lau-tabs-ctrl.layui-icon-refresh-3', function () {
-        obj.reload();
-    });
-
-    //监听选项卡的更多操作
-    element.on('nav(lau-tabs-more)', function(elem) {
-        var dd = elem.parent();
-        dd.removeClass('layui-this');
-        dd.parent().removeClass('layui-show');
-        switch (elem.prop('class')) {
-            case 'lau-tabs-close-this':obj.tabCloseThis();break;
-            case 'lau-tabs-close-siblings':obj.tabCloseSiblings();break;
-            case 'lau-tabs-close-all':obj.tabCloseAll();break;
-        }
-    });
-
-    //监听窗口大小改变
-    $(window).resize(function () {
-        obj.delayResize();
-    });
-
-    //监听关闭选项卡
-    element.on('tabDelete(' + obj.filter + ')', function(data) {
-        obj.getTabLen().resize();
-    });
-
-    //判断左侧菜单是否要展开
-    var sideStatus = layui.data('sideStatus'), sideObj = $('.layui-layout-admin .layui-side');
-    sideStatus && setTimeout(function () {
-        var isMini = sideObj.hasClass('lau-mini');
-        if (sideStatus.open && isMini) {
-            sideObj.removeClass('lau-mini') && obj.delayResize();
-        } else if (!sideStatus.open && !isMini) {
-            sideObj.addClass('lau-mini') && obj.delayResize();
-        }
-    }, 1000);
-
-    //监听侧栏缩进
-    $(document).on('click', '.lau-side-fold', function () {
-        sideObj.toggleClass('lau-mini');
-        layui.data('sideStatus', {key: 'open', value: !sideObj.hasClass('lau-mini')});
-        obj.delayResize();
-    });
-
-    //监听菜单展开
-    $(document).on('click', '.lau-nav-header', function () {
-        var _this = $(this);
-        _this.next().length ? _this.parent().toggleClass('lau-open').siblings().removeClass('lau-open') : _this.parent().siblings().removeClass('lau-open');
-    });
-
-    //MINI菜单下显示tips
-    $(document).on('mouseenter', '.layui-side.lau-mini .lau-nav-item a', function () {
-        layer.tips($(this).find('cite').text(), this, {time: 1000, tips: [2, '#53616F']});
-    });
-
-    //监听锚点打开选项卡
-    $(document).on('click', '*[lau-href]', function () {
-        var _this = $(this),
-            href = _this.attr('lau-href'),
-            layid = _this.attr('lau-id');
-        if (_this.parents('.lau-nav-item').length) {
-            if (_this.next('.lau-nav-child').length === 0) {
-                obj.tabAdd(href, _this.find('cite').text(), _this.find('i').prop('class'), layid);
-            }
-        } else {
-            obj.tabAdd(href, _this.attr('lau-title'), _this.attr('lau-icon'), _this.attr('lau-id'));
-        }
-    });
-
-    //监听选项卡切换
-    element.on('tab(' + obj.filter + ')', function(data) {
-        var layid = $(this).attr('lay-id'),
-            menu = $('.layui-side .lau-nav-item a[lau-href="' + layid + '"], .layui-side .lau-nav-item a[lau-id="' + layid + '"]');
-        if (menu.length && !menu.next('.lau-nav-child').length) {
-            if (menu.hasClass('lau-nav-header')) {
-                menu.parent().siblings().removeClass('lau-open');
-            } else {
-                var pmenu = menu.parents('.lau-nav-item');
-                pmenu.length && !pmenu.hasClass('lau-open') && pmenu.addClass('lau-open').siblings().removeClass('lau-open');
-            }
-        }
-    });
 
     exports('layout', obj);
 });
