@@ -8,7 +8,7 @@ a, *[lau-href] {
     box-sizing: border-box;
     border-bottom: 1px solid #2a2f32;
 }
-.layui-layout-admin .layui-header .lau-logo-mini {
+.layui-header .lau-logo-mini {
     display: inline-block;
     height: 50px;
     line-height: 50px;
@@ -16,30 +16,31 @@ a, *[lau-href] {
     text-align: center;
     border-right: 1px solid #2a2f32;
 }
-.layui-layout-admin .layui-header .lau-logo-mini .layui-icon {
+.layui-header .lau-logo-mini .layui-icon {
     color: #fff;
-    font-size: 18px;
+    font-weight: bold;
 }
-.layui-layout-admin .layui-header .layui-logo {
+.layui-header .layui-logo {
     left: 50px;
     line-height: 50px;
     width: 130px;
     border-right: 1px solid #2a2f32;
+    font-weight: bold;
 }
-.layui-layout-admin .layui-header .layui-layout-left {
+.layui-header .layui-layout-left {
     left: 180px;
 }
-.layui-layout-admin .layui-header .layui-nav {
+.layui-header .layui-nav {
     padding: 0;
 }
-.layui-layout-admin .layui-header .layui-nav .layui-nav-item {
+.layui-header .layui-nav .layui-nav-item {
     height: 50px;
     line-height: 50px;
 }
-.layui-layout-admin .layui-header .layui-nav-child {
+.layui-header .layui-nav-child {
     top: 55px;
 }
-.layui-layout-admin .layui-header .layui-nav-bar {
+.layui-header .layui-nav-bar {
     top: 0!important;
     height: 3px;
     bottom: auto;
@@ -48,39 +49,45 @@ a, *[lau-href] {
 .layui-layout-admin .layui-side {
     top: 50px;
     width: 180px;
+    padding-top: 30px;
     border-right: 1px solid #2a2f32;
     background-color: #373D41;
     -webkit-transition: width 0.2s;
     transition: width 0.2s;
 }
-.layui-layout-admin .layui-side .layui-side-scroll {
+.layui-side .lau-side-fold {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-bottom: 1px solid #2a2f32;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.layui-side .lau-side-fold .layui-icon {
+    display: inline-block;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    -webkit-transition: transform 0.2s;
+    transition: transform 0.2s;
+}
+
+.layui-side .layui-side-scroll {
     width: 200px;
     -webkit-transition: width 0.2s;
     transition: width 0.2s;
 }
-.layui-layout-admin .layui-side .layui-side-scroll .layui-nav-tree {
+.layui-side .layui-side-scroll .layui-nav-tree {
     width: 180px;
     background-color: rgba(255,255,255,0.1);
     -webkit-transition: width 0.2s;
     transition: width 0.2s;
 }
-.layui-layout-admin .layui-side .lau-side-fold {
-    text-align: center;
-    padding-right: 20px;
-    height: 30px;
-    line-height: 30px;
-    background-color: #373D41;
-    border-bottom: 1px solid #2a2f32;
-    cursor: pointer;
-}
-.layui-layout-admin .layui-side .lau-side-fold .layui-icon {
-    display: inline-block;
-    color: #fff;
-    font-size: 14px;
-    -webkit-transition: transform 0.2s;
-    transition: transform 0.2s;
-}
-.layui-layout-admin .layui-side .lau-nav-item a {
+.layui-side .lau-nav-item a {
     position: relative;
     height: 40px;
     line-height: 40px;
@@ -91,42 +98,42 @@ a, *[lau-href] {
     -webkit-transition: background-color 0.2s;
     transition: background-color 0.2s;
 }
-.layui-layout-admin .layui-side .lau-nav-item a .layui-icon {
+.layui-side .lau-nav-item a .layui-icon {
     display: inline-block;
     width: 50px;
     text-align: center;
     -webkit-transition: transform 0.2s;
     transition: transform 0.2s;
 }
-.layui-layout-admin .layui-side .lau-nav-item.lau-open .lau-nav-header .layui-icon {
+.layui-side .lau-nav-item.lau-open .lau-nav-header .layui-icon {
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
-.layui-layout-admin .layui-side .lau-nav-item .lau-nav-child {
+.layui-side .lau-nav-item .lau-nav-child {
     background-color: #373D41;
     overflow: hidden;
 }
-.layui-layout-admin .layui-side .lau-nav-item .lau-nav-child a {
+.layui-side .lau-nav-item .lau-nav-child a {
     height: 0;
     -webkit-transition: height 0.2s, background-color 0.2s;
     transition: height 0.2s, background-color 0.2s;
 }
-.layui-layout-admin .layui-side .lau-nav-item .lau-nav-child a:hover {
+.layui-side .lau-nav-item .lau-nav-child a:hover {
     background-color: rgba(255,255,255,0.2);
 }
-.layui-layout-admin .layui-side .lau-nav-item.lau-open .lau-nav-child a {
+.layui-side .lau-nav-item.lau-open .lau-nav-child a {
     height: 40px;
 }
-.layui-layout-admin .layui-side.lau-mini {
+.layui-side.lau-mini {
     width: 50px;
 }
-.layui-layout-admin .layui-side.lau-mini .layui-side-scroll {
+.layui-side.lau-mini .layui-side-scroll {
     width: 70px;
 }
-.layui-layout-admin .layui-side.lau-mini .layui-side-scroll .layui-nav-tree {
+.layui-side.lau-mini .layui-side-scroll .layui-nav-tree {
     width: 50px;
 }
-.layui-layout-admin .layui-side.lau-mini .layui-side-scroll .lau-side-fold .layui-icon {
+.layui-side.lau-mini .lau-side-fold .layui-icon {
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
 }
@@ -139,7 +146,7 @@ a, *[lau-href] {
     -webkit-transition: left 0.2s;
     transition: left 0.2s;
 }
-.layui-layout-admin .layui-side.lau-mini + .layui-body {
+.layui-side.lau-mini + .layui-body {
     left: 50px;
 }
 /*选项卡控制菜单*/
@@ -155,7 +162,7 @@ a, *[lau-href] {
     transition: all .3s;
     border-bottom: 1px solid #f6f6f6;
     background-color: #fff;
-    z-index: 9999;
+    z-index: 19921216;
 }
 .layui-body .lau-tabs-ctrl:hover {
     background-color: #f6f6f6;
@@ -260,7 +267,7 @@ a, *[lau-href] {
     top: 41px;
     bottom: 0;
 }
-.layui-body .layui-tab iframe {
+.layui-body iframe {
     width: 100%;
     height: 100%;
     border: none;

@@ -43,8 +43,8 @@
 
     <!--侧边菜单开始-->
     <div class="layui-side">
+        <div class="lau-side-fold"><i class="layui-icon layui-icon-shrink-right"></i></div>
         <div class="layui-side-scroll">
-            <div class="lau-side-fold"><i class="layui-icon layui-icon-shrink-right"></i></div>
             <ul class="layui-nav layui-nav-tree">
                 <li class="lau-nav-item lau-open">
                     <a class="lau-nav-header">
@@ -127,34 +127,7 @@
     <!--侧边菜单结束-->
 
     <!--内容主体区域开始-->
-    <div class="layui-body">
-        <div class="layui-icon lau-tabs-ctrl layui-icon-prev"></div>
-        <div class="layui-icon lau-tabs-ctrl layui-icon-next"></div>
-        <div class="layui-icon lau-tabs-ctrl layui-icon-refresh-3"></div>
-        <div class="layui-icon lau-tabs-ctrl layui-icon-down">
-            <ul class="layui-nav lau-tabs-more" lay-filter="lau-tabs-more">
-                <li class="layui-nav-item" lay-unselect>
-                    <a></a>
-                    <dl class="layui-nav-child layui-anim-fadein">
-                        <dd><a class="lau-tabs-close-this">关闭当前标签页</a></dd>
-                        <dd><a class="lau-tabs-close-siblings">关闭其它标签页</a></dd>
-                        <dd><a class="lau-tabs-close-all">关闭全部标签页</a></dd>
-                    </dl>
-                </li>
-            </ul>
-        </div>
-        <div class="layui-tab layui-tab-brief" lay-allowClose="true" lay-filter="lau-tabs">
-            <ul class="layui-tab-title">
-                <li class="layui-this"><i class="layui-icon layui-icon-home"></i> 控制台</li>
-            </ul>
-            <div class="layui-tab-content">
-                <div class="layui-tab-item layui-show">
-                    <iframe src="/html/console.html"></iframe>
-                </div>
-            </div>
-        </div>
-
-    </div>
+    <div class="layui-body" data-type="" data-title="控制台" data-icon="layui-icon-home" data-href="/html/console.html"></div>
     <!--内容主体区域结束-->
 </div>
 </body>
