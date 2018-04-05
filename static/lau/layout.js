@@ -71,6 +71,7 @@ layui.define(['layer', 'laytpl'], function(exports) {
         var THIS = this,
             BODY = $('.layui-body'),
             SIDE = $('.layui-side'),
+            SIDE_MENU = [],
             SINGLE = BODY.data('type') === 'single';
 
         //渲染内容模板
@@ -79,8 +80,23 @@ layui.define(['layer', 'laytpl'], function(exports) {
             icon: $.trim(BODY.data('icon')),
             href: $.trim(BODY.data('href'))
         }, function (html) {
-            BODY.empty().html(html);
+            BODY.html(html);
         });
+
+        //如果设置了侧栏菜单的获取路径,直接渲染
+        var sideHref = $.trim(SIDE.data('href'));
+        if (sideHref) {
+            $.ajax({
+                url: sideHref,
+                dataType: 'json',
+                success: function (data, textStatus, jqXHR) {
+                    THIS.sideMenuLoad(data);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                }
+            });
+        }
 
         //当前展示页面的iframe元素
         this.iframe = BODY.find('iframe').get(0);
@@ -104,6 +120,42 @@ layui.define(['layer', 'laytpl'], function(exports) {
         };
 
         /**
+         * 载入侧栏菜单数据
+         * @param menus 所有菜单
+         * @returns {Layout}
+         */
+        this.sideMenuLoad = function (menus) {
+            SIDE_MENU = menus;
+            this.sideMenuChange(0);
+            return this;
+        };
+
+        /**
+         * 切换侧栏菜单
+         * @param index 侧栏菜单索引
+         * @returns {Layout}
+         */
+        this.sideMenuChange = function (index) {
+            SIDE_MENU[index] && this.sideMenuRender(SIDE_MENU[index]);
+            return this;
+        };
+
+        /**
+         * 重新渲染侧栏菜单
+         * @param menu 要渲染的菜单结构,提供一个规范格式的数组
+         * @returns {Layout}
+         */
+        this.sideMenuRender = function (menu) {
+            typeof menu === "object" && laytpl(Tpl.sideMenu).render(menu, function (html) {
+                var sideNav = SIDE.find('.layui-nav.layui-nav-tree');
+                sideNav[0] && sideNav.fadeOut(function () {
+                    sideNav.html(html).fadeIn();
+                });
+            });
+            return this;
+        };
+
+        /**
          * 弹出右侧抽屉
          * @param options
          * @returns {*}
@@ -123,10 +175,11 @@ layui.define(['layer', 'laytpl'], function(exports) {
             }, options));
         };
 
-
         if (SINGLE) {
+            //这里可以写单iframe模式的接口
 
         } else {
+            //选项卡模式额外暴露的接口
             layui.use('element', function () {
                 var element = layui.element;
 
@@ -184,6 +237,20 @@ layui.define(['layer', 'laytpl'], function(exports) {
                 }
 
                 /**
+                 * 窗口改变重新计算
+                 */
+                function resize() {
+                    calcTabTitleWidth();
+                    if (tabDiff >= 0) {
+                        setOffset(0);
+                    } else if (tabTitleWidth <= tabThisWidth || tabTitleOffset < -tabThisLeft) {
+                        setOffset(-tabThisLeft);
+                    } else {
+                        setOffset(tabTitleWidth - tabThisLeft - tabThisWidth);
+                    }
+                }
+
+                /**
                  * 选项卡往左
                  * @returns {Layout}
                  */
@@ -207,17 +274,12 @@ layui.define(['layer', 'laytpl'], function(exports) {
                  * @returns {Layout}
                  */
                 THIS.resize = function (time) {
-                    tabResizeHandle && clearTimeout(tabResizeHandle);
-                    tabResizeHandle = setTimeout(function () {
-                        calcTabTitleWidth();
-                        if (tabDiff >= 0) {
-                            setOffset(0);
-                        } else if (tabTitleWidth <= tabThisWidth || tabTitleOffset <= -tabThisLeft) {
-                            setOffset(-tabThisLeft);
-                        } else {
-                            setOffset(tabTitleWidth - tabThisLeft - tabThisWidth);
-                        }
-                    }, time || 0);
+                    if (time) {
+                        tabResizeHandle && clearTimeout(tabResizeHandle);
+                        tabResizeHandle = setTimeout(resize, time);
+                    } else {
+                        resize();
+                    }
                     return this;
                 };
 
@@ -333,6 +395,7 @@ layui.define(['layer', 'laytpl'], function(exports) {
                     tabThis = $(this);
                     tabThisWidth = tabThis.outerWidth();
                     tabThisLeft = tabThis.position().left;
+                    THIS.resize();
 
                     var layid = tabThis.attr('lay-id'),
                         menu = SIDE.find('li.lau-nav-item a[lau-href="' + layid + '"], li.lau-nav-item a[lau-id="' + layid + '"]');
@@ -429,58 +492,7 @@ layui.define(['layer', 'laytpl'], function(exports) {
                 SIDE.removeClass('lau-mini') && THIS.resize(200);
             }
         }, 1000);
-
     };
 
-
-
-    var layout = new Layout();
-    exports('layout', layout);
-    return;
-
-
-
-
-    /**
-     * 载入所有侧栏菜单数组
-     * @param menus 所有菜单,一个二维数组
-     * @returns {Layout}
-     */
-    Layout.prototype.sideMenuLoad = function (menus) {
-        this.sideMenuData = menus;
-        return this.sideMenuChange(0);
-    };
-
-    /**
-     * 切换到某个侧栏菜单
-     * @param index 侧栏菜单索引
-     * @returns {Layout}
-     */
-    Layout.prototype.sideMenuChange = function (index) {
-        this.sideMenuData[index] && this.sideMenuRender(this.sideMenuData[index]);
-        return this;
-    };
-
-    /**
-     * 根据menu重新渲染侧栏菜单
-     * @param menu 要渲染的菜单结构,提供一个数组
-     * @returns {Layout}
-     */
-    Layout.prototype.sideMenuRender = function (menu) {
-        var _this = this;
-        if (typeof menu === 'object') {
-            laytpl(sideMenuTpl).render(menu, function (str) {
-                _this.sideMenu.fadeOut(function () {
-                    _this.sideMenu.html(str).fadeIn();
-                });
-            });
-        }
-        return _this;
-    };
-
-
-
-
-
-    exports('layout', obj);
+    exports('layout', new Layout());
 });
