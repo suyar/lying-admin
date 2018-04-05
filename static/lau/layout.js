@@ -71,6 +71,12 @@ layui.define(['layer', 'laytpl'], function(exports) {
             SIDE_MENU = [],
             SINGLE = BODY.data('type') === 'single';
 
+        //版本号
+        this.version = this.v = '1.0.0';
+
+        //是否为单iframe模式
+        this.single = SINGLE;
+
         //渲染内容模板
         laytpl(SINGLE ? Tpl.bodySingle : Tpl.bodyTab).render({
             title: $.trim(BODY.data('title')),
