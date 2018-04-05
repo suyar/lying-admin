@@ -42,8 +42,20 @@
   }]
 }], [{
   "title": "示例菜单三",
+  "open": true,
   "list": [{
-    "title": "示例菜单",
+    "title": "示例菜单"
+  }, {
+    "title": "示例菜单"
+  }, {
+    "title": "示例菜单"
+  }, {
+    "title": "示例菜单"
+  }]
+}, {
+  "title": "示例菜单三1",
+  "list": [{
+    "title": "示例菜单1",
     "href": "/doc/start.html"
   }, {
     "title": "示例菜单"
