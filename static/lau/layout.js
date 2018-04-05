@@ -10,7 +10,7 @@ layui.define(['layer', 'laytpl'], function(exports) {
     var Tpl = {
         sideMenu: [
             '{{# layui.each(d, function(index, item) { }}',
-            '<li class="lau-nav-item">',
+            '<li class="lau-nav-item{{ item.open && item.list ? \' lau-open\' : \'\' }}">',
                 '<a class="lau-nav-header" href="javascript:;" {{ item.href ? \'lau-href="\' + item.href + \'"\' : \'\' }} {{ item.id ? \'lau-id="\' + item.id + \'"\' : \'\' }}>',
                     '<i class="{{ item.icon || \'layui-icon layui-icon-right\' }}"></i>',
                     '<cite>{{ item.title }}</cite>',
@@ -69,13 +69,12 @@ layui.define(['layer', 'laytpl'], function(exports) {
             BODY = $('.layui-body'),
             SIDE = $('.layui-side'),
             SIDE_MENU = [],
-            SINGLE = BODY.data('type') === 'single';
+            SINGLE = BODY.data('type') === 'single',
+            IFRAME,
+            LAYID;
 
         //版本号
         this.version = this.v = '1.0.0';
-
-        //是否为单iframe模式
-        this.single = SINGLE;
 
         //渲染内容模板
         laytpl(SINGLE ? Tpl.bodySingle : Tpl.bodyTab).render({
@@ -102,23 +101,13 @@ layui.define(['layer', 'laytpl'], function(exports) {
         }
 
         //当前展示页面的iframe元素
-        this.iframe = BODY.find('iframe').get(0);
+        IFRAME = BODY.find('iframe').first();
 
         /**
          * 刷新当前iframe
          */
         this.reload = function () {
-            $(this.iframe).prop('src', this.iframe.src);
-            return this;
-        };
-
-        /**
-         * 跳转当前iframe
-         * @param href 要跳转的地址
-         * @returns {Layout}
-         */
-        this.location = function (href) {
-            this.iframe.src = $.trim(href);
+            IFRAME.prop('src', IFRAME.prop('src'));
             return this;
         };
 
@@ -152,11 +141,28 @@ layui.define(['layer', 'laytpl'], function(exports) {
             typeof menu === "object" && laytpl(Tpl.sideMenu).render(menu, function (html) {
                 var sideNav = SIDE.find('.layui-nav.layui-nav-tree');
                 sideNav[0] && sideNav.fadeOut(function () {
-                    sideNav.html(html).fadeIn();
+                    sideNav.html(html).fadeIn(function () {
+                        traceMenu();
+                    });
                 });
             });
             return this;
         };
+
+        /**
+         * 根据当前选项卡追踪侧栏菜单展开
+         */
+        function traceMenu() {
+            var menu = SIDE.find('li.lau-nav-item a[lau-href="' + LAYID + '"], li.lau-nav-item a[lau-id="' + LAYID + '"]').first();
+            if (menu[0] && !menu.next('.lau-nav-child')[0]) {
+                if (menu.hasClass('lau-nav-header')) {
+                    menu.parent().siblings().removeClass('lau-open');
+                } else {
+                    var pmenu = menu.parents('.lau-nav-item');
+                    pmenu[0] && !pmenu.hasClass('lau-open') && pmenu.addClass('lau-open').siblings().removeClass('lau-open');
+                }
+            }
+        }
 
         /**
          * 弹出右侧抽屉
@@ -179,8 +185,16 @@ layui.define(['layer', 'laytpl'], function(exports) {
         };
 
         if (SINGLE) {
-            //这里可以写单iframe模式的接口
-
+            /**
+             * 跳转当前iframe
+             * @param href 要跳转的地址
+             * @returns {Layout}
+             */
+            this.location = function (href) {
+                LAYID = $.trim(href);
+                IFRAME.prop(LAYID);
+                return this;
+            };
         } else {
             //选项卡模式额外暴露的接口
             layui.use('element', function () {
@@ -300,8 +314,8 @@ layui.define(['layer', 'laytpl'], function(exports) {
                     icon = $.trim(icon);
                     id = $.trim(id);
 
-                    var layid = id || href;
-                    if (tabTitle.find('li[lay-id="' + layid + '"]').length === 0) {
+                    LAYID = id || href;
+                    if (!tabTitle.find('li[lay-id="' + LAYID + '"]')[0]) {
                         if (icon) {
                             if (icon.split(/\s+/).length < 2) {
                                 title = '<i class="layui-icon ' + icon + '"></i> ' + title;
@@ -312,10 +326,10 @@ layui.define(['layer', 'laytpl'], function(exports) {
                         element.tabAdd(tabFilter, {
                             title: title || href,
                             content: '<iframe src="' + href + '"></iframe>',
-                            id: layid
+                            id: LAYID
                         });
                     }
-                    element.tabChange(tabFilter, layid);
+                    element.tabChange(tabFilter, LAYID);
                     calcTabWidth();
                     this.resize();
                     return this;
@@ -394,22 +408,13 @@ layui.define(['layer', 'laytpl'], function(exports) {
 
                 //监听选项卡切换
                 element.on('tab(' + tabFilter + ')', function(data) {
-                    THIS.iframe = data.elem.find('.layui-tab-item.layui-show iframe').get(0);
+                    IFRAME = data.elem.find('.layui-tab-item.layui-show iframe').first();
                     tabThis = $(this);
                     tabThisWidth = tabThis.outerWidth();
                     tabThisLeft = tabThis.position().left;
                     THIS.resize();
-
-                    var layid = tabThis.attr('lay-id'),
-                        menu = SIDE.find('li.lau-nav-item a[lau-href="' + layid + '"], li.lau-nav-item a[lau-id="' + layid + '"]');
-                    if (menu.length && !menu.next('.lau-nav-child').length) {
-                        if (menu.hasClass('lau-nav-header')) {
-                            menu.parent().siblings().removeClass('lau-open');
-                        } else {
-                            var pmenu = menu.parents('.lau-nav-item');
-                            pmenu.length && !pmenu.hasClass('lau-open') && pmenu.addClass('lau-open').siblings().removeClass('lau-open');
-                        }
-                    }
+                    LAYID = tabThis.attr('lay-id');
+                    traceMenu();
                 });
 
                 //监听选项卡关闭
@@ -458,8 +463,8 @@ layui.define(['layer', 'laytpl'], function(exports) {
             var _this = $(this),
                 href = _this.attr('lau-href'),
                 layid = _this.attr('lau-id');
-            if (_this.parents('.lau-nav-item').length) {
-                if (_this.next('.lau-nav-child').length === 0) {
+            if (_this.parents('.lau-nav-item')[0]) {
+                if (!_this.next('.lau-nav-child')[0]) {
                     SINGLE ? THIS.location(href) : THIS.tabAdd(href, _this.find('cite').text(), _this.find('i').prop('class'), layid);
                 }
             } else {
@@ -477,7 +482,7 @@ layui.define(['layer', 'laytpl'], function(exports) {
         //监听菜单展开
         $(document).on('click', '.lau-nav-header', function () {
             var _this = $(this);
-            _this.next().length ? _this.parent().toggleClass('lau-open').siblings().removeClass('lau-open') : _this.parent().siblings().removeClass('lau-open');
+            _this.next()[0] ? _this.parent().toggleClass('lau-open').siblings().removeClass('lau-open') : _this.parent().siblings().removeClass('lau-open');
         });
 
         //MINI菜单下显示tips

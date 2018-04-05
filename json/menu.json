@@ -1,14 +1,16 @@
 [[{
   "title": "所有商品",
   "list": [{
-    "title": "错误页面"
+    "title": "错误页面",
+    "href": "/doc/start.html"
   }, {
     "title": "轮播组图"
   }]
 }, {
   "title": "系统设置",
   "list": [{
-    "title": "菜单管理"
+    "title": "菜单管理",
+    "href": "/doc/start.html"
   }, {
     "title": "细节权限"
   }]
@@ -22,7 +24,11 @@
     "title": "子页操作"
   }]
 }, {
-  "title": "无子菜单"
+  "title": "无子菜单1",
+  "href": "/doc/layout.html"
+}, {
+  "title": "无子菜单2",
+  "href": "/doc/layout.html"
 }], [{
   "title": "示例菜单二",
   "list": [{
@@ -37,7 +43,8 @@
 }], [{
   "title": "示例菜单三",
   "list": [{
-    "title": "示例菜单"
+    "title": "示例菜单",
+    "href": "/doc/start.html"
   }, {
     "title": "示例菜单"
   }, {
