@@ -42,22 +42,65 @@
     <!--顶部导航结束-->
 
     <!--侧边菜单开始-->
-    <div class="layui-side" data-href="/json/menu.json">
+    <div class="layui-side">
         <div class="lau-side-fold"><i class="layui-icon layui-icon-shrink-right"></i></div>
         <div class="layui-side-scroll">
-            <ul class="layui-nav layui-nav-tree"></ul>
+            <ul class="layui-nav layui-nav-tree">
+                <!--这里可以写菜单结构,可以放空,使用异步加载-->
+            </ul>
         </div>
     </div>
     <!--侧边菜单结束-->
 
     <!--内容主体区域开始-->
-    <div class="layui-body" data-type="" data-title="控制台" data-icon="layui-icon-home" data-href="/html/console.html"></div>
+    <div class="layui-body">
+        <!--多选项卡结构开始-->
+        <div class="layui-icon lau-tabs-ctrl layui-icon-prev"></div>
+        <div class="layui-icon lau-tabs-ctrl layui-icon-next"></div>
+        <div class="layui-icon lau-tabs-ctrl layui-icon-refresh-3"></div>
+        <div class="layui-icon lau-tabs-ctrl layui-icon-down">
+            <ul class="layui-nav lau-tabs-more" lay-filter="lau-tabs-more">
+                <li class="layui-nav-item" lay-unselect>
+                    <a></a>
+                    <dl class="layui-nav-child layui-anim-fadein">
+                        <dd><a class="lau-tabs-close-this">关闭当前标签页</a></dd>
+                        <dd><a class="lau-tabs-close-siblings">关闭其它标签页</a></dd>
+                        <dd><a class="lau-tabs-close-all">关闭全部标签页</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <div class="layui-tab layui-tab-brief" lay-allowClose="true" lay-filter="lau-tabs">
+            <ul class="layui-tab-title">
+                <li class="layui-this"><i class="layui-icon layui-icon-home"></i> 控制台</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <iframe src="/html/console.html"></iframe>
+                </div>
+            </div>
+        </div>
+        <!--多选项卡结构结束-->
+
+        <!--非选项卡结构开始-->
+        <!--<iframe src="/html/console.html"></iframe>-->
+        <!--非选项卡结构结束-->
+    </div>
     <!--内容主体区域结束-->
 </div>
 </body>
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.config({base: '/static/'}).extend({layout: 'lau/layout'}).use(['layout'], function () {
+        var layout = layui.layout,
+            $ = layui.$;
+
+        //异步加载菜单
+        $.getJSON('/json/menu.json', function (data) {
+            layout.sideMenuLoad(data);
+        });
+
+
 
     });
 </script>
