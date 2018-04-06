@@ -5,23 +5,53 @@ layui.define(['layer', 'laytpl'], function(exports) {
 
     /**
      * 模板
-     * @type {{sideMenu: string, bodyTab: string, bodySingle: string}}
+     * @type {{ Tpl }}
      */
     var Tpl = {
         sideMenu: [
-            '{{# layui.each(d, function(index, item) { }}',
-            '<li class="lau-nav-item{{ item.open && item.list ? \' lau-open\' : \'\' }}">',
-                '<a class="lau-nav-header" href="javascript:;" {{ item.href ? \'lau-href="\' + item.href + \'"\' : \'\' }} {{ item.id ? \'lau-id="\' + item.id + \'"\' : \'\' }}>',
-                    '<i class="{{ item.icon || \'layui-icon layui-icon-right\' }}"></i>',
-                    '<cite>{{ item.title }}</cite>',
+            '{{# layui.each(d, function(index, item) { ',
+                'var href = layui.$.trim(item.href), ',
+                    'href = href ? \' lau-href="\' + href + \'"\' : \'\', ',
+                    'id = layui.$.trim(item.id),',
+                    'id = id ? \' lau-id="\' + id + \'"\' : \'\', ',
+                    'title = layui.$.trim(item.title), ',
+                    'icon = layui.$.trim(item.icon), ',
+                    'hasItem = typeof item.list === \'object\' && item.list.length > 0, ',
+                    'open = Boolean(item.open) && hasItem ? \' lau-open\' : \'\'; ',
+                'if (icon) { ',
+                    'if (icon.split(/\\s+/).length < 2) { ',
+                        'icon = \'layui-icon \' + icon; ',
+                    '} ',
+                '} else { ',
+                    'icon = \'layui-icon layui-icon-right\'; ',
+                '} ',
+            '}}',
+            '<li class="lau-nav-item{{ open }}">',
+                '<a class="lau-nav-header"{{ href }}{{ id }}>',
+                    '<i class="{{ icon }}"></i>',
+                    '<cite>{{ title }}</cite>',
                 '</a>',
-                '{{# if (item.list) { }}',
+                '{{# if (hasItem) { }}',
                 '<dl class="lau-nav-child">',
-                    '{{# layui.each(item.list, function(index2, item2) { }}',
+                    '{{# layui.each(item.list, function(index2, item2) { ',
+                        'var href = layui.$.trim(item2.href), ',
+                            'href = href ? \' lau-href="\' + href + \'"\' : \'\', ',
+                            'id = layui.$.trim(item2.id),',
+                            'id = id ? \' lau-id="\' + id + \'"\' : \'\', ',
+                            'title = layui.$.trim(item2.title), ',
+                            'icon = layui.$.trim(item2.icon); ',
+                        'if (icon) { ',
+                            'if (icon.split(/\\s+/).length < 2) { ',
+                                'icon = \'layui-icon \' + icon; ',
+                            '} ',
+                        '} else { ',
+                            'icon = \'layui-icon layui-icon-danxuankuanghouxuan\'; ',
+                        '} ',
+                    '}}',
                     '<dd>',
-                        '<a href="javascript:;" {{ item2.href ? \'lau-href="\' + item2.href + \'"\' : \'\' }} {{ item2.id ? \'lau-id="\' + item2.id + \'"\' : \'\' }}>',
-                            '<i class="{{ item2.icon || \'layui-icon layui-icon-danxuankuanghouxuan\' }}"></i>',
-                            '<cite>{{ item2.title }}</cite>',
+                        '<a{{ href }}{{ id }}>',
+                            '<i class="{{ icon }}"></i>',
+                            '<cite>{{ title }}</cite>',
                         '</a>',
                     '</dd>',
                     '{{# }); }}',
@@ -140,8 +170,8 @@ layui.define(['layer', 'laytpl'], function(exports) {
         this.sideMenuRender = function (menu) {
             typeof menu === "object" && laytpl(Tpl.sideMenu).render(menu, function (html) {
                 var sideNav = SIDE.find('.layui-nav.layui-nav-tree');
-                sideNav[0] && sideNav.fadeOut(function () {
-                    sideNav.html(html).fadeIn(function () {
+                sideNav[0] && sideNav.fadeOut(200, function () {
+                    sideNav.html(html).fadeIn(200,function () {
                         traceMenu();
                     });
                 });
