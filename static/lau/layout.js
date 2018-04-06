@@ -222,7 +222,7 @@ layui.define(['layer', 'laytpl'], function(exports) {
              */
             this.location = function (href) {
                 LAYID = $.trim(href);
-                IFRAME.prop(LAYID);
+                IFRAME.prop('src', LAYID);
                 return this;
             };
         } else {
@@ -506,7 +506,7 @@ layui.define(['layer', 'laytpl'], function(exports) {
         $(document).on('click', '.lau-side-fold', function () {
             SIDE.toggleClass('lau-mini');
             layui.data('lau-side', {key: 'mini', value: SIDE.hasClass('lau-mini')});
-            THIS.resize(200);
+            SINGLE || THIS.resize(200);
         });
 
         //监听菜单展开
@@ -525,9 +525,9 @@ layui.define(['layer', 'laytpl'], function(exports) {
         sideStatus && setTimeout(function () {
             var isMini = SIDE.hasClass('lau-mini');
             if (sideStatus.mini && !isMini) {
-                SIDE.addClass('lau-mini') && THIS.resize(200);
+                SIDE.addClass('lau-mini') && SINGLE || THIS.resize(200);
             } else if (!sideStatus.mini && isMini) {
-                SIDE.removeClass('lau-mini') && THIS.resize(200);
+                SIDE.removeClass('lau-mini') && SINGLE || THIS.resize(200);
             }
         }, 1000);
     };
