@@ -1,6 +1,7 @@
-layui.define(['layer', 'laytpl'], function(exports) {
+layui.define(['layer', 'laytpl', 'element'], function(exports) {
     var layer = layui.layer,
         laytpl = layui.laytpl,
+        element = layui.element,
         $ = layui.$;
 
     /**
@@ -226,265 +227,261 @@ layui.define(['layer', 'laytpl'], function(exports) {
                 return this;
             };
         } else {
-            //选项卡模式额外暴露的接口
-            layui.use('element', function () {
-                var element = layui.element;
+            //选项卡模式暴露的接口
+            var tabFilter = 'lau-tabs',
+                tabTitle = BODY.find('.layui-tab-title'),
+                tabTitleWidth = 0,
+                tabTitleOffset = 0,
+                tabWidth = 0,
+                tabDiff = 0,
+                tabThis = tabTitle.find('.layui-this'),
+                tabThisWidth = tabThis.outerWidth(),
+                tabThisLeft = tabThis.position().left,
+                tabResizeHandle;
 
-                var tabFilter = 'lau-tabs',
-                    tabTitle = BODY.find('.layui-tab-title'),
-                    tabTitleWidth = 0,
-                    tabTitleOffset = 0,
-                    tabWidth = 0,
-                    tabDiff = 0,
-                    tabThis = tabTitle.find('.layui-this'),
-                    tabThisWidth = tabThis.outerWidth(),
-                    tabThisLeft = tabThis.position().left,
-                    tabResizeHandle;
+            /**
+             * 重新计算选项卡容器宽度
+             */
+            function calcTabTitleWidth() {
+                tabTitleWidth = tabTitle.width();
+                calcTabDiff();
+            }
 
-                /**
-                 * 重新计算选项卡容器宽度
-                 */
-                function calcTabTitleWidth() {
-                    tabTitleWidth = tabTitle.width();
-                    calcTabDiff();
+            /**
+             * 重新计算所有的选项卡的宽度和
+             */
+            function calcTabWidth() {
+                tabWidth = 0;
+                tabTitle.find('li').each(function () {
+                    tabWidth += $(this).outerWidth();
+                });
+                calcTabDiff();
+            }
+
+            /**
+             * 重新计算选项卡容器和选项卡标签宽度差
+             */
+            function calcTabDiff() {
+                tabDiff = tabTitleWidth - tabWidth;
+            }
+
+            /**
+             * 设置选项卡容器偏移量
+             * @param offset 偏移量
+             */
+            function setOffset(offset) {
+                var old = tabTitleOffset;
+                if (offset >= 0 || tabDiff >= 0) {
+                    tabTitleOffset = 0;
+                } else if (offset < tabDiff) {
+                    tabTitleOffset = tabDiff;
+                } else {
+                    tabTitleOffset = offset;
                 }
+                old === tabTitleOffset || tabTitle.css('left', tabTitleOffset + 'px');
+            }
 
-                /**
-                 * 重新计算所有的选项卡的宽度和
-                 */
-                function calcTabWidth() {
-                    tabWidth = 0;
-                    tabTitle.find('li').each(function () {
-                        tabWidth += $(this).outerWidth();
-                    });
-                    calcTabDiff();
-                }
-
-                /**
-                 * 重新计算选项卡容器和选项卡标签宽度差
-                 */
-                function calcTabDiff() {
-                    tabDiff = tabTitleWidth - tabWidth;
-                }
-
-                /**
-                 * 设置选项卡容器偏移量
-                 * @param offset 偏移量
-                 */
-                function setOffset(offset) {
-                    var old = tabTitleOffset;
-                    if (offset >= 0 || tabDiff >= 0) {
-                        tabTitleOffset = 0;
-                    } else if (offset < tabDiff) {
-                        tabTitleOffset = tabDiff;
-                    } else {
-                        tabTitleOffset = offset;
-                    }
-                    old === tabTitleOffset || tabTitle.css('left', tabTitleOffset + 'px');
-                }
-
-                /**
-                 * 窗口改变重新计算
-                 */
-                function resize() {
-                    calcTabTitleWidth();
-                    if (tabDiff >= 0) {
-                        setOffset(0);
-                    } else if (tabTitleWidth <= tabThisWidth || tabTitleOffset < -tabThisLeft) {
-                        setOffset(-tabThisLeft);
-                    } else {
-                        setOffset(tabTitleWidth - tabThisLeft - tabThisWidth);
-                    }
-                }
-
-                /**
-                 * 选项卡往左
-                 * @returns {Layout}
-                 */
-                THIS.tabPrev = function () {
-                    setOffset(tabTitleOffset + tabTitleWidth);
-                    return this;
-                };
-
-                /**
-                 * 选项卡往右
-                 * @returns {Layout}
-                 */
-                THIS.tabNext = function () {
-                    setOffset(tabTitleOffset - tabTitleWidth);
-                    return this;
-                };
-
-                /**
-                 * 窗口改变重新计算
-                 * @param time 延迟执行,毫秒,默认0
-                 * @returns {Layout}
-                 */
-                THIS.resize = function (time) {
-                    if (time) {
-                        tabResizeHandle && clearTimeout(tabResizeHandle);
-                        tabResizeHandle = setTimeout(resize, time);
-                    } else {
-                        resize();
-                    }
-                    return this;
-                };
-
-                /**
-                 * 新建选项卡
-                 * @param href iframe的地址
-                 * @param title 选项卡标题
-                 * @param icon 选项卡图标
-                 * @param id 选项卡ID,如果不传,就以href作为ID
-                 * @returns {Layout}
-                 */
-                THIS.tabAdd = function (href, title, icon, id) {
-                    href = $.trim(href);
-                    title = $.trim(title);
-                    icon = $.trim(icon);
-                    id = $.trim(id);
-
-                    LAYID = id || href;
-                    if (!tabTitle.find('li[lay-id="' + LAYID + '"]')[0]) {
-                        if (icon) {
-                            if (icon.split(/\s+/).length < 2) {
-                                title = '<i class="layui-icon ' + icon + '"></i> ' + title;
-                            } else {
-                                title = '<i class="' + icon + '"></i> ' + title;
-                            }
-                        }
-                        element.tabAdd(tabFilter, {
-                            title: title || href,
-                            content: '<iframe src="' + href + '"></iframe>',
-                            id: LAYID
-                        });
-                    }
-                    element.tabChange(tabFilter, LAYID);
-                    calcTabWidth();
-                    this.resize();
-                    return this;
-                };
-
-                /**
-                 * 关闭当前选项卡,第一个选项卡除外
-                 * @returns {Layout}
-                 */
-                THIS.tabCloseThis = function () {
-                    tabThis.is(':first-child') || tabThis.find('i.layui-tab-close').trigger('click');
-                    return this;
-                };
-
-                /**
-                 * 关闭当前选项卡外的所有选项卡,第一个选项卡除外
-                 * @returns {Layout}
-                 */
-                THIS.tabCloseSiblings = function () {
-                    tabThis.siblings('li:not(:first-child)').find('i.layui-tab-close').trigger('click');
-                    return this;
-                };
-
-                /**
-                 * 关闭所有选项卡,第一个选项卡除外
-                 * @returns {Layout}
-                 */
-                THIS.tabCloseAll = function () {
-                    tabTitle.find('li:not(:first-child)').find('i.layui-tab-close').trigger('click');
-                    return this;
-                };
-
-                /**
-                 * 关闭第N个选项卡
-                 * @param index 选项卡的索引,从0开始,但是0不可删除
-                 * @returns {Layout}
-                 */
-                THIS.tabCloseEq = function (index) {
-                    index && tabTitle.find('li:eq(' + index + ')').find('i.layui-tab-close').trigger('click');
-                    return this;
-                };
-
-                /**
-                 * 关闭layid对应的选项卡
-                 * @param layid 选项卡的ID
-                 * @returns {Layout}
-                 */
-                THIS.tabCloseId = function (layid) {
-                    element.tabDelete(tabFilter, layid);
-                    return this;
-                };
-
-                /**
-                 * 切换到第N个选项卡
-                 * @param index 选项卡的索引,从0开始
-                 * @returns {Layout}
-                 */
-                THIS.tabChangeEq = function (index) {
-                    tabTitle.find('li:eq(' + index + ')').trigger('click');
-                    return this;
-                };
-
-                /**
-                 * 切换到layid对应的选项卡
-                 * @param layid 选项卡的ID
-                 * @returns {Layout}
-                 */
-                THIS.tabChangeId = function (layid) {
-                    element.tabChange(tabFilter, layid);
-                    return this;
-                };
-
-                //初始化选项卡数据
+            /**
+             * 窗口改变重新计算
+             */
+            function resize() {
                 calcTabTitleWidth();
-                calcTabWidth();
+                if (tabDiff >= 0) {
+                    setOffset(0);
+                } else if (tabTitleWidth <= tabThisWidth || tabTitleOffset < -tabThisLeft) {
+                    setOffset(-tabThisLeft);
+                } else {
+                    setOffset(tabTitleWidth - tabThisLeft - tabThisWidth);
+                }
+            }
 
-                //监听选项卡切换
-                element.on('tab(' + tabFilter + ')', function(data) {
-                    IFRAME = data.elem.find('.layui-tab-item.layui-show iframe').first();
-                    tabThis = $(this);
-                    tabThisWidth = tabThis.outerWidth();
-                    tabThisLeft = tabThis.position().left;
-                    THIS.resize();
-                    LAYID = tabThis.attr('lay-id');
-                    traceMenu();
-                });
+            /**
+             * 选项卡往左
+             * @returns {Layout}
+             */
+            this.tabPrev = function () {
+                setOffset(tabTitleOffset + tabTitleWidth);
+                return this;
+            };
 
-                //监听选项卡关闭
-                element.on('tabDelete(' + tabFilter + ')', function(data) {
-                    tabThisLeft = tabThis.position().left;
-                    calcTabWidth();
-                    THIS.resize();
-                });
+            /**
+             * 选项卡往右
+             * @returns {Layout}
+             */
+            this.tabNext = function () {
+                setOffset(tabTitleOffset - tabTitleWidth);
+                return this;
+            };
 
-                //窗口改变事件
-                $(window).resize(function () {
-                    THIS.resize();
-                });
+            /**
+             * 窗口改变重新计算
+             * @param time 延迟执行,毫秒,默认0
+             * @returns {Layout}
+             */
+            this.resize = function (time) {
+                if (time) {
+                    tabResizeHandle && clearTimeout(tabResizeHandle);
+                    tabResizeHandle = setTimeout(resize, time);
+                } else {
+                    resize();
+                }
+                return this;
+            };
 
-                //单击左移
-                $(document).on('click', '.lau-tabs-ctrl.layui-icon-prev', function () {
-                    THIS.tabPrev();
-                });
+            /**
+             * 新建选项卡
+             * @param href iframe的地址
+             * @param title 选项卡标题
+             * @param icon 选项卡图标
+             * @param id 选项卡ID,如果不传,就以href作为ID
+             * @returns {Layout}
+             */
+            this.tabAdd = function (href, title, icon, id) {
+                href = $.trim(href);
+                title = $.trim(title);
+                icon = $.trim(icon);
+                id = $.trim(id);
 
-                //单击右移
-                $(document).on('click', '.lau-tabs-ctrl.layui-icon-next', function () {
-                    THIS.tabNext();
-                });
-
-                //单击刷新
-                $(document).on('click', '.lau-tabs-ctrl.layui-icon-refresh-3', function () {
-                    THIS.reload();
-                });
-
-                //监听选项卡的更多操作
-                element.on('nav(lau-tabs-more)', function(elem) {
-                    var dd = elem.parent();
-                    dd.removeClass('layui-this');
-                    dd.parent().removeClass('layui-show');
-                    switch (elem.prop('class')) {
-                        case 'lau-tabs-close-this':THIS.tabCloseThis();break;
-                        case 'lau-tabs-close-siblings':THIS.tabCloseSiblings();break;
-                        case 'lau-tabs-close-all':THIS.tabCloseAll();break;
+                LAYID = id || href;
+                if (!tabTitle.find('li[lay-id="' + LAYID + '"]')[0]) {
+                    if (icon) {
+                        if (icon.split(/\s+/).length < 2) {
+                            title = '<i class="layui-icon ' + icon + '"></i> ' + title;
+                        } else {
+                            title = '<i class="' + icon + '"></i> ' + title;
+                        }
                     }
-                });
+                    element.tabAdd(tabFilter, {
+                        title: title || href,
+                        content: '<iframe src="' + href + '"></iframe>',
+                        id: LAYID
+                    });
+                }
+                element.tabChange(tabFilter, LAYID);
+                calcTabWidth();
+                this.resize();
+                return this;
+            };
+
+            /**
+             * 关闭当前选项卡,第一个选项卡除外
+             * @returns {Layout}
+             */
+            this.tabCloseThis = function () {
+                tabThis.is(':first-child') || tabThis.find('i.layui-tab-close').trigger('click');
+                return this;
+            };
+
+            /**
+             * 关闭当前选项卡外的所有选项卡,第一个选项卡除外
+             * @returns {Layout}
+             */
+            this.tabCloseSiblings = function () {
+                tabThis.siblings('li:not(:first-child)').find('i.layui-tab-close').trigger('click');
+                return this;
+            };
+
+            /**
+             * 关闭所有选项卡,第一个选项卡除外
+             * @returns {Layout}
+             */
+            this.tabCloseAll = function () {
+                tabTitle.find('li:not(:first-child)').find('i.layui-tab-close').trigger('click');
+                return this;
+            };
+
+            /**
+             * 关闭第N个选项卡
+             * @param index 选项卡的索引,从0开始,但是0不可删除
+             * @returns {Layout}
+             */
+            this.tabCloseEq = function (index) {
+                index && tabTitle.find('li:eq(' + index + ')').find('i.layui-tab-close').trigger('click');
+                return this;
+            };
+
+            /**
+             * 关闭layid对应的选项卡
+             * @param layid 选项卡的ID
+             * @returns {Layout}
+             */
+            this.tabCloseId = function (layid) {
+                element.tabDelete(tabFilter, layid);
+                return this;
+            };
+
+            /**
+             * 切换到第N个选项卡
+             * @param index 选项卡的索引,从0开始
+             * @returns {Layout}
+             */
+            this.tabChangeEq = function (index) {
+                tabTitle.find('li:eq(' + index + ')').trigger('click');
+                return this;
+            };
+
+            /**
+             * 切换到layid对应的选项卡
+             * @param layid 选项卡的ID
+             * @returns {Layout}
+             */
+            this.tabChangeId = function (layid) {
+                element.tabChange(tabFilter, layid);
+                return this;
+            };
+
+            //初始化选项卡数据
+            calcTabTitleWidth();
+            calcTabWidth();
+
+            //监听选项卡切换
+            element.on('tab(' + tabFilter + ')', function(data) {
+                IFRAME = data.elem.find('.layui-tab-item.layui-show iframe').first();
+                tabThis = $(this);
+                tabThisWidth = tabThis.outerWidth();
+                tabThisLeft = tabThis.position().left;
+                THIS.resize();
+                LAYID = tabThis.attr('lay-id');
+                traceMenu();
+            });
+
+            //监听选项卡关闭
+            element.on('tabDelete(' + tabFilter + ')', function(data) {
+                tabThisLeft = tabThis.position().left;
+                calcTabWidth();
+                THIS.resize();
+            });
+
+            //窗口改变事件
+            $(window).resize(function () {
+                THIS.resize();
+            });
+
+            //单击左移
+            $(document).on('click', '.lau-tabs-ctrl.layui-icon-prev', function () {
+                THIS.tabPrev();
+            });
+
+            //单击右移
+            $(document).on('click', '.lau-tabs-ctrl.layui-icon-next', function () {
+                THIS.tabNext();
+            });
+
+            //单击刷新
+            $(document).on('click', '.lau-tabs-ctrl.layui-icon-refresh-3', function () {
+                THIS.reload();
+            });
+
+            //监听选项卡的更多操作
+            element.on('nav(lau-tabs-more)', function(elem) {
+                var dd = elem.parent();
+                dd.removeClass('layui-this');
+                dd.parent().removeClass('layui-show');
+                switch (elem.prop('class')) {
+                    case 'lau-tabs-close-this':THIS.tabCloseThis();break;
+                    case 'lau-tabs-close-siblings':THIS.tabCloseSiblings();break;
+                    case 'lau-tabs-close-all':THIS.tabCloseAll();break;
+                }
             });
         }
 
