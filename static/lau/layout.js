@@ -5,7 +5,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
         $ = layui.$;
 
     /**
-     * 模板
+     * 预设模板
      * @type {{ Tpl }}
      */
     var Tpl = {
@@ -60,7 +60,35 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
                 '{{# } }}',
             '</li>',
             '{{# }); }}'
-        ].join('')
+        ].join(''),
+        bodyTab: [
+            '<div class="layui-icon lau-tabs-ctrl layui-icon-prev"></div>',
+            '<div class="layui-icon lau-tabs-ctrl layui-icon-next"></div>',
+            '<div class="layui-icon lau-tabs-ctrl layui-icon-refresh-3"></div>',
+            '<div class="layui-icon lau-tabs-ctrl layui-icon-down">',
+                '<ul class="layui-nav lau-tabs-more" lay-filter="lau-tabs-more">',
+                    '<li class="layui-nav-item" lay-unselect>',
+                        '<a></a>',
+                        '<dl class="layui-nav-child layui-anim-fadein">',
+                            '<dd><a class="lau-tabs-close-this">关闭当前标签页</a></dd>',
+                            '<dd><a class="lau-tabs-close-siblings">关闭其它标签页</a></dd>',
+                            '<dd><a class="lau-tabs-close-all">关闭全部标签页</a></dd>',
+                        '</dl>',
+                    '</li>',
+                '</ul>',
+            '</div>',
+            '<div class="layui-tab layui-tab-brief" lay-allowClose="true" lay-filter="lau-tabs">',
+                '<ul class="layui-tab-title">',
+                    '<li class="layui-this"><i class="{{ d.icon ? (d.icon.split(\'/\s+/\').length > 1 ? d.icon : \'layui-icon \' + d.icon) : \'layui-icon layui-icon-home\' }}"></i> {{ d.title || \'控制台\' }}</li>',
+                '</ul>',
+                '<div class="layui-tab-content">',
+                    '<div class="layui-tab-item layui-show">',
+                        '<iframe src="{{ d.href }}"></iframe>',
+                    '</div>',
+                '</div>',
+            '</div>'
+        ].join(''),
+        bodySingle: '<iframe src="{{ d.href }}"></iframe>'
     };
 
     /**
@@ -72,15 +100,41 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
             BODY = $('.layui-body'),
             SIDE = $('.layui-side'),
             SIDE_MENU = [],
-            SINGLE = BODY.children().length === 1,
-            IFRAME = BODY.find('iframe:visible').last(),
+            SINGLE = BODY.data('type') === 'single',
+            IFRAME,
             LAYID;
 
         //版本号
         this.version = this.v = '1.0.0';
 
+        //渲染内容模板
+        laytpl(SINGLE ? Tpl.bodySingle : Tpl.bodyTab).render({
+            title: $.trim(BODY.data('title')),
+            icon: $.trim(BODY.data('icon')),
+            href: $.trim(BODY.data('href'))
+        }, function (html) {
+            IFRAME = BODY.html(html).find('iframe').first();
+            element.render('nav');
+        });
+
+        //如果设置了侧栏菜单的获取路径,直接渲染
+        var sideHref = $.trim(SIDE.data('href'));
+        if (sideHref) {
+            $.ajax({
+                url: sideHref,
+                dataType: 'json',
+                success: function (data, textStatus, jqXHR) {
+                    THIS.sideMenuLoad(data);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                }
+            });
+        }
+
         /**
          * 刷新当前iframe
+         * @returns {Layout}
          */
         this.reload = function () {
             IFRAME.prop('src', IFRAME.prop('src'));
@@ -142,7 +196,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
 
         /**
          * 弹出右侧抽屉
-         * @param options
+         * @param options layer选项
          * @returns {*}
          */
         this.drawer = function (options) {
@@ -166,7 +220,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
              * @param href 要跳转的地址
              * @returns {Layout}
              */
-            THIS.location = function (href) {
+            this.location = function (href) {
                 LAYID = $.trim(href);
                 IFRAME.prop('src', LAYID);
                 return this;
@@ -418,9 +472,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
 
             //监听选项卡的更多操作
             element.on('nav(lau-tabs-more)', function(elem) {
-                var dd = elem.parent();
-                dd.removeClass('layui-this');
-                dd.parent().removeClass('layui-show');
+                elem.parent().removeClass('layui-this').parent().removeClass('layui-show');
                 switch (elem.prop('class')) {
                     case 'lau-tabs-close-this':THIS.tabCloseThis();break;
                     case 'lau-tabs-close-siblings':THIS.tabCloseSiblings();break;
