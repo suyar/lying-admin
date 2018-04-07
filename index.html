@@ -29,14 +29,14 @@
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item" lay-unselect>
-                <a>小黑屋</a>
+                <a href="javascript:;"><img src="http://t.cn/RCzsdCq" class="layui-nav-img"> 小黑屋</a>
                 <dl class="layui-nav-child">
                     <dd><a>基本资料</a></dd>
                     <dd><a>安全设置</a></dd>
+                    <dd><a>安全退出</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item" lay-unselect><a>退了</a></li>
-            <li class="layui-nav-item" lay-unselect><a><i class="layui-icon layui-icon-more-vertical"></i></a></li>
+            <li class="layui-nav-item" lay-unselect><a lau-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a></li>
         </ul>
     </div>
     <!--顶部导航结束-->
@@ -61,7 +61,21 @@
 <script>
     layui.config({base: '/static/'}).extend({layout: 'lau/layout'}).use(['layout'], function () {
         var layout = layui.layout,
-            $ = layui.$;
+            $ = layui.$,
+            element = layui.element;
+
+        //监听事件,这个不一定要用lau-event,可以自己写
+        $(document).on('click', '[lau-event]', function () {
+            var _this = $(this);
+            switch (_this.attr('lau-event')) {
+                case 'about':
+                    $.get('/html/about.html', function (html) {
+                        layout.drawer({content: html});
+                    });
+                    break;
+
+            }
+        });
 
 
 

@@ -1,4 +1,4 @@
-a, *[lau-href] {
+a, *[lau-href], *[lau-event] {
     cursor: pointer;
 }
 /*顶部导航*/
@@ -39,6 +39,10 @@ a, *[lau-href] {
 }
 .layui-header .layui-nav-child {
     top: 55px;
+}
+.layui-header .layui-nav .layui-nav-child dd.layui-this a, .layui-header .layui-nav-child dd.layui-this {
+    background: none;
+    color: #333;
 }
 .layui-header .layui-nav-bar {
     top: 0!important;
