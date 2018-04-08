@@ -180,10 +180,19 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
         };
 
         /**
+         * 根据layid查找menu对象
+         * @param layid menu的layid
+         * @returns {*}
+         */
+        function findMenu(layid) {
+            return SIDE.find('li.lau-nav-item a[lau-href="' + layid + '"], li.lau-nav-item a[lau-id="' + layid + '"]').first();
+        }
+
+        /**
          * 根据当前选项卡追踪侧栏菜单展开
          */
         function traceMenu() {
-            var menu = SIDE.find('li.lau-nav-item a[lau-href="' + LAYID + '"], li.lau-nav-item a[lau-id="' + LAYID + '"]').first();
+            var menu = findMenu(LAYID);
             if (menu[0] && !menu.next('.lau-nav-child')[0]) {
                 if (menu.hasClass('lau-nav-header')) {
                     menu.parent().siblings().removeClass('lau-open');
@@ -197,10 +206,10 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
         /**
          * 弹出右侧抽屉
          * @param options layer选项
-         * @returns {*}
+         * @returns {Layout}
          */
         this.drawer = function (options) {
-            return layer.open($.extend({
+            this.drawerIndex = layer.open($.extend({
                 type: 1,
                 id: "drawer",
                 anim: -1,
@@ -212,6 +221,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
                 skin: "layui-anim layui-anim-rl lau-drawer",
                 area: "300px"
             }, options));
+            return this;
         };
 
         if (SINGLE) {
@@ -335,6 +345,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
              * @returns {Layout}
              */
             this.tabAdd = function (href, title, icon, id) {
+                layer.close(this.drawerIndex);
                 href = $.trim(href);
                 title = $.trim(title);
                 icon = $.trim(icon);
@@ -491,7 +502,12 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
                     SINGLE ? THIS.location(href) : THIS.tabAdd(href, _this.find('cite').text(), _this.find('i').prop('class'), layid);
                 }
             } else {
-                SINGLE ? THIS.location(href) : THIS.tabAdd(href, _this.attr('lau-title'), _this.attr('lau-icon'), layid);
+                var menu = findMenu($.trim(layid) || $.trim(href));
+                if (menu[0]) {
+                    menu.trigger('click');
+                } else {
+                    SINGLE ? THIS.location(href) : THIS.tabAdd(href, _this.attr('lau-title'), _this.attr('lau-icon'), layid);
+                }
             }
         });
 
