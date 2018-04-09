@@ -1,7 +1,8 @@
 [[{
-  "title": "所有商品",
+  "title": "项目文档",
+  "open": true,
   "list": [{
-    "title": "错误页面",
+    "title": "开始使用",
     "href": "/doc/start.html"
   }, {
     "title": "轮播组图"
