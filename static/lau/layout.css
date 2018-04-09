@@ -1,4 +1,4 @@
-a, *[lau-href], *[lau-event] {
+a, *[lau-href], *[lau-id], *[lau-event] {
     cursor: pointer;
 }
 /*顶部导航*/

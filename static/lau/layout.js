@@ -493,7 +493,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
         }
 
         //监听锚点打开选项卡
-        $(document).on('click', '*[lau-href]', function () {
+        $(document).on('click', '*[lau-href], *[lau-id]', function () {
             var _this = $(this),
                 href = _this.attr('lau-href'),
                 layid = _this.attr('lau-id');
