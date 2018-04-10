@@ -13,8 +13,6 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
             '{{# layui.each(d, function(index, item) { ',
                 'var href = layui.$.trim(item.href), ',
                     'href = href ? \' lau-href="\' + href + \'"\' : \'\', ',
-                    'id = layui.$.trim(item.id),',
-                    'id = id ? \' lau-id="\' + id + \'"\' : \'\', ',
                     'title = layui.$.trim(item.title), ',
                     'icon = layui.$.trim(item.icon), ',
                     'hasItem = typeof item.list === \'object\' && item.list.length > 0, ',
@@ -28,7 +26,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
                 '} ',
             '}}',
             '<li class="lau-nav-item{{ open }}">',
-                '<a class="lau-nav-header"{{ href }}{{ id }}>',
+                '<a class="lau-nav-header"{{ href }}>',
                     '<i class="{{ icon }}"></i>',
                     '<cite>{{ title }}</cite>',
                 '</a>',
@@ -37,8 +35,6 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
                     '{{# layui.each(item.list, function(index2, item2) { ',
                         'var href = layui.$.trim(item2.href), ',
                             'href = href ? \' lau-href="\' + href + \'"\' : \'\', ',
-                            'id = layui.$.trim(item2.id),',
-                            'id = id ? \' lau-id="\' + id + \'"\' : \'\', ',
                             'title = layui.$.trim(item2.title), ',
                             'icon = layui.$.trim(item2.icon); ',
                         'if (icon) { ',
@@ -50,7 +46,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
                         '} ',
                     '}}',
                     '<dd>',
-                        '<a{{ href }}{{ id }}>',
+                        '<a{{ href }}>',
                             '<i class="{{ icon }}"></i>',
                             '<cite>{{ title }}</cite>',
                         '</a>',
@@ -79,7 +75,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
             '</div>',
             '<div class="layui-tab layui-tab-brief" lay-allowClose="true" lay-filter="lau-tabs">',
                 '<ul class="layui-tab-title">',
-                    '<li class="layui-this"><i class="{{ d.icon ? (d.icon.split(\'/\s+/\').length > 1 ? d.icon : \'layui-icon \' + d.icon) : \'layui-icon layui-icon-home\' }}"></i> {{ d.title || \'控制台\' }}</li>',
+                    '<li class="layui-this" lay-id="{{ d.href }}"><i class="{{ d.icon ? (d.icon.split(\'/\s+/\').length > 1 ? d.icon : \'layui-icon \' + d.icon) : \'layui-icon layui-icon-home\' }}"></i> {{ d.title || \'控制台\' }}</li>',
                 '</ul>',
                 '<div class="layui-tab-content">',
                     '<div class="layui-tab-item layui-show">',
@@ -102,7 +98,8 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
             SIDE_MENU = [],
             SINGLE = BODY.data('type') === 'single',
             IFRAME,
-            LAYID;
+            LAYID,
+            DRAWER_INDEX;
 
         //版本号
         this.version = this.v = '1.0.0';
@@ -111,7 +108,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
         laytpl(SINGLE ? Tpl.bodySingle : Tpl.bodyTab).render({
             title: $.trim(BODY.data('title')),
             icon: $.trim(BODY.data('icon')),
-            href: $.trim(BODY.data('href'))
+            href: LAYID = $.trim(BODY.data('href'))
         }, function (html) {
             IFRAME = BODY.html(html).find('iframe').first();
             element.render('nav');
@@ -172,7 +169,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
                 var sideNav = SIDE.find('.layui-nav.layui-nav-tree');
                 sideNav[0] && sideNav.fadeOut(200, function () {
                     sideNav.html(html).fadeIn(200,function () {
-                        traceMenu();
+                        SINGLE || traceMenu();
                     });
                 });
             });
@@ -180,19 +177,40 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
         };
 
         /**
-         * 根据layid查找menu对象
-         * @param layid menu的layid
-         * @returns {*}
+         * 查找对应菜单的title和icon
+         * @param href 链接,记得trim
          */
-        function findMenu(layid) {
-            return SIDE.find('li.lau-nav-item a[lau-href="' + layid + '"], li.lau-nav-item a[lau-id="' + layid + '"]').first();
+        function findMenu(href) {
+            var menu = {}, match = false;
+            layui.each(SIDE_MENU, function (index, item) {
+                layui.each(item, function (index1, item1) {
+                    var hasItem = typeof item1.list === 'object' && item1.list.length > 0;
+                    if ($.trim(item1.href) === href && !hasItem) {
+                        menu.title = item1.title;
+                        menu.icon = item1.icon;
+                        return match = true;
+                    } else if (hasItem) {
+                        layui.each(item1, function (index2, item2) {
+                            layui.each(item2, function (index3, item3) {
+                                if ($.trim(item3.href) === href) {
+                                    menu.title = item3.title;
+                                    menu.icon = item3.icon;
+                                    return match = true;
+                                }
+                            });
+                        });
+                    }
+                });
+                return match;
+            });
+            return menu;
         }
 
         /**
          * 根据当前选项卡追踪侧栏菜单展开
          */
         function traceMenu() {
-            var menu = findMenu(LAYID);
+            var menu = SIDE.find('li.lau-nav-item a[lau-href="' + LAYID + '"]').first();
             if (menu[0] && !menu.next('.lau-nav-child')[0]) {
                 if (menu.hasClass('lau-nav-header')) {
                     menu.parent().siblings().removeClass('lau-open');
@@ -209,7 +227,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
          * @returns {Layout}
          */
         this.drawer = function (options) {
-            this.drawerIndex = layer.open($.extend({
+            DRAWER_INDEX = layer.open($.extend({
                 type: 1,
                 id: "drawer",
                 anim: -1,
@@ -224,6 +242,15 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
             return this;
         };
 
+        /**
+         * 关闭抽屉
+         * @returns {Layout}
+         */
+        this.drawerClose = function () {
+            layer.close(DRAWER_INDEX);
+            return this;
+        };
+
         if (SINGLE) {
             /**
              * 跳转当前iframe
@@ -231,8 +258,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
              * @returns {Layout}
              */
             this.location = function (href) {
-                LAYID = $.trim(href);
-                IFRAME.prop('src', LAYID);
+                IFRAME.prop('src', LAYID = $.trim(href));
                 return this;
             };
         } else {
@@ -341,28 +367,28 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
              * @param href iframe的地址
              * @param title 选项卡标题
              * @param icon 选项卡图标
-             * @param id 选项卡ID,如果不传,就以href作为ID
              * @returns {Layout}
              */
-            this.tabAdd = function (href, title, icon, id) {
-                layer.close(this.drawerIndex);
-                href = $.trim(href);
-                title = $.trim(title);
-                icon = $.trim(icon);
-                id = $.trim(id);
+            this.tabAdd = function (href, title, icon) {
+                LAYID = $.trim(href);
+                var menu = findMenu(LAYID);
+                title = $.trim(title) || $.trim(menu.title);
+                icon = $.trim(icon) || $.trim(menu.icon);
 
-                LAYID = id || href;
                 if (!tabTitle.find('li[lay-id="' + LAYID + '"]')[0]) {
+                    title = title || LAYID;
                     if (icon) {
                         if (icon.split(/\s+/).length < 2) {
                             title = '<i class="layui-icon ' + icon + '"></i> ' + title;
                         } else {
                             title = '<i class="' + icon + '"></i> ' + title;
                         }
+                    } else {
+                        title = '<i class="layui-icon layui-icon-danxuankuanghouxuan"></i> ' + title;
                     }
                     element.tabAdd(tabFilter, {
-                        title: title || href,
-                        content: '<iframe src="' + href + '"></iframe>',
+                        title: title,
+                        content: '<iframe src="' + LAYID + '"></iframe>',
                         id: LAYID
                     });
                 }
@@ -411,7 +437,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
 
             /**
              * 关闭layid对应的选项卡
-             * @param layid 选项卡的ID
+             * @param layid 选项卡的ID,也是href
              * @returns {Layout}
              */
             this.tabCloseId = function (layid) {
@@ -431,7 +457,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
 
             /**
              * 切换到layid对应的选项卡
-             * @param layid 选项卡的ID
+             * @param layid 选项卡的ID,也是href
              * @returns {Layout}
              */
             this.tabChangeId = function (layid) {
@@ -493,21 +519,15 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
         }
 
         //监听锚点打开选项卡
-        $(document).on('click', '*[lau-href], *[lau-id]', function () {
+        $(document).on('click', '*[lau-href]', function () {
             var _this = $(this),
-                href = _this.attr('lau-href'),
-                layid = _this.attr('lau-id');
+                href = _this.attr('lau-href');
             if (_this.parents('.lau-nav-item')[0]) {
                 if (!_this.next('.lau-nav-child')[0]) {
-                    SINGLE ? THIS.location(href) : THIS.tabAdd(href, _this.find('cite').text(), _this.find('i').prop('class'), layid);
+                    SINGLE ? THIS.location(href) : THIS.tabAdd(href, _this.find('cite').text(), _this.find('i').prop('class'));
                 }
             } else {
-                var menu = findMenu($.trim(layid) || $.trim(href));
-                if (menu[0]) {
-                    menu.trigger('click');
-                } else {
-                    SINGLE ? THIS.location(href) : THIS.tabAdd(href, _this.attr('lau-title'), _this.attr('lau-icon'), layid);
-                }
+                SINGLE ? THIS.location(href) : THIS.tabAdd(href, _this.attr('lau-title'), _this.attr('lau-icon'));
             }
         });
 

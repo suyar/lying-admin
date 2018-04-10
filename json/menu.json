@@ -1,11 +1,17 @@
 [[{
+  "title": "控制台",
+  "icon": "layui-icon-home",
+  "href": "/html/console.html"
+}, {
   "title": "项目文档",
   "open": true,
   "list": [{
     "title": "开始使用",
     "href": "/doc/start.html"
   }, {
-    "title": "轮播组图"
+    "title": "轮播组图",
+    "icon": "layui-icon-biaodan",
+    "href": "/doc/license.html"
   }]
 }, {
   "title": "系统设置",
