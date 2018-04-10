@@ -18,7 +18,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
                     'hasItem = typeof item.list === \'object\' && item.list.length > 0, ',
                     'open = Boolean(item.open) && hasItem ? \' lau-open\' : \'\'; ',
                 'if (icon) { ',
-                    'if (icon.split(/\\s+/).length < 2) { ',
+                    'if (icon.split(" ").filter(function(x){ return Boolean(x); }).length < 2) { ',
                         'icon = \'layui-icon \' + icon; ',
                     '} ',
                 '} else { ',
@@ -38,7 +38,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
                             'title = layui.$.trim(item2.title), ',
                             'icon = layui.$.trim(item2.icon); ',
                         'if (icon) { ',
-                            'if (icon.split(/\\s+/).length < 2) { ',
+                            'if (icon.split(" ").filter(function(x){ return Boolean(x); }).length < 2) { ',
                                 'icon = \'layui-icon \' + icon; ',
                             '} ',
                         '} else { ',
@@ -190,14 +190,12 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
                         menu.icon = item1.icon;
                         return match = true;
                     } else if (hasItem) {
-                        layui.each(item1, function (index2, item2) {
-                            layui.each(item2, function (index3, item3) {
-                                if ($.trim(item3.href) === href) {
-                                    menu.title = item3.title;
-                                    menu.icon = item3.icon;
-                                    return match = true;
-                                }
-                            });
+                        layui.each(item1.list, function (index2, item2) {
+                            if ($.trim(item2.href) === href) {
+                                menu.title = item2.title;
+                                menu.icon = item2.icon;
+                                return match = true;
+                            }
                         });
                     }
                 });

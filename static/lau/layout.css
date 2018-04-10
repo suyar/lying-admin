@@ -16,7 +16,7 @@ a, *[lau-href], *[lau-id], *[lau-event] {
     text-align: center;
     border-right: 1px solid #2a2f32;
 }
-.layui-header .lau-logo-mini .layui-icon {
+.layui-header .lau-logo-mini i {
     color: #fff;
     font-weight: bold;
 }
@@ -71,7 +71,7 @@ a, *[lau-href], *[lau-id], *[lau-event] {
     box-sizing: border-box;
     cursor: pointer;
 }
-.layui-side .lau-side-fold .layui-icon {
+.layui-side .lau-side-fold i {
     display: inline-block;
     color: #fff;
     font-size: 14px;
@@ -102,14 +102,15 @@ a, *[lau-href], *[lau-id], *[lau-event] {
     -webkit-transition: background-color 0.2s;
     transition: background-color 0.2s;
 }
-.layui-side .lau-nav-item a .layui-icon {
+.layui-side .lau-nav-item a i {
+    font-size: 14px;
     display: inline-block;
     width: 50px;
     text-align: center;
     -webkit-transition: transform 0.2s;
     transition: transform 0.2s;
 }
-.layui-side .lau-nav-item.lau-open .lau-nav-header .layui-icon {
+.layui-side .lau-nav-item.lau-open .lau-nav-header i {
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
@@ -137,7 +138,7 @@ a, *[lau-href], *[lau-id], *[lau-event] {
 .layui-side.lau-mini .layui-side-scroll .layui-nav-tree {
     width: 50px;
 }
-.layui-side.lau-mini .lau-side-fold .layui-icon {
+.layui-side.lau-mini .lau-side-fold i {
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
 }
@@ -250,6 +251,9 @@ a, *[lau-href], *[lau-id], *[lau-event] {
     box-sizing: border-box;
     -webkit-transition: all .2s;
     transition: all .2s;
+}
+.layui-body .layui-tab-title li i:first-child {
+    font-size: 16px;
 }
 .layui-body .layui-tab-brief[overflow]>.layui-tab-title .layui-this:after {
     top: 0;
