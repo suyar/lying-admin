@@ -71,7 +71,7 @@
             var _this = $(this);
             switch (_this.attr('lau-event')) {
                 case 'about':
-                    $.get('/doc/about.html', function (html) {
+                    $.get('/html/about.html', function (html) {
                         layout.drawer({content: html});
                     });
                     break;

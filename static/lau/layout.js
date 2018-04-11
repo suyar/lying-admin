@@ -386,7 +386,6 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
                     }
                     element.tabAdd(tabFilter, {
                         title: title,
-                        content: '<iframe src="' + LAYID + '"></iframe>',
                         id: LAYID
                     });
                 }
@@ -469,13 +468,17 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
 
             //监听选项卡切换
             element.on('tab(' + tabFilter + ')', function(data) {
-                IFRAME = data.elem.find('.layui-tab-item.layui-show iframe').first();
                 tabThis = $(this);
+                LAYID = tabThis.attr('lay-id');
                 tabThisWidth = tabThis.outerWidth();
                 tabThisLeft = tabThis.position().left;
                 THIS.resize();
-                LAYID = tabThis.attr('lay-id');
                 traceMenu();
+
+                var show = data.elem.find('.layui-tab-item.layui-show').first();
+                IFRAME = show.find('iframe').first();
+                //延迟加载iframe减轻新建选项卡卡顿
+                IFRAME[0] || show.append('<iframe src="' + LAYID + '"></iframe>') && (IFRAME = show.find('iframe').first());
             });
 
             //监听选项卡关闭
