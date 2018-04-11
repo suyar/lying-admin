@@ -16,20 +16,26 @@ body {
 a, *[lau-href], *[lau-event] {
     cursor: pointer;
 }
-.lau-fr {
-    float: right;
-}
-.lau-fl {
-    float: left;
-}
 /*概览图表*/
 .lau-overview {
     padding: 15px;
+}
+.lau-overview h5 {
+    position: relative;
+}
+.lau-overview h5 span {
+    position: absolute;
+    right: 0;
 }
 .lau-overview h2 {
     margin-top: 10px;
     height: 30px;
     line-height: 30px;
+    position: relative;
+}
+.lau-overview h2 span {
+    position: absolute;
+    right: 0;
 }
 /*卡片轮播*/
 .lau-carousel {
