@@ -490,7 +490,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
 
             //窗口改变事件
             $(window).resize(function () {
-                THIS.resize();
+                THIS.resize(250);
             });
 
             //单击左移

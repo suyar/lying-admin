@@ -13,13 +13,13 @@ body {
     margin: 0;
     box-sizing: border-box;
 }
-a, *[lau-href] {
+a, *[lau-href], *[lau-event] {
     cursor: pointer;
 }
-.lau-float-r {
+.lau-fr {
     float: right;
 }
-.lau-float-l {
+.lau-fl {
     float: left;
 }
 /*概览图表*/
