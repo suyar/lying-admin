@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>菜单操作</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+</head>
+<body>
+
+<div class="layui-card">
+    <div class="layui-card-header">菜单的使用</div>
+    <div class="layui-card-body">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>菜单同步渲染</legend>
+            <div class="layui-field-box">
+                <p>第一步：去掉layui-side的[data-href]属性</p>
+                <pre class="layui-code" lay-title="菜单同步渲染">
+&lt;!--侧边菜单开始--&gt;
+&lt;div class=&quot;layui-side&quot;&gt;
+    &lt;div class=&quot;lau-side-fold&quot;&gt;&lt;i class=&quot;layui-icon layui-icon-shrink-right&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+    &lt;div class=&quot;layui-side-scroll&quot;&gt;
+        &lt;ul class=&quot;layui-nav layui-nav-tree&quot;&gt;
+            &lt;!--这里写菜单结构--&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;!--侧边菜单结束--&gt;
+                </pre>
+                <p>第二步：写入菜单结构</p>
+                <pre class="layui-code" lay-title="菜单同步渲染">
+&lt;!--侧边菜单开始--&gt;
+&lt;div class=&quot;layui-side&quot;&gt;
+    &lt;div class=&quot;lau-side-fold&quot;&gt;&lt;i class=&quot;layui-icon layui-icon-shrink-right&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+    &lt;div class=&quot;layui-side-scroll&quot;&gt;
+        &lt;ul class=&quot;layui-nav layui-nav-tree&quot;&gt;
+            &lt;!--菜单只支持到二级,并且只能按照如下结构--&gt;
+            &lt;li class=&quot;lau-nav-item&quot;&gt;
+                &lt;a class=&quot;lau-nav-header&quot;&gt;
+                    &lt;i class=&quot;layui-icon layui-icon-right&quot;&gt;&lt;/i&gt;
+                    &lt;cite&gt;一级菜单&lt;/cite&gt;
+                &lt;/a&gt;
+                &lt;dl class=&quot;lau-nav-child&quot;&gt;
+                    &lt;dd&gt;
+                        &lt;a lau-href=&quot;&quot;&gt;
+                            &lt;i class=&quot;layui-icon layui-icon-danxuankuanghouxuan&quot;&gt;&lt;/i&gt;
+                            &lt;cite&gt;二级菜单&lt;/cite&gt;
+                        &lt;/a&gt;
+                    &lt;/dd&gt;
+                &lt;/dl&gt;
+            &lt;/li&gt;
+            &lt;li class=&quot;lau-nav-item&quot;&gt;
+                &lt;a class=&quot;lau-nav-header&quot;&gt;
+                    &lt;i class=&quot;layui-icon layui-icon-home&quot;&gt;&lt;/i&gt;
+                    &lt;cite&gt;无子菜单&lt;/cite&gt;
+                &lt;/a&gt;
+            &lt;/li&gt;
+            &lt;!--菜单结构结束--&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;!--侧边菜单结束--&gt;
+                </pre>
+                <blockquote class="layui-elem-quote">菜单需要按照规定结构,并且只支持到二级</blockquote>
+            </div>
+        </fieldset>
+
+
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>菜单异步渲染</legend>
+            <div class="layui-field-box">
+                <p>菜单异步渲染有两种方式，一种是由lau进行ajax请求，一种是由用户自己请求然后加载</p>
+                <pre class="layui-code" lay-title="菜单异步渲染一：使用data-href">
+&lt;!--侧边菜单开始--&gt;
+&lt;div class=&quot;layui-side&quot; data-href=&quot;/json/menu.json&quot;&gt;
+    &lt;div class=&quot;lau-side-fold&quot;&gt;&lt;i class=&quot;layui-icon layui-icon-shrink-right&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+    &lt;div class=&quot;layui-side-scroll&quot;&gt;
+        &lt;ul class=&quot;layui-nav layui-nav-tree&quot;&gt;
+            &lt;!--这里放空,使用异步加载--&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;!--侧边菜单结束--&gt;
+                </pre>
+                <p>上面我们使用了[data-href]属性,lau会自动请求[get]此属性的地址并且载入菜单</p>
+                <pre class="layui-code" lay-title="菜单异步渲染二：自定义请求">
+&lt;!--侧边菜单开始--&gt;
+&lt;div class=&quot;layui-side&quot;&gt;
+    &lt;div class=&quot;lau-side-fold&quot;&gt;&lt;i class=&quot;layui-icon layui-icon-shrink-right&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+    &lt;div class=&quot;layui-side-scroll&quot;&gt;
+        &lt;ul class=&quot;layui-nav layui-nav-tree&quot;&gt;
+            &lt;!--这里放空,使用异步加载--&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;!--侧边菜单结束--&gt;
+
+&lt;script&gt;
+    layui.config({base: &#x27;/static/&#x27;}).extend({lau: &#x27;lau/lau&#x27;}).use([&#x27;lau&#x27;], function () {
+        var lau = layui.lau,
+            layer = layui.layer,
+            $ = layui.$;
+        //自定义请求
+        $.getJSON(&#x27;/json/menu.json&#x27;, function (data) {
+            lau.sideMenuLoad(data);
+        });
+
+    });
+&lt;/script&gt;
+                </pre>
+                <blockquote class="layui-elem-quote">知道了怎么加载菜单,我们还要知道菜单的格式不是？</blockquote>
+                <pre class="layui-code" lay-title="菜单数据格式">
+[[{
+  &quot;title&quot;: &quot;控制台&quot;,
+  &quot;icon&quot;: &quot;layui-icon-home&quot;,
+  &quot;href&quot;: &quot;/html/console.html&quot;
+}, {
+  &quot;title&quot;: &quot;项目文档&quot;,
+  &quot;open&quot;: true,
+  &quot;list&quot;: [{
+    &quot;title&quot;: &quot;快速开始&quot;,
+    &quot;href&quot;: &quot;/doc/quickstart.html&quot;
+  }, {
+    &quot;title&quot;: &quot;菜单操作&quot;,
+    &quot;href&quot;: &quot;/doc/menu.html&quot;
+  }]
+}, {
+  &quot;title&quot;: &quot;无子菜单1&quot;,
+  &quot;href&quot;: &quot;&quot;
+}], [{
+  &quot;title&quot;: &quot;示例菜单二&quot;,
+  &quot;list&quot;: [{
+    &quot;title&quot;: &quot;示例菜单&quot;
+  }, {
+    &quot;title&quot;: &quot;示例菜单&quot;
+  }, {
+    &quot;title&quot;: &quot;示例菜单&quot;
+  }, {
+    &quot;title&quot;: &quot;示例菜单&quot;
+  }]
+}]]
+                </pre>
+                <p>看仔细了吗？是的，上面有两组菜单，可以使用 lau.sideMenuLoad(menu) 载入菜单,并且使用 lau.sideMenuChange(index) 切换菜单列表</p>
+                <p>接下来，我们看一看菜单操作的相关方法</p>
+            </div>
+        </fieldset>
+
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>菜单操作相关函数</legend>
+            <div class="layui-field-box layui-text">
+                <ul>
+                    <li>lau.sideMenuLoad(menus) 这个函数用于载入完整格式的菜单json数据</li>
+                    <li>lau.sideMenuChange(index) 这个函数用于切换到第index个菜单</li>
+                    <li>lau.sideMenuRender(menu) 这个函数用于实时渲染菜单数据，menu数据只需要完整的menus里面的一维就行</li>
+                </ul>
+                <p>好了，现在进军到下一步 <a lau-href="/doc/tabs.html">标签操作</a></p>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+</body>
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.config({base: '/static/'}).extend({common: 'js/common'}).use(['common', 'code'], function() {
+        var common = layui.common;
+
+        layui.code({about: false, encode: true});
+    });
+</script>
+</html>

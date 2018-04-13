@@ -1,6 +1,6 @@
 layui.define(['jquery'], function(exports) {
     var $ = layui.$,
-        lau = top.layui.layout;
+        lau = top.layui.lau;
 
     //监听锚点打开选项卡
     $(document).on('click', '*[lau-href]', function () {

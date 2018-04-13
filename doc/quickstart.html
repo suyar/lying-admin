@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>快速开始</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+</head>
+<body>
+<div class="layui-card">
+    <div class="layui-card-header">写在前面</div>
+    <div class="layui-card-body layui-text">
+        <ul>
+            <li>简介：LAU是基于layui的后台模板，使用LAU的前提是熟悉layui的模块化设计和使用，<a href="http://www.layui.com/doc/#modules" target="_blank">layui文档</a></li>
+            <li>初衷：其中一点是不喜欢layuiAdmin的左侧菜单，再者就是学习和提升技能</li>
+            <li>授权：正式使用需要像作者购买以获得授权 <a lau-href="/doc/license.html">获取授权</a></li>
+            <li>交流：
+                <a href="http://wpa.qq.com/msgrd?v=3&uin=296399959&site=qq&menu=yes" target="_blank">QQ</a> /
+                <a href="http://www.bycodes.net/" target="_blank">码外社区</a> /
+                <a href="http://shang.qq.com/wpa/qunwpa?idkey=a4235da100d79f46b030940e2b41b80bd02d8ca5f21c6988e7759aac8d5700a9" target="_blank">QQ群</a> /
+                <a href="mailto:su@revoke.cc">邮件</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="layui-card">
+    <div class="layui-card-header">项目部署</div>
+    <div class="layui-card-body">
+        <pre class="layui-code" lay-title="目录结构">
+├─doc           //文档页面目录
+├─html          //示例页面目录
+├─static        //静态资源目录
+│  │─css        //demo的css目录
+│  │─js         //demo的js目录
+│  │─lau        //LAU布局核心代码，只在最外层引入
+│  └─layui      //layui项目(当前版本修复了https://github.com/sentsin/layui/pull/121,后续贤心修复的话会跟进,尽量不修改layui的源代码)
+├─.gitignore    //项目忽略文件
+│─index.html    //LAU外层布局框架
+└─README.md     //LAU说明文件
+        </pre>
+
+        <blockquote class="layui-elem-quote">请把项目部署到服务器上打开，不要直接双击index.html打开</blockquote>
+
+        <p class="layui-text">接下来，请看下一节 <a lau-href="/doc/menu.html">菜单操作</a></p>
+    </div>
+</div>
+
+</body>
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.config({base: '/static/'}).extend({common: 'js/common'}).use(['common', 'code'], function() {
+        var common = layui.common;
+
+        layui.code({about: false, encode: true});
+    });
+</script>
+</html>

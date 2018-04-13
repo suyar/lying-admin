@@ -6,17 +6,20 @@
   "title": "项目文档",
   "open": true,
   "list": [{
-    "title": "开始使用",
-    "href": "/doc/start.html"
+    "title": "快速开始",
+    "href": "/doc/quickstart.html"
   }, {
-    "title": "轮播组图",
-    "href": "/doc/license.html"
+    "title": "菜单操作",
+    "href": "/doc/menu.html"
+  }, {
+    "title": "标签操作",
+    "href": "/doc/tabs.html"
   }]
 }, {
   "title": "系统设置",
   "list": [{
     "title": "菜单管理",
-    "href": "/doc/start.html"
+    "href": ""
   }, {
     "title": "细节权限"
   }]
@@ -31,10 +34,10 @@
   }]
 }, {
   "title": "无子菜单1",
-  "href": "/doc/layout.html"
+  "href": ""
 }, {
   "title": "无子菜单2",
-  "href": "/doc/layout.html"
+  "href": ""
 }], [{
   "title": "示例菜单二",
   "list": [{
@@ -62,7 +65,7 @@
   "title": "示例菜单三1",
   "list": [{
     "title": "示例菜单1",
-    "href": "/doc/start.html"
+    "href": ""
   }, {
     "title": "示例菜单"
   }, {

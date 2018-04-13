@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>标签操作</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+</head>
+<body>
+
+<div class="layui-card">
+    <div class="layui-card-header">标签的使用</div>
+    <div class="layui-card-body">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>无标签模式</legend>
+            <div class="layui-field-box">
+                <p>无标签模式下，有且只有一个iframe，并且没有了选项卡，整个页面逻辑比较清晰，只需要在 layui-body 设置 data-type 的值为小写的 'single'</p>
+                <pre class="layui-code" lay-title="无标签模式">
+&lt;!--内容主体区域开始--&gt;
+&lt;div class=&quot;layui-body&quot; data-type=&quot;single&quot; data-title=&quot;控制台&quot; data-icon=&quot;layui-icon-home&quot; data-href=&quot;/html/console.html&quot;&gt;&lt;/div&gt;
+&lt;!--内容主体区域结束--&gt;
+                </pre>
+
+                <blockquote class="layui-elem-quote">值得一提的是，layui-body 还有其他三个属性，分别是 data-title / data-icon / data-href，分别第一个选项卡默认的标题、图标、链接</blockquote>
+
+                <p>无标签模式下，提供了如下跳转的接口</p>
+                <div class="layui-text">
+                    <ul>
+                        <li>lau.go(href) 跳转</li>
+                        <li>lau.location(href) 也是跳转，这个方法的功能和上面一个一样，但是这个方法只有在无标签模式下才有</li>
+                    </ul>
+                </div>
+            </div>
+        </fieldset>
+
+
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>多标签模式</legend>
+            <div class="layui-field-box">
+                <p>多标签模式下，每个不同的链接都以选项卡的方式打开，独占一个iframe</p>
+                <pre class="layui-code" lay-title="多标签模式">
+&lt;!--内容主体区域开始--&gt;
+&lt;div class=&quot;layui-body&quot; data-title=&quot;控制台&quot; data-icon=&quot;layui-icon-home&quot; data-href=&quot;/html/console.html&quot;&gt;&lt;/div&gt;
+&lt;!--内容主体区域结束--&gt;
+                </pre>
+                <p>和无标签模式相比，仅仅是少了个data-type='single'，但是，多标签模式提供的方法就多了</p>
+                <div class="layui-text">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+
+
+                
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+</body>
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.config({base: '/static/'}).extend({common: 'js/common'}).use(['common', 'code'], function() {
+        var common = layui.common;
+
+        layui.code({about: false, encode: true});
+    });
+</script>
+</html>
