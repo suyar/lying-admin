@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>LAU后台模板</title>
     <link rel="stylesheet" href="/static/layui/css/layui.css">
-    <link rel="stylesheet" href="/static/lau/layout.css">
+    <link rel="stylesheet" href="/static/lau/lau.css">
     <script>(window.top === window.self) || (window.top.location.href = window.self.location.href);</script>
 </head>
 <body class="layui-layout-body layui-unselect">
@@ -61,8 +61,8 @@
 </body>
 <script src="/static/layui/layui.js"></script>
 <script>
-    layui.config({base: '/static/'}).extend({layout: 'lau/layout'}).use(['layout'], function () {
-        var layout = layui.layout,
+    layui.config({base: '/static/'}).extend({lau: 'lau/lau'}).use(['lau'], function () {
+        var lau = layui.lau,
             layer = layui.layer,
             $ = layui.$;
 
@@ -72,7 +72,7 @@
             switch (_this.attr('lau-event')) {
                 case 'about':
                     $.get('/html/about.html', function (html) {
-                        layout.drawer({content: html});
+                        lau.drawer({content: html});
                     });
                     break;
                 case 'download':
@@ -82,10 +82,10 @@
                     });
                     break;
                 case "sideMenu0":
-                    layout.sideMenuChange(0);
+                    lau.sideMenuChange(0);
                     break;
                 case "sideMenu1":
-                    layout.sideMenuChange(1);
+                    lau.sideMenuChange(1);
                     break;
             }
         });

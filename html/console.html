@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>控制台</title>
     <link rel="stylesheet" href="/static/layui/css/layui.css">
-    <link rel="stylesheet" href="/static/lau/lau.css">
+    <link rel="stylesheet" href="/static/css/common.css">
 </head>
 <body>
 
@@ -145,7 +145,7 @@
     <div class="layui-col-md4">
         <div class="layui-card">
             <div class="layui-card-header">系统负载</div>
-            <div class="layui-card-body lau-takerates">
+            <div class="layui-card-body lau-load lau-takerates">
                 <div class="layui-progress" lay-showPercent="yes">
                     <h3>CPU使用率</h3>
                     <div class="layui-progress-bar" lay-percent="58%"></div>
@@ -162,8 +162,6 @@
         </div>
     </div>
     <!--系统负载结束-->
-
-
 
     <!--统计预览开始-->
     <div class="layui-col-md12">
@@ -205,60 +203,54 @@
     <!--统计预览结束-->
 
     <div class="layui-col-md8">
-        <div class="layui-row layui-col-space15">
-
-            <div class="layui-col-md12">
-                <!--数据表格开始-->
-                <div class="layui-card">
-                    <div class="layui-card-body">
-                        <div class="layui-tab layui-tab-brief">
-                            <ul class="layui-tab-title">
-                                <li class="layui-this">今日热搜</li>
-                                <li>今日热帖</li>
-                            </ul>
-                            <div class="layui-tab-content">
-                                <div class="layui-tab-item layui-show">
-                                    <table id="hot-search"></table>
-                                </div>
-                                <div class="layui-tab-item">
-                                    <table id="hot-article"></table>
-                                </div>
-                            </div>
+        <!--数据表格开始-->
+        <div class="layui-card">
+            <div class="layui-card-body">
+                <div class="layui-tab layui-tab-brief">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">今日热搜</li>
+                        <li>今日热帖</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <table id="hot-search"></table>
+                        </div>
+                        <div class="layui-tab-item">
+                            <table id="hot-article"></table>
                         </div>
                     </div>
                 </div>
-                <!--数据表格结束-->
             </div>
         </div>
+        <!--数据表格结束-->
     </div>
 
     <div class="layui-col-md4">
         <!--版本信息开始-->
         <div class="layui-card">
             <div class="layui-card-header">版本信息</div>
-            <div class="layui-card-body">
+            <div class="layui-card-body layui-text">
                 <table class="layui-table">
                     <tbody>
                     <tr>
                         <td>当前版本</td>
-                        <td>v1.0.0 <a class="layui-text" style="color: red;">更新日志</a></td>
+                        <td>v1.0.0 <a lau-href="/doc/changelog.html">更新日志</a></td>
                     </tr>
                     <tr>
                         <td>基于框架</td>
-                        <td>layui-v2.2.6-rc3</td>
+                        <td>layui-v2.2.6 <a href="http://www.layui.com/doc/base/changelog.html" target="_blank">更新日志</a></td>
                     </tr>
                     <tr>
-                        <td>主要特色</td>
-                        <td>全局iframe / 遵循layui模块化开发</td>
+                        <td>联系作者</td>
+                        <td>
+                            <a href="http://wpa.qq.com/msgrd?v=3&uin=296399959&site=qq&menu=yes" target="_blank">QQ</a> /
+                            <a href="mailto:su@revoke.cc">邮件</a> /
+                            <a href="http://shang.qq.com/wpa/qunwpa?idkey=a4235da100d79f46b030940e2b41b80bd02d8ca5f21c6988e7759aac8d5700a9" target="_blank">QQ群</a>
+                        </td>
                     </tr>
                     <tr>
                         <td>获取渠道</td>
-                        <td style="padding-bottom: 0;">
-                            <div class="layui-btn-container">
-                                <a href="https://jq.qq.com/?_wv=1027&k=543VUa3" target="_blank" class="layui-btn layui-btn-danger layui-btn-xs">获取授权（￥99）</a>
-                                <a id="download" href="https://github.com/carolkey/lying-admin/" target="_blank" class="layui-btn layui-btn-xs">立即下载</a>
-                            </div>
-                        </td>
+                        <td><a lau-event="about">点击查看</a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -268,48 +260,17 @@
 
         <!--文本开始-->
         <div class="layui-card">
-            <div class="layui-card-header">授权说明</div>
-            <div class="layui-card-body layui-text lau-text">
-                <p>LAU是经过layuiAdmin正版授权二次开发的项目，并非盗用layuiAdmin的源码，请知悉。</p>
-                <p>LAU秉承开源精神，如果源码用于个人学习完全是免费的，如果用于正式项目（不管是商业还是个人），请向作者购买授权。</p>
+            <div class="layui-card-header">相关说明</div>
+            <div class="layui-card-body layui-text">
+                <ul>
+                    <li>LAU是经过<a href="http://www.layui.com/admin/" target="_blank">layuiAdmin</a>正版授权二次开发的项目，并非盗用源码，请知悉。</li>
+                    <li>LAU的部分样式是抄袭自<a href="http://www.layui.com/admin/" target="_blank">layuiAdmin</a>，基本都是控制台的样式。</li>
+                    <li>LAU不包含<a href="http://www.layui.com/admin/" target="_blank">layuiAdmin</a>源码。</li>
+                    <li>LAU秉承开源精神，如果源码用于个人学习完全是免费的，如果用于正式项目（不管是商业还是个人），请向作者<a lau-href="/doc/license.html">购买授权</a>。</li>
+                </ul>
             </div>
         </div>
         <!--文本结束-->
-
-        <!--实时监控开始-->
-        <div class="layui-card">
-            <div class="layui-card-header">实时监控</div>
-            <div class="layui-card-body lau-takerates">
-                <div class="layui-progress" lay-showPercent="yes">
-                    <h3>CPU使用率</h3>
-                    <div class="layui-progress-bar" lay-percent="58%"></div>
-                </div>
-                <div class="layui-progress" lay-showPercent="yes">
-                    <h3>内存占用率</h3>
-                    <div class="layui-progress-bar layui-bg-red" lay-percent="90%"></div>
-                </div>
-            </div>
-        </div>
-        <!--实时监控结束-->
-
-        <!--效果报告开始-->
-        <div class="layui-card">
-            <div class="layui-card-header">效果报告</div>
-            <div class="layui-card-body lau-takerates">
-                <div class="layui-progress" lay-showPercent="yes">
-                    <h3>转化率（日同比 28% <span class="layui-edge layui-edge-top"></span>）</h3>
-                    <div class="layui-progress-bar" lay-percent="65%"></div>
-                </div>
-                <div class="layui-progress" lay-showPercent="yes">
-                    <h3>转化率（日同比 28% <span class="layui-edge layui-edge-bottom"></span>）</h3>
-                    <div class="layui-progress-bar" lay-percent="32%"></div>
-                </div>
-            </div>
-        </div>
-        <!--效果报告结束-->
-
-
-
     </div>
 </div>
 
@@ -317,25 +278,40 @@
 <script src="/static/layui/layui.js"></script>
 <script src="/static/js/echarts.min.js"></script>
 <script>
-    layui.config({base: '/static/'}).extend({lau: 'lau/lau'}).use(['table', 'lau'], function() {
-        var lau = layui.lau,
+    layui.config({base: '/static/'}).extend({common: 'js/common'}).use(['table', 'common', 'carousel', 'element'], function() {
+        var common = layui.common,
             $ = layui.$,
             layer = layui.layer,
+            carousel = layui.carousel,
             element = layui.element,
             table = layui.table;
 
-        //下载声明
-        $('#download').click(function (e) {
-            var url = this.href;
-            e.preventDefault();
-            layer.confirm('下载的源码仅供学习使用，如需用于正式项目，请购买授权！', function (index) {
-                window.open(url);
-                layer.close(index);
-            });
+
+        //监听事件,这个不一定要用lau-event,可以自己写
+        $(document).on('click', '[lau-event]', function () {
+            var _this = $(this);
+            switch (_this.attr('lau-event')) {
+                case 'about':
+                    $.get('/html/about.html', function (html) {
+                        common.drawer({content: html});
+                    });
+                    break;
+            }
         });
 
-        //实例化图表插件
-
+        //激活轮播
+        $('.lau-carousel').each(function () {
+            var that = $(this);
+            carousel.render({
+                elem: this,
+                width: '100%',
+                arrow: 'none',
+                interval: that.data('interval'),
+                autoplay: that.data('autoplay') === true,
+                trigger: 'hover',
+                anim: that.data('anim')
+            });
+        });
 
         //今日热搜
         var hotSearch = table.render({
@@ -344,7 +320,9 @@
             page: true,
             cols: [[
                 {title: 'ID', width:40, type: 'numbers', fixed: 'left'},
-                {field: 'keywords', title: '标题'},
+                {field: 'keywords', title: '标题', templet: function (d) {
+                    return '<a class="layui-table-link">' + d.keywords + '</a>';
+                }},
                 {field: 'frequency', title: '搜索次数', sort: true},
                 {field: 'userNums', title: '用户数', sort: true}
             ]]
@@ -358,7 +336,7 @@
             cols: [[
                 {title: 'ID', width:40, type: 'numbers', fixed: 'left'},
                 {field: 'title', title: '标题', templet: function (d) {
-                    return '<a href="javascript:;" target="_blank" class="layui-table-link">' + d.title + '</a>';
+                    return '<a class="layui-table-link">' + d.title + '</a>';
                 }},
                 {field: 'username', title: '发帖者'},
                 {field: 'channel', title: '类别'},
