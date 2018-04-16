@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>其他操作</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+</head>
+<body>
+
+<div class="layui-card">
+    <div class="layui-card-header">其他操作</div>
+    <div class="layui-card-body">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>链接锚点</legend>
+            <div class="layui-field-box">
+                <p>在布局页面，就是index页面，可以设置 lau-href 属性，在单标签模式下将会跳转，多标签模式下将会新建标签，同时多标签模式下也可以设置 lau-title 和 lau-icon 属性，为标签的标题和图标</p>
+                <pre class="layui-code" lay-title="链接锚点">
+&lt;a lau-href=&quot;/doc/other.html&quot; lau-title=&quot;打开&quot; lau-icon=&quot;layui-icon-danxuankuanghouxuan&quot;&gt;打开&lt;/a&gt;
+                </pre>
+
+                <blockquote class="layui-elem-quote">提示：如果lau-icon只有一个class时，class将会自动添加layui-icon样式；如果有两个，则不会添加</blockquote>
+
+
+            </div>
+        </fieldset>
+
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>子页操作</legend>
+            <div class="layui-field-box">
+                <blockquote class="layui-elem-quote">子页内的锚点没有强制设置，可自行修改监听模式，请参考static/js/common.js</blockquote>
+                <pre class="layui-code" lay-title="common.js">
+layui.define([&#x27;jquery&#x27;], function(exports) {
+    var $ = layui.$,
+        lau = top.layui.lau;
+
+    //监听锚点打开选项卡
+    $(document).on(&#x27;click&#x27;, &#x27;*[lau-href]&#x27;, function () {
+        var _this = $(this);
+        lau.go(_this.attr(&#x27;lau-href&#x27;), _this.attr(&#x27;lau-title&#x27;), _this.attr(&#x27;lau-icon&#x27;));
+    });
+
+    exports(&#x27;common&#x27;, lau);
+});
+                </pre>
+
+                <p>然后可以这样使用：</p>
+                <pre class="layui-code" lay-title="common.js使用">
+layui.config({base: &#x27;/static/&#x27;}).extend({common: &#x27;js/common&#x27;}).use([&#x27;common&#x27;], function() {
+    var common = layui.common;
+
+    common.tabNext();
+});
+                </pre>
+
+                <blockquote class="layui-elem-quote">由于使用iframe，chrome有个BUG，就是iframe隐藏后显示滚动条丢失或者出现异常的情况，请加入以下CSS，参考static/css/common.css</blockquote>
+                <pre class="layui-code" lay-title="common.css">
+/*全局*/
+html {
+    overflow-x: hidden;
+    height: 100%;
+}
+body {
+    background-color: #f2f2f2;
+    padding: 15px;
+    color: #666;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+                </pre>
+            </div>
+        </fieldset>
+
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>控制台</legend>
+            <div class="layui-field-box">
+                <blockquote class="layui-elem-quote">控制台的样式只是个demo，样式写在 static/css/common.css 里面，你可以自定义你的布局</blockquote>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+</body>
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.config({base: '/static/'}).extend({common: 'js/common'}).use(['common', 'code'], function() {
+        var common = layui.common;
+
+        layui.code({about: false, encode: true});
+    });
+</script>
+</html>

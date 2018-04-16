@@ -35,7 +35,6 @@
             </div>
         </fieldset>
 
-
         <fieldset class="layui-elem-field layui-field-title">
             <legend>多标签模式</legend>
             <div class="layui-field-box">
@@ -48,16 +47,20 @@
                 <p>和无标签模式相比，仅仅是少了个data-type='single'，但是，多标签模式提供的方法就多了</p>
                 <div class="layui-text">
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>lau.tabPrev() 标签右移</li>
+                        <li>lau.tabNext() 标签左移</li>
+                        <li>lau.resize(time) 重新计算选标签寸,time为延时执行,单位为毫秒</li>
+                        <li>lau.tabAdd(href, title, icon) 新建标签,icon必须为fontclass模式</li>
+                        <li>lau.go(href, title, icon) 同tabAdd</li>
+                        <li>lau.tabCloseThis() 关闭当前标签</li>
+                        <li>lau.tabCloseSiblings() 关闭除当前标签外的其他标签</li>
+                        <li>lau.tabCloseAll() 关闭所有标签</li>
+                        <li>lau.tabCloseEq(index) 关闭第index个标签</li>
+                        <li>lau.tabCloseId(layid) 关闭链接为layid的标签</li>
+                        <li>lau.tabChangeEq(index) 切换到第index个标签</li>
+                        <li>lau.tabChangeId(layid) 切换到链接为layid的标签</li>
                     </ul>
                 </div>
-
-
-                
             </div>
         </fieldset>
     </div>

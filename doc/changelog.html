@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>更新日志</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+</head>
+<body>
+
+<div class="layui-card">
+    <div class="layui-card-header">更新日志</div>
+    <div class="layui-card-body">
+        <ul class="layui-timeline">
+            <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                    <h3 class="layui-timeline-title">下一个版本 / TODO</h3>
+                    <ul>
+                        <li>css动画卡顿优化</li>
+                        <li>其他优化 <a href="mailto:su@revoke.cc">邮件联系</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                    <h3 class="layui-timeline-title">v1.0.0</h3>
+                    <ul>
+                        <li>重构layout组件为lau组件，标签新增多个操作接口 <a lau-href="/doc/menu.html">标签操作</a></li>
+                        <li>菜单支持热重载，切换 <a lau-href="/doc/tabs.html">标签操作</a></li>
+                        <li>移除内置ECharts，百度搜一下自己做 <a href="http://echarts.baidu.com/" target="_blank">ECharts</a></li>
+                        <li>CSS等其他多处优化</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                    <h3 class="layui-timeline-title">v1.0.0-beta1</h3>
+                    <p>预览版本发布</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.config({base: '/static/'}).extend({common: 'js/common'}).use(['common'], function() {
+        var common = layui.common;
+
+    });
+</script>
+</html>
