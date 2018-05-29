@@ -42,7 +42,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
                                 'icon = \'layui-icon \' + icon; ',
                             '} ',
                         '} else { ',
-                            'icon = \'layui-icon layui-icon-danxuankuanghouxuan\'; ',
+                            'icon = \'layui-icon layui-icon-circle\'; ',
                         '} ',
                     '}}',
                     '<dd>',
@@ -393,7 +393,7 @@ layui.define(['layer', 'laytpl', 'element'], function(exports) {
                             title = '<i class="' + icon + '"></i> ' + title;
                         }
                     } else {
-                        title = '<i class="layui-icon layui-icon-danxuankuanghouxuan"></i> ' + title;
+                        title = '<i class="layui-icon layui-icon-circle"></i> ' + title;
                     }
                     element.tabAdd(tabFilter, {
                         title: title,
